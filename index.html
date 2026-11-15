@@ -1,0 +1,150 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ReadUp - Learn, Read & Watch</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f5f7fb;color:#172033}
+header{background:#142b50;color:white;padding:16px;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:25px;font-weight:bold;color:#48d6a1}
+nav{display:flex;gap:9px;overflow:auto;padding:12px;background:white;position:sticky;top:0}
+nav button{border:0;background:#edf2f8;padding:11px 15px;border-radius:20px;white-space:nowrap;cursor:pointer}
+nav button:hover{background:#48d6a1}
+main{padding:16px;max-width:1100px;margin:auto}
+.hero{background:linear-gradient(120deg,#142b50,#087e83);color:white;padding:28px 20px;border-radius:16px;margin-bottom:20px}
+.hero h1{font-size:30px}
+.hero p{line-height:1.6}
+.search{width:100%;padding:14px;border:1px solid #ddd;border-radius:10px;margin:12px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:14px}
+.card{background:white;border-radius:13px;padding:14px;box-shadow:0 2px 8px #0000000c}
+.card h3{margin:9px 0}
+.thumb{height:105px;border-radius:9px;background:#dce9f5;display:flex;align-items:center;justify-content:center;font-size:38px}
+button{cursor:pointer}
+.action{background:#087e83;color:white;border:0;border-radius:8px;padding:11px 15px}
+section{margin-bottom:28px}
+.hidden{display:none}
+footer{text-align:center;padding:25px;background:#142b50;color:white}
+input,textarea{font:inherit}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">ReadUp</div>
+<div>🌍 Global Platform</div>
+</header>
+
+<nav>
+<button onclick="show('home')">🏠 Home</button>
+<button onclick="show('books')">📚 Books</button>
+<button onclick="show('mytube')">▶ MyTube</button>
+<button onclick="show('education')">🎓 Education</button>
+<button onclick="show('market')">🛒 Market</button>
+<button onclick="show('community')">👥 Community</button>
+<button onclick="show('account')">👤 Account</button>
+</nav>
+
+<main>
+<div id="home">
+<div class="hero">
+<h1>Welcome to ReadUp</h1>
+<p>Read. Learn. Watch. Share. Grow.</p>
+<p>One platform for knowledge, entertainment and opportunities.</p>
+<button class="action" onclick="show('books')">Explore Books</button>
+<button class="action" onclick="show('mytube')">Watch Videos</button>
+</div>
+
+<input class="search" placeholder="Search books, videos, courses..." oninput="searchItems(this.value)">
+
+<section>
+<h2>Explore ReadUp</h2>
+<div class="grid">
+<div class="card" onclick="show('books')"><div class="thumb">📚</div><h3>ReadUp Books</h3>Read and publish stories.</div>
+<div class="card" onclick="show('mytube')"><div class="thumb">▶️</div><h3>MyTube</h3>Watch and share videos.</div>
+<div class="card" onclick="show('education')"><div class="thumb">🎓</div><h3>Education</h3>Learn and practice.</div>
+<div class="card" onclick="show('market')"><div class="thumb">🛍️</div><h3>Marketplace</h3>Discover products.</div>
+<div class="card" onclick="show('community')"><div class="thumb">🌍</div><h3>Community</h3>Connect with others.</div>
+<div class="card" onclick="show('account')"><div class="thumb">👤</div><h3>My Account</h3>Manage your profile.</div>
+</div>
+</section>
+</div>
+
+<div id="books" class="hidden">
+<h1>📚 ReadUp Books</h1>
+<p>Discover stories, books and knowledge.</p>
+<div class="grid">
+<div class="card"><div class="thumb">📖</div><h3>Free Books</h3><p>Read free books.</p></div>
+<div class="card"><div class="thumb">✍️</div><h3>Publish a Story</h3><p>Share your writing.</p></div>
+<div class="card"><div class="thumb">💎</div><h3>Premium Books</h3><p>Discover paid books.</p></div>
+</div>
+</div>
+
+<div id="mytube" class="hidden">
+<h1>▶ MyTube</h1>
+<p>Watch, create and share videos.</p>
+<button class="action" onclick="alert('Video upload will be connected to storage in the next development stage.')">＋ Upload Video</button>
+<input class="search" placeholder="Search videos...">
+<div class="grid">
+<div class="card"><div class="thumb">▶️</div><h3>Welcome to MyTube</h3><p>Video platform coming alive.</p></div>
+<div class="card"><div class="thumb">🎬</div><h3>Education Videos</h3><p>Learn something new.</p></div>
+<div class="card"><div class="thumb">🌍</div><h3>Entertainment</h3><p>Discover new content.</p></div>
+</div>
+</div>
+
+<div id="education" class="hidden">
+<h1>🎓 Education</h1>
+<div class="grid">
+<div class="card">📄<h3>Past Papers</h3><p>Practice examinations.</p></div>
+<div class="card">📝<h3>Notes</h3><p>Study materials.</p></div>
+<div class="card">❓<h3>Quizzes</h3><p>Test your knowledge.</p></div>
+<div class="card">🎥<h3>Online Lessons</h3><p>Learn through videos.</p></div>
+</div>
+</div>
+
+<div id="market" class="hidden">
+<h1>🛒 Marketplace</h1>
+<p>Discover products and services.</p>
+<div class="card"><h3>Marketplace is being prepared</h3><p>Buying and selling features will be added.</p></div>
+</div>
+
+<div id="community" class="hidden">
+<h1>👥 Community</h1>
+<p>Connect, share ideas and learn together.</p>
+<div class="card"><h3>Community discussions</h3><p>Social features are coming soon.</p></div>
+</div>
+
+<div id="account" class="hidden">
+<h1>👤 My Account</h1>
+<div class="card">
+<h3>Welcome to ReadUp</h3>
+<p>Account registration and login will be connected securely.</p>
+<button class="action" onclick="alert('Registration will be enabled after Supabase setup.')">Register</button>
+<button class="action" onclick="alert('Login will be enabled after Supabase setup.')">Login</button>
+</div>
+</div>
+
+</main>
+<footer>
+<h3>ReadUp</h3>
+<p>Read • Learn • Watch • Share</p>
+<p>© 2026 ReadUp. All rights reserved.</p>
+</footer>
+
+<script>
+function show(id){
+document.querySelectorAll('main > div').forEach(x=>x.classList.add('hidden'));
+document.getElementById(id).classList.remove('hidden');
+window.scrollTo(0,0);
+}
+function searchItems(value){
+let cards=document.querySelectorAll('#home .card');
+cards.forEach(card=>{
+card.style.display=card.innerText.toLowerCase().includes(value.toLowerCase())?'':'none';
+});
+}
+</script>
+</body>
+</html>
+  
