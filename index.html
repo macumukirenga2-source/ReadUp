@@ -1,4 +1,134 @@
-<!DOCTYPE html>
+<!DOCTYPE html><!DOCTYPE html>
+<html lang="rw">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ReadUp — Soma, Andika, Wunguke</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--navy:#142b50;--teal:#087e83;--mint:#48d6a1;--bg:#f4f7fb;--ink:#172033}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--ink)}
+header{background:var(--navy);color:white;padding:15px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.logo{font-size:25px;font-weight:bold;color:var(--mint)}header small{color:#dce8f5}
+nav{display:flex;gap:8px;overflow:auto;padding:10px;background:white;position:sticky;top:0;z-index:5;border-bottom:1px solid #e5eaf1}
+button{font:inherit;cursor:pointer;border:0;border-radius:9px;padding:11px 14px}
+nav button{background:#edf2f8;white-space:nowrap}.primary{background:var(--teal);color:white}.secondary{background:#e7eef6;color:var(--navy)}
+main{max-width:1050px;margin:auto;padding:16px}.hero{background:linear-gradient(120deg,var(--navy),var(--teal));color:white;padding:26px 20px;border-radius:16px;margin-bottom:18px}
+.hero h1{font-size:29px;margin-top:0}.hero p{line-height:1.55}
+input,textarea,select{width:100%;padding:12px;border:1px solid #ccd5e1;border-radius:9px;font:inherit;margin:6px 0 12px;background:white}
+textarea{min-height:130px;resize:vertical}label{font-weight:bold;font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:13px}
+.card{background:white;border-radius:13px;padding:15px;box-shadow:0 2px 8px #0000000b;border:1px solid #edf0f5}
+.card h3{margin:8px 0}.tag{display:inline-block;background:#e7f7f1;color:#08734f;border-radius:20px;padding:4px 9px;font-size:12px}
+section{margin:22px 0}.hidden{display:none!important}.muted{color:#657187;font-size:14px}.notice{padding:12px;border-radius:9px;background:#fff7df;margin:10px 0}
+.status{font-size:13px;color:#5c687a}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+footer{text-align:center;padding:24px;background:var(--navy);color:white;margin-top:30px}
+hr{border:0;border-top:1px solid #e8edf3;margin:16px 0}.reader{white-space:pre-wrap;line-height:1.75}
+@media(max-width:500px){.hero h1{font-size:24px}main{padding:12px}}
+</style>
+</head>
+<body>
+<header><div><div class="logo">ReadUp</div><small>Read • Learn • Watch • Share</small></div><div id="userLabel">Nta konti winjiye</div></header>
+<nav>
+<button onclick="showPage('home')">🏠 Ahabanza</button>
+<button onclick="showPage('books')">📚 Ibitabo</button>
+<button onclick="showPage('write')">✍️ Andika</button>
+<button onclick="showPage('account')">👤 Konti</button>
+<button onclick="showPage('admin')">🛡️ Admin</button>
+</nav>
+<main>
+<div id="home">
+<div class="hero"><h1>Murakaza neza kuri ReadUp</h1><p>Soma inkuru, ibitabo n'ubumenyi. Sangiza abandi ibyo wanditse.</p><div class="actions"><button class="primary" onclick="showPage('books')">Reba ibitabo</button><button class="secondary" onclick="showPage('write')">Ohereza inkuru</button></div></div>
+<input id="homeSearch" placeholder="Shakisha igitabo cyangwa inkuru..." oninput="filterCards(this.value)">
+<section><h2>Inkuru n'ibitabo bishya</h2><div id="homeList" class="grid"><p class="muted">Birimo gutegurwa...</p></div></section>
+</div>
+<div id="books" class="hidden"><h1>📚 ReadUp Books</h1><p class="muted">Ibitabo n'inkuru byemejwe n'abayobozi ba ReadUp.</p><input id="bookSearch" placeholder="Shakisha..." oninput="filterCards(this.value)"><div id="bookList" class="grid"></div></div>
+<div id="write" class="hidden"><h1>✍️ Ohereza inkuru cyangwa igitabo</h1><div id="writeNotice" class="notice">Banza winjire muri konti. Kohereza inyandiko bisaba uruhushya rwa Writer.</div>
+<form id="publishForm"><label>Umutwe</label><input id="pubTitle" required maxlength="180" placeholder="Andika umutwe"><label>Ibisobanuro bigufi</label><textarea id="pubDescription" required placeholder="Sobanura inkuru yawe"></textarea><label>Ubwoko</label><select id="pubType"><option value="article">Inkuru / Article</option><option value="book">Igitabo / Book</option></select><label>Uko abantu bayisoma</label><select id="pubAccess"><option value="free">Ubuntu</option><option value="paid">Icyishyurwa</option></select><label>Igiciro (USD) — ku gitabo cyishyurwa gusa</label><input id="pubPrice" type="number" min="0" step="0.01" value="0"><label>Inyandiko yuzuye</label><textarea id="pubContent" required placeholder="Andika inkuru cyangwa igitabo hano"></textarea><button class="primary" type="submit">Ohereza kugira ngo isuzumwe</button></form>
+<p class="muted">Ibyo wohereje bibanza gusuzumwa na Admin mbere yo kugaragara ku basomyi.</p></div>
+<div id="account" class="hidden"><h1>👤 Konti yawe</h1><div id="authArea" class="card"><h3>Iyandikishe cyangwa winjire</h3><label>Amazina</label><input id="fullName" placeholder="Amazina yawe"><label>Email</label><input id="email" type="email" placeholder="Email"><label>Ijambo ry'ibanga</label><input id="password" type="password" minlength="6" placeholder="Nibura inyuguti 6"><div class="actions"><button class="primary" onclick="signUp()">Iyandikishe</button><button class="secondary" onclick="signIn()">Injira</button></div><p class="muted">Uramutse wiyandikishije, ushobora gusabwa kwemeza email yawe.</p></div><div id="signedArea" class="card hidden"><h3>Konti yinjiye</h3><p id="profileInfo"></p><button class="secondary" onclick="signOut()">Sohoka</button></div></div>
+<div id="admin" class="hidden"><h1>🛡️ Admin Dashboard</h1><p class="notice">Aha hagaragara inyandiko zitegereje kwemezwa gusa kuri konti ifite role ya admin muri profiles.</p><div id="adminList" class="grid"></div></div>
+<div id="reader" class="hidden"><button class="secondary" onclick="showPage('books')">← Subira ku bitabo</button><article class="card"><h1 id="readerTitle"></h1><p id="readerMeta" class="muted"></p><hr><div id="readerContent" class="reader"></div></article></div>
+</main>
+<footer><h3>ReadUp</h3><p>Soma • Iga • Sangiza abandi</p><small>© 2026 ReadUp</small></footer>
+<script>
+const SUPABASE_URL = "https://jzasvyrkfnobnbcyrqkb.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_sB2G94ckeGxQvhrk0ezFuA_fp392JQ0";
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+let currentUser = null, currentRole = "reader", publications = [];
+
+function showPage(id){
+ document.querySelectorAll("main>div").forEach(x=>x.classList.add("hidden"));
+ document.getElementById(id).classList.remove("hidden"); window.scrollTo(0,0);
+ if(id==="admin") loadAdmin();
+ if(id==="books"||id==="home") loadPublications();
+}
+function safe(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function cardHTML(p){return `<div class="card searchable"><span class="tag">${p.content_type==="book"?"Igitabo":"Inkuru"} · ${p.access_type==="free"?"Ubuntu":"Premium"}</span><h3>${safe(p.title)}</h3><p>${safe(p.description||"")}</p><p class="muted">Byanditswe na ${safe(p.author_name||"Umwanditsi wa ReadUp")}</p><button class="primary" onclick="openPublication('${p.id}')">Soma</button></div>`;}
+async function loadPublications(){
+ const a=document.getElementById("homeList"),b=document.getElementById("bookList");
+ a.innerHTML=b.innerHTML='<p class="muted">Birimo gutegurwa...</p>';
+ const {data,error}=await db.from("publications").select("id,title,description,content,content_type,access_type,price,author_id,created_at").eq("status","published").eq("access_type","free").order("created_at",{ascending:false});
+ if(error){a.innerHTML=b.innerHTML='<p class="muted">Ntibyashobotse kubona ibitabo. Reba niba internet ihari.</p>';return;}
+ publications=data||[];
+ if(!publications.length){a.innerHTML=b.innerHTML='<div class="card">Nta nkuru yemejwe irashyirwaho. Garuka nyuma.</div>';return;}
+ const html=publications.map(cardHTML).join("");a.innerHTML=b.innerHTML=html;
+}
+function filterCards(q){document.querySelectorAll(".searchable").forEach(c=>c.style.display=c.innerText.toLowerCase().includes(q.toLowerCase())?"":"none");}
+function openPublication(id){const p=publications.find(x=>x.id===id);if(!p)return;document.getElementById("readerTitle").textContent=p.title;document.getElementById("readerMeta").textContent=p.content_type==="book"?"Igitabo":"Inkuru";document.getElementById("readerContent").textContent=p.content||p.description||"";showPage("reader");}
+async function refreshSession(){
+ const {data}=await db.auth.getSession();currentUser=data.session?.user||null;
+ if(currentUser){
+  const {data:profile}=await db.from("profiles").select("full_name,role").eq("id",currentUser.id).maybeSingle();
+  currentRole=profile?.role||"reader";
+  document.getElementById("userLabel").textContent=profile?.full_name||currentUser.email;
+  document.getElementById("authArea").classList.add("hidden");document.getElementById("signedArea").classList.remove("hidden");
+  document.getElementById("profileInfo").textContent=`Email: ${currentUser.email} · Uruhare: ${currentRole}`;
+  document.getElementById("writeNotice").textContent=currentRole==="writer"||currentRole==="admin"?"Ushobora kohereza inyandiko yawe.":"Konti yawe ni Reader. Kugira ngo wohereze inyandiko, Admin agomba kuguha uruhushya rwa Writer.";
+ }else{
+  currentRole="reader";document.getElementById("userLabel").textContent="Nta konti winjiye";
+  document.getElementById("authArea").classList.remove("hidden");document.getElementById("signedArea").classList.add("hidden");
+ }
+}
+async function signUp(){
+ const name=document.getElementById("fullName").value.trim(),email=document.getElementById("email").value.trim(),password=document.getElementById("password").value;
+ if(!name||!email||password.length<6){alert("Uzuza amazina, email n'ijambo ry'ibanga nibura inyuguti 6.");return;}
+ const {data,error}=await db.auth.signUp({email,password,options:{data:{full_name:name}}});
+ if(error){alert(error.message);return;}
+ alert(data.session?"Konti yafunguwe neza.":"Reba email yawe wemeze konti, niba byagusabwe.");
+ await refreshSession();
+}
+async function signIn(){
+ const email=document.getElementById("email").value.trim(),password=document.getElementById("password").value;
+ const {error}=await db.auth.signInWithPassword({email,password});
+ if(error){alert(error.message);return;}await refreshSession();alert("Winjiye neza!");
+}
+async function signOut(){await db.auth.signOut();await refreshSession();showPage("home");}
+document.getElementById("publishForm").addEventListener("submit",async e=>{
+ e.preventDefault();if(!currentUser){alert("Banza winjire muri konti.");showPage("account");return;}
+ if(!["writer","admin"].includes(currentRole)){alert("Konti yawe ntirabona uruhushya rwa Writer. Saba Admin kuruguha.");return;}
+ const access=document.getElementById("pubAccess").value;
+ const row={title:document.getElementById("pubTitle").value.trim(),description:document.getElementById("pubDescription").value.trim(),content:document.getElementById("pubContent").value.trim(),content_type:document.getElementById("pubType").value,access_type:access,price:access==="paid"?Number(document.getElementById("pubPrice").value||0):0,status:"pending",author_id:currentUser.id};
+ const {error}=await db.from("publications").insert(row);
+ if(error){alert("Ntibyoherejwe: "+error.message);return;}
+ e.target.reset();alert("Byoherejwe! Biri gutegereza ko Admin abyemeza.");
+});
+async function loadAdmin(){
+ const box=document.getElementById("adminList");
+ if(!currentUser||currentRole!=="admin"){box.innerHTML='<div class="card">Uru rupapuro rufungurwa na Admin gusa.</div>';return;}
+ const {data,error}=await db.from("publications").select("id,title,description,content_type,access_type,created_at").eq("status","pending").order("created_at",{ascending:true});
+ if(error){box.innerHTML='<div class="card">Ntibyashobotse kubona ibyategereje kwemezwa.</div>';return;}
+ if(!data?.length){box.innerHTML='<div class="card">Nta nyandiko itegereje kwemezwa.</div>';return;}
+ box.innerHTML=data.map(p=>`<div class="card"><h3>${safe(p.title)}</h3><p>${safe(p.description||"")}</p><p class="muted">${safe(p.content_type)} · ${safe(p.access_type)}</p><div class="actions"><button class="primary" onclick="review('${p.id}','published')">Emeza</button><button class="secondary" onclick="review('${p.id}','rejected')">Anga</button></div></div>`).join("");
+}
+async function review(id,status){
+ const {error}=await db.from("publications").update({status}).eq("id",id);
+ if(error){alert("Ntibyakoze: "+error.message);return;}alert(status==="published"?"Inyandiko yemejwe.":"Inyandiko yanze.");loadAdmin();
+}
+db.auth.onAuthStateChange(()=>setTimeout(refreshSession,0));
+refreshSession();loadPublications();
+</script>
+</body></html>
 <html lang="rw">
 <head>
 <meta charset="UTF-8">
