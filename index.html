@@ -3,116 +3,195 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Read UP</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Read UP | Read Learn Share</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial;background:#f5f7fb;color:#182338}
-header{background:#142b52;color:white;padding:20px 6%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}
-.logo{font-size:28px;font-weight:bold;color:#65d5ff}
+body{margin:0;font-family:Arial,sans-serif;background:#f3f6fc;color:#17233b}
+header{background:#10284b;color:white;padding:18px 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px}
+.logo{font-size:27px;font-weight:bold;color:#65d5ff}
 nav{display:flex;gap:15px;flex-wrap:wrap}
 nav a{color:white;text-decoration:none;font-size:14px}
-.hero{background:linear-gradient(120deg,#142b52,#176b9c);color:white;padding:65px 7%;text-align:center}
-.hero h1{font-size:42px}
-.search{padding:14px;width:80%;max-width:500px;border:0;border-radius:8px}
-button{background:#087db9;color:white;padding:12px 18px;border:0;border-radius:7px;cursor:pointer}
-section{padding:35px 6%}
+select,input,textarea{padding:12px;border:1px solid #ddd;border-radius:8px;width:100%;margin:7px 0}
+button{background:#087eb9;color:white;border:0;border-radius:8px;padding:11px 16px;cursor:pointer}
+.hero{background:linear-gradient(120deg,#10284b,#087eb9);padding:65px 6%;text-align:center;color:white}
+.hero h1{font-size:43px}
+section{padding:32px 6%}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:18px}
-.card{background:white;padding:20px;border-radius:12px;box-shadow:0 3px 12px #0001}
-.card h3{color:#176b9c}
-.upload{background:white;padding:25px;border-radius:12px}
-input,textarea,select{padding:12px;width:100%;margin:8px 0;border:1px solid #ddd;border-radius:7px}
-footer{text-align:center;background:#142b52;color:white;padding:25px}
+.card{background:white;border-radius:12px;padding:19px;box-shadow:0 3px 12px #0001}
+.card h3{color:#087eb9}
+.cover{height:130px;border-radius:9px;background:linear-gradient(135deg,#10284b,#2b9ac9);display:grid;place-items:center;color:white;font-size:38px}
+.reader{background:white;padding:25px;border-radius:12px;line-height:1.8;min-height:220px}
+footer{background:#10284b;color:white;text-align:center;padding:28px}
 .hidden{display:none}
+.small{color:#65748b;font-size:13px}
 </style>
 </head>
 <body>
 <header>
 <div class="logo">📚 Read UP</div>
 <nav>
-<a href="#home">Home</a>
-<a href="#books">Books</a>
-<a href="#news">News</a>
-<a href="#exams">Exam Papers</a>
-<a href="#stories">Stories</a>
-<a href="#videos">Videos</a>
-<a href="#upload">Upload</a>
+<a href="#home">Home</a><a href="#books">Books</a>
+<a href="#news">News</a><a href="#exams">Exams</a>
+<a href="#stories">Stories</a><a href="#videos">Videos</a>
+<a href="#upload">Upload</a><a href="#creator">Creator</a>
 </nav>
+<select id="language" onchange="changeLanguage()" style="width:145px">
+<option value="en">🇬🇧 English</option>
+<option value="rw">🇷🇼 Kinyarwanda</option>
+<option value="fr">🇫🇷 Français</option>
+</select>
 </header>
 
 <div class="hero" id="home">
-<h1>Welcome to Read UP</h1>
-<p>Read, Learn, Share and Earn!</p>
-<input class="search" id="search" placeholder="Search books, news, stories...">
+<h1 id="welcome">Welcome to Read UP</h1>
+<p id="tagline">Read • Learn • Share • Earn</p>
+<input id="search" placeholder="Search content..." oninput="searchContent()">
 </div>
 
 <section id="books">
-<h2>📚 Featured Books</h2>
-<div class="grid">
-<div class="card"><h3>The Power of Education</h3><p>A story about knowledge and success.</p><button onclick="alert('Book coming soon!')">Read Book</button></div>
-<div class="card"><h3>Dreams of Tomorrow</h3><p>An inspiring story about dreams.</p><button onclick="alert('Book coming soon!')">Read Book</button></div>
-<div class="card"><h3>Journey to Success</h3><p>A journey of courage and hope.</p><button onclick="alert('Book coming soon!')">Read Book</button></div>
-<div class="card"><h3>Life Lessons</h3><p>Beautiful lessons about life.</p><button onclick="alert('Book coming soon!')">Read Book</button></div>
-</div>
+<h2 id="bookHeading">📚 Our Books</h2>
+<div class="grid" id="bookList"></div>
 </section>
 
-<section id="news"><h2>📰 Latest News</h2><div class="grid" id="newsList"></div></section>
+<section id="readerSection" class="hidden">
+<h2 id="bookTitle"></h2>
+<div class="reader">
+<p id="pageText"></p>
+</div>
+<p id="pageNumber"></p>
+<button onclick="previousPage()">← Previous</button>
+<button onclick="nextPage()">Next →</button>
+</section>
+
+<section id="news"><h2>📰 News</h2><div class="grid" id="newsList"></div></section>
 <section id="exams"><h2>📝 Exam Papers</h2><div class="grid" id="examList"></div></section>
 <section id="stories"><h2>📖 Stories</h2><div class="grid" id="storyList"></div></section>
 <section id="videos"><h2>🎥 Videos</h2><div class="grid" id="videoList"></div></section>
 
 <section id="upload">
-<h2>⬆️ Share Your Content</h2>
-<div class="upload">
+<h2 id="uploadHeading">⬆️ Upload Your Content</h2>
+<div class="card">
 <input id="title" placeholder="Content title">
 <select id="category">
 <option>News</option><option>Exam Papers</option>
 <option>Stories</option><option>Videos</option><option>Books</option>
 </select>
-<textarea id="description" placeholder="Write a description"></textarea>
-<input id="file" type="file">
-<button onclick="publish()">Publish Content</button>
+<textarea id="description" placeholder="Write your content description"></textarea>
+<input id="file" type="file" accept=".pdf,.jpg,.png,.mp4">
+<button onclick="publish()">Publish</button>
 <p id="message"></p>
+<p class="small">Demo upload: content is currently stored in this browser only.</p>
 </div>
 </section>
 
-<section>
+<section id="creator">
 <h2>💰 Creator Dashboard</h2>
-<div class="card">
-<p>Your published posts: <b id="posts">0</b></p>
-<p>Your views: <b id="views">0</b></p>
-<p>Your estimated earnings: <b id="earnings">0 RWF</b></p>
-<p>Note: Earnings are a preview only. Real payments will require a verified backend and payment system.</p>
+<div class="grid">
+<div class="card"><h3>My Posts</h3><h2 id="posts">0</h2></div>
+<div class="card"><h3>Views</h3><h2 id="views">0</h2></div>
+<div class="card"><h3>Estimated Earnings</h3><h2 id="earnings">0 RWF</h2></div>
 </div>
+<p class="small">Demo statistics only. Real creator payments require a secure backend.</p>
 </section>
 
 <footer>
-<h3>Read UP</h3>
+<h2>📚 Read UP</h2>
 <p>Read • Learn • Share • Earn</p>
-<p>© 2026 Read UP. All rights reserved.</p>
+<p>© 2026 Read UP</p>
 </footer>
 
 <script>
-let posts=[];
-function publish(){
-let title=document.getElementById('title').value;
-let category=document.getElementById('category').value;
-let description=document.getElementById('description').value;
-if(!title||!description){alert('Please enter title and description');return;}
-let post={title,category,description};
-posts.push(post);
-let target={News:'newsList','Exam Papers':'examList',Stories:'storyList',Videos:'videoList',Books:'newsList'}[category];
-let card=document.createElement('div');
-card.className='card';
-let h=document.createElement('h3');h.textContent=title;
-let p=document.createElement('p');p.textContent=description;
-card.append(h,p);
-document.getElementById(target).append(card);
-document.getElementById('posts').textContent=posts.length;
-document.getElementById('message').textContent='Content published!';
-document.getElementById('title').value='';
-document.getElementById('description').value='';
+const books=[
+["The Power of Education","Imbaraga z'Uburezi","Le pouvoir de l'éducation"],
+["Dreams of Tomorrow","Inzozi z'ejo hazaza","Les rêves de demain"],
+["Journey to Success","Urugendo rwo gutsinda","Le chemin du succès"],
+["Life Lessons","Amasomo y'ubuzima","Les leçons de la vie"]
+];
+const translations={
+en:{welcome:"Welcome to Read UP",tag:"Read • Learn • Share • Earn",books:"Our Books"},
+rw:{welcome:"Murakaza neza kuri Read UP",tag:"Soma • Iga • Sangiza • Uhembwe",books:"Ibitabo byacu"},
+fr:{welcome:"Bienvenue sur Read UP",tag:"Lire • Apprendre • Partager • Gagner",books:"Nos livres"}
+};
+let lang="en",currentBook=0,page=1,posts=[];
+function changeLanguage(){
+lang=document.getElementById("language").value;
+document.getElementById("welcome").textContent=translations[lang].welcome;
+document.getElementById("tagline").textContent=translations[lang].tag;
+document.getElementById("bookHeading").textContent="📚 "+translations[lang].books;
+renderBooks();
 }
+function renderBooks(){
+document.getElementById("bookList").innerHTML=books.map((b,i)=>`
+<div class="card"><div class="cover">📖</div>
+<h3>${b[lang==="en"?0:lang==="rw"?1:2]}</h3>
+<p>30 pages</p><button onclick="openBook(${i})">Read Book</button></div>`).join("");
+}
+function openBook(i){
+currentBook=i;page=1;
+document.getElementById("readerSection").classList.remove("hidden");
+document.getElementById("bookTitle").textContent=books[i][lang==="en"?0:lang==="rw"?1:2];
+showPage();
+document.getElementById("readerSection").scrollIntoView();
+}
+function showPage(){
+document.getElementById("pageText").textContent=pageContent(currentBook,page);
+document.getElementById("pageNumber").textContent="Page "+page+" / 30";
+}
+function pageContent(book,p){
+const titles=[
+["Education opens doors","Knowledge is power","Learning changes lives"],
+["A dream begins","Believe in yourself","The future is yours"],
+["The first step","Never give up","Success takes effort"],
+["The value of kindness","Learning from mistakes","Hope and courage"]
+];
+const rw=[
+["Uburezi bufungura imiryango","Ubumenyi ni imbaraga","Kwiga bihindura ubuzima"],
+["Inzozi ziratangira","Iyumvemo ubushobozi","Ejo hazaza ni uwawe"],
+["Intambwe ya mbere","Ntucike intege","Gutsinda bisaba umuhate"],
+["Agaciro k'ineza","Kwiga ku makosa","Icyizere n'ubutwari"]
+];
+const fr=[
+["L'éducation ouvre des portes","Le savoir est une force","Apprendre change la vie"],
+["Un rêve commence","Croyez en vous","L'avenir vous appartient"],
+["Le premier pas","N'abandonnez jamais","La réussite demande des efforts"],
+["La valeur de la gentillesse","Apprendre de ses erreurs","Espoir et courage"]
+];
+let headings=lang==="en"?titles:lang==="rw"?rw:fr;
+let h=headings[book][(p-1)%3];
+let paragraphs={
+en:`${h}. Every great journey begins with a small step. We learn from experience, help one another and keep moving forward. Each new day gives us another opportunity to grow, discover our talents and make our dreams real. This is a lesson we should carry with us throughout life.`,
+rw:`${h}. Buri rugendo rukomeye rutangirira ku ntambwe nto. Twigira ku byo tunyuramo, tugafashanya kandi tugakomeza gutera imbere. Buri munsi uduha amahirwe mashya yo kwiga, kuvumbura impano zacu no kugera ku nzozi zacu. Iri ni isomo dukwiye guhora tuzirikana mu buzima.`,
+fr:`${h}. Chaque grand voyage commence par un petit pas. Nous apprenons de nos expériences, nous nous aidons et nous continuons à avancer. Chaque nouveau jour nous donne une occasion de grandir, de découvrir nos talents et de réaliser nos rêves. C'est une leçon à garder toute notre vie.`
+};
+return paragraphs[lang]+" "+paragraphs[lang];
+}
+function nextPage(){if(page<30){page++;showPage();}}
+function previousPage(){if(page>1){page--;showPage();}}
+function publish(){
+let t=document.getElementById("title").value.trim();
+let d=document.getElementById("description").value.trim();
+let c=document.getElementById("category").value;
+if(!t||!d){alert("Enter a title and description");return;}
+posts.push({title:t,description:d,category:c});
+let ids={"News":"newsList","Exam Papers":"examList","Stories":"storyList","Videos":"videoList","Books":"newsList"};
+let el=document.createElement("div");el.className="card";
+let h=document.createElement("h3");h.textContent=t;
+let p=document.createElement("p");p.textContent=d;
+el.append(h,p);
+document.getElementById(ids[c]).prepend(el);
+document.getElementById("posts").textContent=posts.length;
+document.getElementById("message").textContent="Published successfully!";
+document.getElementById("title").value="";
+document.getElementById("description").value="";
+}
+function searchContent(){
+let q=document.getElementById("search").value.toLowerCase();
+document.querySelectorAll(".card").forEach(c=>{
+c.style.display=c.textContent.toLowerCase().includes(q)?"":"none";
+});
+}
+renderBooks();
 </script>
 </body>
 </html>
@@ -121,116 +200,195 @@ document.getElementById('description').value='';
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Read UP</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Read UP | Read Learn Share</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial;background:#f5f7fb;color:#182338}
-header{background:#142b52;color:white;padding:20px 6%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}
-.logo{font-size:28px;font-weight:bold;color:#65d5ff}
+body{margin:0;font-family:Arial,sans-serif;background:#f3f6fc;color:#17233b}
+header{background:#10284b;color:white;padding:18px 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px}
+.logo{font-size:27px;font-weight:bold;color:#65d5ff}
 nav{display:flex;gap:15px;flex-wrap:wrap}
 nav a{color:white;text-decoration:none;font-size:14px}
-.hero{background:linear-gradient(120deg,#142b52,#176b9c);color:white;padding:65px 7%;text-align:center}
-.hero h1{font-size:42px}
-.search{padding:14px;width:80%;max-width:500px;border:0;border-radius:8px}
-button{background:#087db9;color:white;padding:12px 18px;border:0;border-radius:7px;cursor:pointer}
-section{padding:35px 6%}
+select,input,textarea{padding:12px;border:1px solid #ddd;border-radius:8px;width:100%;margin:7px 0}
+button{background:#087eb9;color:white;border:0;border-radius:8px;padding:11px 16px;cursor:pointer}
+.hero{background:linear-gradient(120deg,#10284b,#087eb9);padding:65px 6%;text-align:center;color:white}
+.hero h1{font-size:43px}
+section{padding:32px 6%}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:18px}
-.card{background:white;padding:20px;border-radius:12px;box-shadow:0 3px 12px #0001}
-.card h3{color:#176b9c}
-.upload{background:white;padding:25px;border-radius:12px}
-input,textarea,select{padding:12px;width:100%;margin:8px 0;border:1px solid #ddd;border-radius:7px}
-footer{text-align:center;background:#142b52;color:white;padding:25px}
+.card{background:white;border-radius:12px;padding:19px;box-shadow:0 3px 12px #0001}
+.card h3{color:#087eb9}
+.cover{height:130px;border-radius:9px;background:linear-gradient(135deg,#10284b,#2b9ac9);display:grid;place-items:center;color:white;font-size:38px}
+.reader{background:white;padding:25px;border-radius:12px;line-height:1.8;min-height:220px}
+footer{background:#10284b;color:white;text-align:center;padding:28px}
 .hidden{display:none}
+.small{color:#65748b;font-size:13px}
 </style>
 </head>
 <body>
 <header>
 <div class="logo">📚 Read UP</div>
 <nav>
-<a href="#home">Home</a>
-<a href="#books">Books</a>
-<a href="#news">News</a>
-<a href="#exams">Exam Papers</a>
-<a href="#stories">Stories</a>
-<a href="#videos">Videos</a>
-<a href="#upload">Upload</a>
+<a href="#home">Home</a><a href="#books">Books</a>
+<a href="#news">News</a><a href="#exams">Exams</a>
+<a href="#stories">Stories</a><a href="#videos">Videos</a>
+<a href="#upload">Upload</a><a href="#creator">Creator</a>
 </nav>
+<select id="language" onchange="changeLanguage()" style="width:145px">
+<option value="en">🇬🇧 English</option>
+<option value="rw">🇷🇼 Kinyarwanda</option>
+<option value="fr">🇫🇷 Français</option>
+</select>
 </header>
 
 <div class="hero" id="home">
-<h1>Welcome to Read UP</h1>
-<p>Read, Learn, Share and Earn!</p>
-<input class="search" id="search" placeholder="Search books, news, stories...">
+<h1 id="welcome">Welcome to Read UP</h1>
+<p id="tagline">Read • Learn • Share • Earn</p>
+<input id="search" placeholder="Search content..." oninput="searchContent()">
 </div>
 
 <section id="books">
-<h2>📚 Featured Books</h2>
-<div class="grid">
-<div class="card"><h3>The Power of Education</h3><p>A story about knowledge and success.</p><button onclick="alert('Book coming soon!')">Read Book</button></div>
-<div class="card"><h3>Dreams of Tomorrow</h3><p>An inspiring story about dreams.</p><button onclick="alert('Book coming soon!')">Read Book</button></div>
-<div class="card"><h3>Journey to Success</h3><p>A journey of courage and hope.</p><button onclick="alert('Book coming soon!')">Read Book</button></div>
-<div class="card"><h3>Life Lessons</h3><p>Beautiful lessons about life.</p><button onclick="alert('Book coming soon!')">Read Book</button></div>
-</div>
+<h2 id="bookHeading">📚 Our Books</h2>
+<div class="grid" id="bookList"></div>
 </section>
 
-<section id="news"><h2>📰 Latest News</h2><div class="grid" id="newsList"></div></section>
+<section id="readerSection" class="hidden">
+<h2 id="bookTitle"></h2>
+<div class="reader">
+<p id="pageText"></p>
+</div>
+<p id="pageNumber"></p>
+<button onclick="previousPage()">← Previous</button>
+<button onclick="nextPage()">Next →</button>
+</section>
+
+<section id="news"><h2>📰 News</h2><div class="grid" id="newsList"></div></section>
 <section id="exams"><h2>📝 Exam Papers</h2><div class="grid" id="examList"></div></section>
 <section id="stories"><h2>📖 Stories</h2><div class="grid" id="storyList"></div></section>
 <section id="videos"><h2>🎥 Videos</h2><div class="grid" id="videoList"></div></section>
 
 <section id="upload">
-<h2>⬆️ Share Your Content</h2>
-<div class="upload">
+<h2 id="uploadHeading">⬆️ Upload Your Content</h2>
+<div class="card">
 <input id="title" placeholder="Content title">
 <select id="category">
 <option>News</option><option>Exam Papers</option>
 <option>Stories</option><option>Videos</option><option>Books</option>
 </select>
-<textarea id="description" placeholder="Write a description"></textarea>
-<input id="file" type="file">
-<button onclick="publish()">Publish Content</button>
+<textarea id="description" placeholder="Write your content description"></textarea>
+<input id="file" type="file" accept=".pdf,.jpg,.png,.mp4">
+<button onclick="publish()">Publish</button>
 <p id="message"></p>
+<p class="small">Demo upload: content is currently stored in this browser only.</p>
 </div>
 </section>
 
-<section>
+<section id="creator">
 <h2>💰 Creator Dashboard</h2>
-<div class="card">
-<p>Your published posts: <b id="posts">0</b></p>
-<p>Your views: <b id="views">0</b></p>
-<p>Your estimated earnings: <b id="earnings">0 RWF</b></p>
-<p>Note: Earnings are a preview only. Real payments will require a verified backend and payment system.</p>
+<div class="grid">
+<div class="card"><h3>My Posts</h3><h2 id="posts">0</h2></div>
+<div class="card"><h3>Views</h3><h2 id="views">0</h2></div>
+<div class="card"><h3>Estimated Earnings</h3><h2 id="earnings">0 RWF</h2></div>
 </div>
+<p class="small">Demo statistics only. Real creator payments require a secure backend.</p>
 </section>
 
 <footer>
-<h3>Read UP</h3>
+<h2>📚 Read UP</h2>
 <p>Read • Learn • Share • Earn</p>
-<p>© 2026 Read UP. All rights reserved.</p>
+<p>© 2026 Read UP</p>
 </footer>
 
 <script>
-let posts=[];
-function publish(){
-let title=document.getElementById('title').value;
-let category=document.getElementById('category').value;
-let description=document.getElementById('description').value;
-if(!title||!description){alert('Please enter title and description');return;}
-let post={title,category,description};
-posts.push(post);
-let target={News:'newsList','Exam Papers':'examList',Stories:'storyList',Videos:'videoList',Books:'newsList'}[category];
-let card=document.createElement('div');
-card.className='card';
-let h=document.createElement('h3');h.textContent=title;
-let p=document.createElement('p');p.textContent=description;
-card.append(h,p);
-document.getElementById(target).append(card);
-document.getElementById('posts').textContent=posts.length;
-document.getElementById('message').textContent='Content published!';
-document.getElementById('title').value='';
-document.getElementById('description').value='';
+const books=[
+["The Power of Education","Imbaraga z'Uburezi","Le pouvoir de l'éducation"],
+["Dreams of Tomorrow","Inzozi z'ejo hazaza","Les rêves de demain"],
+["Journey to Success","Urugendo rwo gutsinda","Le chemin du succès"],
+["Life Lessons","Amasomo y'ubuzima","Les leçons de la vie"]
+];
+const translations={
+en:{welcome:"Welcome to Read UP",tag:"Read • Learn • Share • Earn",books:"Our Books"},
+rw:{welcome:"Murakaza neza kuri Read UP",tag:"Soma • Iga • Sangiza • Uhembwe",books:"Ibitabo byacu"},
+fr:{welcome:"Bienvenue sur Read UP",tag:"Lire • Apprendre • Partager • Gagner",books:"Nos livres"}
+};
+let lang="en",currentBook=0,page=1,posts=[];
+function changeLanguage(){
+lang=document.getElementById("language").value;
+document.getElementById("welcome").textContent=translations[lang].welcome;
+document.getElementById("tagline").textContent=translations[lang].tag;
+document.getElementById("bookHeading").textContent="📚 "+translations[lang].books;
+renderBooks();
 }
+function renderBooks(){
+document.getElementById("bookList").innerHTML=books.map((b,i)=>`
+<div class="card"><div class="cover">📖</div>
+<h3>${b[lang==="en"?0:lang==="rw"?1:2]}</h3>
+<p>30 pages</p><button onclick="openBook(${i})">Read Book</button></div>`).join("");
+}
+function openBook(i){
+currentBook=i;page=1;
+document.getElementById("readerSection").classList.remove("hidden");
+document.getElementById("bookTitle").textContent=books[i][lang==="en"?0:lang==="rw"?1:2];
+showPage();
+document.getElementById("readerSection").scrollIntoView();
+}
+function showPage(){
+document.getElementById("pageText").textContent=pageContent(currentBook,page);
+document.getElementById("pageNumber").textContent="Page "+page+" / 30";
+}
+function pageContent(book,p){
+const titles=[
+["Education opens doors","Knowledge is power","Learning changes lives"],
+["A dream begins","Believe in yourself","The future is yours"],
+["The first step","Never give up","Success takes effort"],
+["The value of kindness","Learning from mistakes","Hope and courage"]
+];
+const rw=[
+["Uburezi bufungura imiryango","Ubumenyi ni imbaraga","Kwiga bihindura ubuzima"],
+["Inzozi ziratangira","Iyumvemo ubushobozi","Ejo hazaza ni uwawe"],
+["Intambwe ya mbere","Ntucike intege","Gutsinda bisaba umuhate"],
+["Agaciro k'ineza","Kwiga ku makosa","Icyizere n'ubutwari"]
+];
+const fr=[
+["L'éducation ouvre des portes","Le savoir est une force","Apprendre change la vie"],
+["Un rêve commence","Croyez en vous","L'avenir vous appartient"],
+["Le premier pas","N'abandonnez jamais","La réussite demande des efforts"],
+["La valeur de la gentillesse","Apprendre de ses erreurs","Espoir et courage"]
+];
+let headings=lang==="en"?titles:lang==="rw"?rw:fr;
+let h=headings[book][(p-1)%3];
+let paragraphs={
+en:`${h}. Every great journey begins with a small step. We learn from experience, help one another and keep moving forward. Each new day gives us another opportunity to grow, discover our talents and make our dreams real. This is a lesson we should carry with us throughout life.`,
+rw:`${h}. Buri rugendo rukomeye rutangirira ku ntambwe nto. Twigira ku byo tunyuramo, tugafashanya kandi tugakomeza gutera imbere. Buri munsi uduha amahirwe mashya yo kwiga, kuvumbura impano zacu no kugera ku nzozi zacu. Iri ni isomo dukwiye guhora tuzirikana mu buzima.`,
+fr:`${h}. Chaque grand voyage commence par un petit pas. Nous apprenons de nos expériences, nous nous aidons et nous continuons à avancer. Chaque nouveau jour nous donne une occasion de grandir, de découvrir nos talents et de réaliser nos rêves. C'est une leçon à garder toute notre vie.`
+};
+return paragraphs[lang]+" "+paragraphs[lang];
+}
+function nextPage(){if(page<30){page++;showPage();}}
+function previousPage(){if(page>1){page--;showPage();}}
+function publish(){
+let t=document.getElementById("title").value.trim();
+let d=document.getElementById("description").value.trim();
+let c=document.getElementById("category").value;
+if(!t||!d){alert("Enter a title and description");return;}
+posts.push({title:t,description:d,category:c});
+let ids={"News":"newsList","Exam Papers":"examList","Stories":"storyList","Videos":"videoList","Books":"newsList"};
+let el=document.createElement("div");el.className="card";
+let h=document.createElement("h3");h.textContent=t;
+let p=document.createElement("p");p.textContent=d;
+el.append(h,p);
+document.getElementById(ids[c]).prepend(el);
+document.getElementById("posts").textContent=posts.length;
+document.getElementById("message").textContent="Published successfully!";
+document.getElementById("title").value="";
+document.getElementById("description").value="";
+}
+function searchContent(){
+let q=document.getElementById("search").value.toLowerCase();
+document.querySelectorAll(".card").forEach(c=>{
+c.style.display=c.textContent.toLowerCase().includes(q)?"":"none";
+});
+}
+renderBooks();
 </script>
 </body>
 </html>
@@ -239,116 +397,195 @@ document.getElementById('description').value='';
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Read UP</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Read UP | Read Learn Share</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial;background:#f5f7fb;color:#182338}
-header{background:#142b52;color:white;padding:20px 6%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}
-.logo{font-size:28px;font-weight:bold;color:#65d5ff}
+body{margin:0;font-family:Arial,sans-serif;background:#f3f6fc;color:#17233b}
+header{background:#10284b;color:white;padding:18px 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px}
+.logo{font-size:27px;font-weight:bold;color:#65d5ff}
 nav{display:flex;gap:15px;flex-wrap:wrap}
 nav a{color:white;text-decoration:none;font-size:14px}
-.hero{background:linear-gradient(120deg,#142b52,#176b9c);color:white;padding:65px 7%;text-align:center}
-.hero h1{font-size:42px}
-.search{padding:14px;width:80%;max-width:500px;border:0;border-radius:8px}
-button{background:#087db9;color:white;padding:12px 18px;border:0;border-radius:7px;cursor:pointer}
-section{padding:35px 6%}
+select,input,textarea{padding:12px;border:1px solid #ddd;border-radius:8px;width:100%;margin:7px 0}
+button{background:#087eb9;color:white;border:0;border-radius:8px;padding:11px 16px;cursor:pointer}
+.hero{background:linear-gradient(120deg,#10284b,#087eb9);padding:65px 6%;text-align:center;color:white}
+.hero h1{font-size:43px}
+section{padding:32px 6%}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:18px}
-.card{background:white;padding:20px;border-radius:12px;box-shadow:0 3px 12px #0001}
-.card h3{color:#176b9c}
-.upload{background:white;padding:25px;border-radius:12px}
-input,textarea,select{padding:12px;width:100%;margin:8px 0;border:1px solid #ddd;border-radius:7px}
-footer{text-align:center;background:#142b52;color:white;padding:25px}
+.card{background:white;border-radius:12px;padding:19px;box-shadow:0 3px 12px #0001}
+.card h3{color:#087eb9}
+.cover{height:130px;border-radius:9px;background:linear-gradient(135deg,#10284b,#2b9ac9);display:grid;place-items:center;color:white;font-size:38px}
+.reader{background:white;padding:25px;border-radius:12px;line-height:1.8;min-height:220px}
+footer{background:#10284b;color:white;text-align:center;padding:28px}
 .hidden{display:none}
+.small{color:#65748b;font-size:13px}
 </style>
 </head>
 <body>
 <header>
 <div class="logo">📚 Read UP</div>
 <nav>
-<a href="#home">Home</a>
-<a href="#books">Books</a>
-<a href="#news">News</a>
-<a href="#exams">Exam Papers</a>
-<a href="#stories">Stories</a>
-<a href="#videos">Videos</a>
-<a href="#upload">Upload</a>
+<a href="#home">Home</a><a href="#books">Books</a>
+<a href="#news">News</a><a href="#exams">Exams</a>
+<a href="#stories">Stories</a><a href="#videos">Videos</a>
+<a href="#upload">Upload</a><a href="#creator">Creator</a>
 </nav>
+<select id="language" onchange="changeLanguage()" style="width:145px">
+<option value="en">🇬🇧 English</option>
+<option value="rw">🇷🇼 Kinyarwanda</option>
+<option value="fr">🇫🇷 Français</option>
+</select>
 </header>
 
 <div class="hero" id="home">
-<h1>Welcome to Read UP</h1>
-<p>Read, Learn, Share and Earn!</p>
-<input class="search" id="search" placeholder="Search books, news, stories...">
+<h1 id="welcome">Welcome to Read UP</h1>
+<p id="tagline">Read • Learn • Share • Earn</p>
+<input id="search" placeholder="Search content..." oninput="searchContent()">
 </div>
 
 <section id="books">
-<h2>📚 Featured Books</h2>
-<div class="grid">
-<div class="card"><h3>The Power of Education</h3><p>A story about knowledge and success.</p><button onclick="alert('Book coming soon!')">Read Book</button></div>
-<div class="card"><h3>Dreams of Tomorrow</h3><p>An inspiring story about dreams.</p><button onclick="alert('Book coming soon!')">Read Book</button></div>
-<div class="card"><h3>Journey to Success</h3><p>A journey of courage and hope.</p><button onclick="alert('Book coming soon!')">Read Book</button></div>
-<div class="card"><h3>Life Lessons</h3><p>Beautiful lessons about life.</p><button onclick="alert('Book coming soon!')">Read Book</button></div>
-</div>
+<h2 id="bookHeading">📚 Our Books</h2>
+<div class="grid" id="bookList"></div>
 </section>
 
-<section id="news"><h2>📰 Latest News</h2><div class="grid" id="newsList"></div></section>
+<section id="readerSection" class="hidden">
+<h2 id="bookTitle"></h2>
+<div class="reader">
+<p id="pageText"></p>
+</div>
+<p id="pageNumber"></p>
+<button onclick="previousPage()">← Previous</button>
+<button onclick="nextPage()">Next →</button>
+</section>
+
+<section id="news"><h2>📰 News</h2><div class="grid" id="newsList"></div></section>
 <section id="exams"><h2>📝 Exam Papers</h2><div class="grid" id="examList"></div></section>
 <section id="stories"><h2>📖 Stories</h2><div class="grid" id="storyList"></div></section>
 <section id="videos"><h2>🎥 Videos</h2><div class="grid" id="videoList"></div></section>
 
 <section id="upload">
-<h2>⬆️ Share Your Content</h2>
-<div class="upload">
+<h2 id="uploadHeading">⬆️ Upload Your Content</h2>
+<div class="card">
 <input id="title" placeholder="Content title">
 <select id="category">
 <option>News</option><option>Exam Papers</option>
 <option>Stories</option><option>Videos</option><option>Books</option>
 </select>
-<textarea id="description" placeholder="Write a description"></textarea>
-<input id="file" type="file">
-<button onclick="publish()">Publish Content</button>
+<textarea id="description" placeholder="Write your content description"></textarea>
+<input id="file" type="file" accept=".pdf,.jpg,.png,.mp4">
+<button onclick="publish()">Publish</button>
 <p id="message"></p>
+<p class="small">Demo upload: content is currently stored in this browser only.</p>
 </div>
 </section>
 
-<section>
+<section id="creator">
 <h2>💰 Creator Dashboard</h2>
-<div class="card">
-<p>Your published posts: <b id="posts">0</b></p>
-<p>Your views: <b id="views">0</b></p>
-<p>Your estimated earnings: <b id="earnings">0 RWF</b></p>
-<p>Note: Earnings are a preview only. Real payments will require a verified backend and payment system.</p>
+<div class="grid">
+<div class="card"><h3>My Posts</h3><h2 id="posts">0</h2></div>
+<div class="card"><h3>Views</h3><h2 id="views">0</h2></div>
+<div class="card"><h3>Estimated Earnings</h3><h2 id="earnings">0 RWF</h2></div>
 </div>
+<p class="small">Demo statistics only. Real creator payments require a secure backend.</p>
 </section>
 
 <footer>
-<h3>Read UP</h3>
+<h2>📚 Read UP</h2>
 <p>Read • Learn • Share • Earn</p>
-<p>© 2026 Read UP. All rights reserved.</p>
+<p>© 2026 Read UP</p>
 </footer>
 
 <script>
-let posts=[];
-function publish(){
-let title=document.getElementById('title').value;
-let category=document.getElementById('category').value;
-let description=document.getElementById('description').value;
-if(!title||!description){alert('Please enter title and description');return;}
-let post={title,category,description};
-posts.push(post);
-let target={News:'newsList','Exam Papers':'examList',Stories:'storyList',Videos:'videoList',Books:'newsList'}[category];
-let card=document.createElement('div');
-card.className='card';
-let h=document.createElement('h3');h.textContent=title;
-let p=document.createElement('p');p.textContent=description;
-card.append(h,p);
-document.getElementById(target).append(card);
-document.getElementById('posts').textContent=posts.length;
-document.getElementById('message').textContent='Content published!';
-document.getElementById('title').value='';
-document.getElementById('description').value='';
+const books=[
+["The Power of Education","Imbaraga z'Uburezi","Le pouvoir de l'éducation"],
+["Dreams of Tomorrow","Inzozi z'ejo hazaza","Les rêves de demain"],
+["Journey to Success","Urugendo rwo gutsinda","Le chemin du succès"],
+["Life Lessons","Amasomo y'ubuzima","Les leçons de la vie"]
+];
+const translations={
+en:{welcome:"Welcome to Read UP",tag:"Read • Learn • Share • Earn",books:"Our Books"},
+rw:{welcome:"Murakaza neza kuri Read UP",tag:"Soma • Iga • Sangiza • Uhembwe",books:"Ibitabo byacu"},
+fr:{welcome:"Bienvenue sur Read UP",tag:"Lire • Apprendre • Partager • Gagner",books:"Nos livres"}
+};
+let lang="en",currentBook=0,page=1,posts=[];
+function changeLanguage(){
+lang=document.getElementById("language").value;
+document.getElementById("welcome").textContent=translations[lang].welcome;
+document.getElementById("tagline").textContent=translations[lang].tag;
+document.getElementById("bookHeading").textContent="📚 "+translations[lang].books;
+renderBooks();
 }
+function renderBooks(){
+document.getElementById("bookList").innerHTML=books.map((b,i)=>`
+<div class="card"><div class="cover">📖</div>
+<h3>${b[lang==="en"?0:lang==="rw"?1:2]}</h3>
+<p>30 pages</p><button onclick="openBook(${i})">Read Book</button></div>`).join("");
+}
+function openBook(i){
+currentBook=i;page=1;
+document.getElementById("readerSection").classList.remove("hidden");
+document.getElementById("bookTitle").textContent=books[i][lang==="en"?0:lang==="rw"?1:2];
+showPage();
+document.getElementById("readerSection").scrollIntoView();
+}
+function showPage(){
+document.getElementById("pageText").textContent=pageContent(currentBook,page);
+document.getElementById("pageNumber").textContent="Page "+page+" / 30";
+}
+function pageContent(book,p){
+const titles=[
+["Education opens doors","Knowledge is power","Learning changes lives"],
+["A dream begins","Believe in yourself","The future is yours"],
+["The first step","Never give up","Success takes effort"],
+["The value of kindness","Learning from mistakes","Hope and courage"]
+];
+const rw=[
+["Uburezi bufungura imiryango","Ubumenyi ni imbaraga","Kwiga bihindura ubuzima"],
+["Inzozi ziratangira","Iyumvemo ubushobozi","Ejo hazaza ni uwawe"],
+["Intambwe ya mbere","Ntucike intege","Gutsinda bisaba umuhate"],
+["Agaciro k'ineza","Kwiga ku makosa","Icyizere n'ubutwari"]
+];
+const fr=[
+["L'éducation ouvre des portes","Le savoir est une force","Apprendre change la vie"],
+["Un rêve commence","Croyez en vous","L'avenir vous appartient"],
+["Le premier pas","N'abandonnez jamais","La réussite demande des efforts"],
+["La valeur de la gentillesse","Apprendre de ses erreurs","Espoir et courage"]
+];
+let headings=lang==="en"?titles:lang==="rw"?rw:fr;
+let h=headings[book][(p-1)%3];
+let paragraphs={
+en:`${h}. Every great journey begins with a small step. We learn from experience, help one another and keep moving forward. Each new day gives us another opportunity to grow, discover our talents and make our dreams real. This is a lesson we should carry with us throughout life.`,
+rw:`${h}. Buri rugendo rukomeye rutangirira ku ntambwe nto. Twigira ku byo tunyuramo, tugafashanya kandi tugakomeza gutera imbere. Buri munsi uduha amahirwe mashya yo kwiga, kuvumbura impano zacu no kugera ku nzozi zacu. Iri ni isomo dukwiye guhora tuzirikana mu buzima.`,
+fr:`${h}. Chaque grand voyage commence par un petit pas. Nous apprenons de nos expériences, nous nous aidons et nous continuons à avancer. Chaque nouveau jour nous donne une occasion de grandir, de découvrir nos talents et de réaliser nos rêves. C'est une leçon à garder toute notre vie.`
+};
+return paragraphs[lang]+" "+paragraphs[lang];
+}
+function nextPage(){if(page<30){page++;showPage();}}
+function previousPage(){if(page>1){page--;showPage();}}
+function publish(){
+let t=document.getElementById("title").value.trim();
+let d=document.getElementById("description").value.trim();
+let c=document.getElementById("category").value;
+if(!t||!d){alert("Enter a title and description");return;}
+posts.push({title:t,description:d,category:c});
+let ids={"News":"newsList","Exam Papers":"examList","Stories":"storyList","Videos":"videoList","Books":"newsList"};
+let el=document.createElement("div");el.className="card";
+let h=document.createElement("h3");h.textContent=t;
+let p=document.createElement("p");p.textContent=d;
+el.append(h,p);
+document.getElementById(ids[c]).prepend(el);
+document.getElementById("posts").textContent=posts.length;
+document.getElementById("message").textContent="Published successfully!";
+document.getElementById("title").value="";
+document.getElementById("description").value="";
+}
+function searchContent(){
+let q=document.getElementById("search").value.toLowerCase();
+document.querySelectorAll(".card").forEach(c=>{
+c.style.display=c.textContent.toLowerCase().includes(q)?"":"none";
+});
+}
+renderBooks();
 </script>
 </body>
 </html>
@@ -357,116 +594,195 @@ document.getElementById('description').value='';
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Read UP</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Read UP | Read Learn Share</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial;background:#f5f7fb;color:#182338}
-header{background:#142b52;color:white;padding:20px 6%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}
-.logo{font-size:28px;font-weight:bold;color:#65d5ff}
+body{margin:0;font-family:Arial,sans-serif;background:#f3f6fc;color:#17233b}
+header{background:#10284b;color:white;padding:18px 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px}
+.logo{font-size:27px;font-weight:bold;color:#65d5ff}
 nav{display:flex;gap:15px;flex-wrap:wrap}
 nav a{color:white;text-decoration:none;font-size:14px}
-.hero{background:linear-gradient(120deg,#142b52,#176b9c);color:white;padding:65px 7%;text-align:center}
-.hero h1{font-size:42px}
-.search{padding:14px;width:80%;max-width:500px;border:0;border-radius:8px}
-button{background:#087db9;color:white;padding:12px 18px;border:0;border-radius:7px;cursor:pointer}
-section{padding:35px 6%}
+select,input,textarea{padding:12px;border:1px solid #ddd;border-radius:8px;width:100%;margin:7px 0}
+button{background:#087eb9;color:white;border:0;border-radius:8px;padding:11px 16px;cursor:pointer}
+.hero{background:linear-gradient(120deg,#10284b,#087eb9);padding:65px 6%;text-align:center;color:white}
+.hero h1{font-size:43px}
+section{padding:32px 6%}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:18px}
-.card{background:white;padding:20px;border-radius:12px;box-shadow:0 3px 12px #0001}
-.card h3{color:#176b9c}
-.upload{background:white;padding:25px;border-radius:12px}
-input,textarea,select{padding:12px;width:100%;margin:8px 0;border:1px solid #ddd;border-radius:7px}
-footer{text-align:center;background:#142b52;color:white;padding:25px}
+.card{background:white;border-radius:12px;padding:19px;box-shadow:0 3px 12px #0001}
+.card h3{color:#087eb9}
+.cover{height:130px;border-radius:9px;background:linear-gradient(135deg,#10284b,#2b9ac9);display:grid;place-items:center;color:white;font-size:38px}
+.reader{background:white;padding:25px;border-radius:12px;line-height:1.8;min-height:220px}
+footer{background:#10284b;color:white;text-align:center;padding:28px}
 .hidden{display:none}
+.small{color:#65748b;font-size:13px}
 </style>
 </head>
 <body>
 <header>
 <div class="logo">📚 Read UP</div>
 <nav>
-<a href="#home">Home</a>
-<a href="#books">Books</a>
-<a href="#news">News</a>
-<a href="#exams">Exam Papers</a>
-<a href="#stories">Stories</a>
-<a href="#videos">Videos</a>
-<a href="#upload">Upload</a>
+<a href="#home">Home</a><a href="#books">Books</a>
+<a href="#news">News</a><a href="#exams">Exams</a>
+<a href="#stories">Stories</a><a href="#videos">Videos</a>
+<a href="#upload">Upload</a><a href="#creator">Creator</a>
 </nav>
+<select id="language" onchange="changeLanguage()" style="width:145px">
+<option value="en">🇬🇧 English</option>
+<option value="rw">🇷🇼 Kinyarwanda</option>
+<option value="fr">🇫🇷 Français</option>
+</select>
 </header>
 
 <div class="hero" id="home">
-<h1>Welcome to Read UP</h1>
-<p>Read, Learn, Share and Earn!</p>
-<input class="search" id="search" placeholder="Search books, news, stories...">
+<h1 id="welcome">Welcome to Read UP</h1>
+<p id="tagline">Read • Learn • Share • Earn</p>
+<input id="search" placeholder="Search content..." oninput="searchContent()">
 </div>
 
 <section id="books">
-<h2>📚 Featured Books</h2>
-<div class="grid">
-<div class="card"><h3>The Power of Education</h3><p>A story about knowledge and success.</p><button onclick="alert('Book coming soon!')">Read Book</button></div>
-<div class="card"><h3>Dreams of Tomorrow</h3><p>An inspiring story about dreams.</p><button onclick="alert('Book coming soon!')">Read Book</button></div>
-<div class="card"><h3>Journey to Success</h3><p>A journey of courage and hope.</p><button onclick="alert('Book coming soon!')">Read Book</button></div>
-<div class="card"><h3>Life Lessons</h3><p>Beautiful lessons about life.</p><button onclick="alert('Book coming soon!')">Read Book</button></div>
-</div>
+<h2 id="bookHeading">📚 Our Books</h2>
+<div class="grid" id="bookList"></div>
 </section>
 
-<section id="news"><h2>📰 Latest News</h2><div class="grid" id="newsList"></div></section>
+<section id="readerSection" class="hidden">
+<h2 id="bookTitle"></h2>
+<div class="reader">
+<p id="pageText"></p>
+</div>
+<p id="pageNumber"></p>
+<button onclick="previousPage()">← Previous</button>
+<button onclick="nextPage()">Next →</button>
+</section>
+
+<section id="news"><h2>📰 News</h2><div class="grid" id="newsList"></div></section>
 <section id="exams"><h2>📝 Exam Papers</h2><div class="grid" id="examList"></div></section>
 <section id="stories"><h2>📖 Stories</h2><div class="grid" id="storyList"></div></section>
 <section id="videos"><h2>🎥 Videos</h2><div class="grid" id="videoList"></div></section>
 
 <section id="upload">
-<h2>⬆️ Share Your Content</h2>
-<div class="upload">
+<h2 id="uploadHeading">⬆️ Upload Your Content</h2>
+<div class="card">
 <input id="title" placeholder="Content title">
 <select id="category">
 <option>News</option><option>Exam Papers</option>
 <option>Stories</option><option>Videos</option><option>Books</option>
 </select>
-<textarea id="description" placeholder="Write a description"></textarea>
-<input id="file" type="file">
-<button onclick="publish()">Publish Content</button>
+<textarea id="description" placeholder="Write your content description"></textarea>
+<input id="file" type="file" accept=".pdf,.jpg,.png,.mp4">
+<button onclick="publish()">Publish</button>
 <p id="message"></p>
+<p class="small">Demo upload: content is currently stored in this browser only.</p>
 </div>
 </section>
 
-<section>
+<section id="creator">
 <h2>💰 Creator Dashboard</h2>
-<div class="card">
-<p>Your published posts: <b id="posts">0</b></p>
-<p>Your views: <b id="views">0</b></p>
-<p>Your estimated earnings: <b id="earnings">0 RWF</b></p>
-<p>Note: Earnings are a preview only. Real payments will require a verified backend and payment system.</p>
+<div class="grid">
+<div class="card"><h3>My Posts</h3><h2 id="posts">0</h2></div>
+<div class="card"><h3>Views</h3><h2 id="views">0</h2></div>
+<div class="card"><h3>Estimated Earnings</h3><h2 id="earnings">0 RWF</h2></div>
 </div>
+<p class="small">Demo statistics only. Real creator payments require a secure backend.</p>
 </section>
 
 <footer>
-<h3>Read UP</h3>
+<h2>📚 Read UP</h2>
 <p>Read • Learn • Share • Earn</p>
-<p>© 2026 Read UP. All rights reserved.</p>
+<p>© 2026 Read UP</p>
 </footer>
 
 <script>
-let posts=[];
-function publish(){
-let title=document.getElementById('title').value;
-let category=document.getElementById('category').value;
-let description=document.getElementById('description').value;
-if(!title||!description){alert('Please enter title and description');return;}
-let post={title,category,description};
-posts.push(post);
-let target={News:'newsList','Exam Papers':'examList',Stories:'storyList',Videos:'videoList',Books:'newsList'}[category];
-let card=document.createElement('div');
-card.className='card';
-let h=document.createElement('h3');h.textContent=title;
-let p=document.createElement('p');p.textContent=description;
-card.append(h,p);
-document.getElementById(target).append(card);
-document.getElementById('posts').textContent=posts.length;
-document.getElementById('message').textContent='Content published!';
-document.getElementById('title').value='';
-document.getElementById('description').value='';
+const books=[
+["The Power of Education","Imbaraga z'Uburezi","Le pouvoir de l'éducation"],
+["Dreams of Tomorrow","Inzozi z'ejo hazaza","Les rêves de demain"],
+["Journey to Success","Urugendo rwo gutsinda","Le chemin du succès"],
+["Life Lessons","Amasomo y'ubuzima","Les leçons de la vie"]
+];
+const translations={
+en:{welcome:"Welcome to Read UP",tag:"Read • Learn • Share • Earn",books:"Our Books"},
+rw:{welcome:"Murakaza neza kuri Read UP",tag:"Soma • Iga • Sangiza • Uhembwe",books:"Ibitabo byacu"},
+fr:{welcome:"Bienvenue sur Read UP",tag:"Lire • Apprendre • Partager • Gagner",books:"Nos livres"}
+};
+let lang="en",currentBook=0,page=1,posts=[];
+function changeLanguage(){
+lang=document.getElementById("language").value;
+document.getElementById("welcome").textContent=translations[lang].welcome;
+document.getElementById("tagline").textContent=translations[lang].tag;
+document.getElementById("bookHeading").textContent="📚 "+translations[lang].books;
+renderBooks();
 }
+function renderBooks(){
+document.getElementById("bookList").innerHTML=books.map((b,i)=>`
+<div class="card"><div class="cover">📖</div>
+<h3>${b[lang==="en"?0:lang==="rw"?1:2]}</h3>
+<p>30 pages</p><button onclick="openBook(${i})">Read Book</button></div>`).join("");
+}
+function openBook(i){
+currentBook=i;page=1;
+document.getElementById("readerSection").classList.remove("hidden");
+document.getElementById("bookTitle").textContent=books[i][lang==="en"?0:lang==="rw"?1:2];
+showPage();
+document.getElementById("readerSection").scrollIntoView();
+}
+function showPage(){
+document.getElementById("pageText").textContent=pageContent(currentBook,page);
+document.getElementById("pageNumber").textContent="Page "+page+" / 30";
+}
+function pageContent(book,p){
+const titles=[
+["Education opens doors","Knowledge is power","Learning changes lives"],
+["A dream begins","Believe in yourself","The future is yours"],
+["The first step","Never give up","Success takes effort"],
+["The value of kindness","Learning from mistakes","Hope and courage"]
+];
+const rw=[
+["Uburezi bufungura imiryango","Ubumenyi ni imbaraga","Kwiga bihindura ubuzima"],
+["Inzozi ziratangira","Iyumvemo ubushobozi","Ejo hazaza ni uwawe"],
+["Intambwe ya mbere","Ntucike intege","Gutsinda bisaba umuhate"],
+["Agaciro k'ineza","Kwiga ku makosa","Icyizere n'ubutwari"]
+];
+const fr=[
+["L'éducation ouvre des portes","Le savoir est une force","Apprendre change la vie"],
+["Un rêve commence","Croyez en vous","L'avenir vous appartient"],
+["Le premier pas","N'abandonnez jamais","La réussite demande des efforts"],
+["La valeur de la gentillesse","Apprendre de ses erreurs","Espoir et courage"]
+];
+let headings=lang==="en"?titles:lang==="rw"?rw:fr;
+let h=headings[book][(p-1)%3];
+let paragraphs={
+en:`${h}. Every great journey begins with a small step. We learn from experience, help one another and keep moving forward. Each new day gives us another opportunity to grow, discover our talents and make our dreams real. This is a lesson we should carry with us throughout life.`,
+rw:`${h}. Buri rugendo rukomeye rutangirira ku ntambwe nto. Twigira ku byo tunyuramo, tugafashanya kandi tugakomeza gutera imbere. Buri munsi uduha amahirwe mashya yo kwiga, kuvumbura impano zacu no kugera ku nzozi zacu. Iri ni isomo dukwiye guhora tuzirikana mu buzima.`,
+fr:`${h}. Chaque grand voyage commence par un petit pas. Nous apprenons de nos expériences, nous nous aidons et nous continuons à avancer. Chaque nouveau jour nous donne une occasion de grandir, de découvrir nos talents et de réaliser nos rêves. C'est une leçon à garder toute notre vie.`
+};
+return paragraphs[lang]+" "+paragraphs[lang];
+}
+function nextPage(){if(page<30){page++;showPage();}}
+function previousPage(){if(page>1){page--;showPage();}}
+function publish(){
+let t=document.getElementById("title").value.trim();
+let d=document.getElementById("description").value.trim();
+let c=document.getElementById("category").value;
+if(!t||!d){alert("Enter a title and description");return;}
+posts.push({title:t,description:d,category:c});
+let ids={"News":"newsList","Exam Papers":"examList","Stories":"storyList","Videos":"videoList","Books":"newsList"};
+let el=document.createElement("div");el.className="card";
+let h=document.createElement("h3");h.textContent=t;
+let p=document.createElement("p");p.textContent=d;
+el.append(h,p);
+document.getElementById(ids[c]).prepend(el);
+document.getElementById("posts").textContent=posts.length;
+document.getElementById("message").textContent="Published successfully!";
+document.getElementById("title").value="";
+document.getElementById("description").value="";
+}
+function searchContent(){
+let q=document.getElementById("search").value.toLowerCase();
+document.querySelectorAll(".card").forEach(c=>{
+c.style.display=c.textContent.toLowerCase().includes(q)?"":"none";
+});
+}
+renderBooks();
 </script>
 </body>
 </html>
@@ -475,116 +791,195 @@ document.getElementById('description').value='';
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Read UP</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Read UP | Read Learn Share</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial;background:#f5f7fb;color:#182338}
-header{background:#142b52;color:white;padding:20px 6%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}
-.logo{font-size:28px;font-weight:bold;color:#65d5ff}
+body{margin:0;font-family:Arial,sans-serif;background:#f3f6fc;color:#17233b}
+header{background:#10284b;color:white;padding:18px 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px}
+.logo{font-size:27px;font-weight:bold;color:#65d5ff}
 nav{display:flex;gap:15px;flex-wrap:wrap}
 nav a{color:white;text-decoration:none;font-size:14px}
-.hero{background:linear-gradient(120deg,#142b52,#176b9c);color:white;padding:65px 7%;text-align:center}
-.hero h1{font-size:42px}
-.search{padding:14px;width:80%;max-width:500px;border:0;border-radius:8px}
-button{background:#087db9;color:white;padding:12px 18px;border:0;border-radius:7px;cursor:pointer}
-section{padding:35px 6%}
+select,input,textarea{padding:12px;border:1px solid #ddd;border-radius:8px;width:100%;margin:7px 0}
+button{background:#087eb9;color:white;border:0;border-radius:8px;padding:11px 16px;cursor:pointer}
+.hero{background:linear-gradient(120deg,#10284b,#087eb9);padding:65px 6%;text-align:center;color:white}
+.hero h1{font-size:43px}
+section{padding:32px 6%}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:18px}
-.card{background:white;padding:20px;border-radius:12px;box-shadow:0 3px 12px #0001}
-.card h3{color:#176b9c}
-.upload{background:white;padding:25px;border-radius:12px}
-input,textarea,select{padding:12px;width:100%;margin:8px 0;border:1px solid #ddd;border-radius:7px}
-footer{text-align:center;background:#142b52;color:white;padding:25px}
+.card{background:white;border-radius:12px;padding:19px;box-shadow:0 3px 12px #0001}
+.card h3{color:#087eb9}
+.cover{height:130px;border-radius:9px;background:linear-gradient(135deg,#10284b,#2b9ac9);display:grid;place-items:center;color:white;font-size:38px}
+.reader{background:white;padding:25px;border-radius:12px;line-height:1.8;min-height:220px}
+footer{background:#10284b;color:white;text-align:center;padding:28px}
 .hidden{display:none}
+.small{color:#65748b;font-size:13px}
 </style>
 </head>
 <body>
 <header>
 <div class="logo">📚 Read UP</div>
 <nav>
-<a href="#home">Home</a>
-<a href="#books">Books</a>
-<a href="#news">News</a>
-<a href="#exams">Exam Papers</a>
-<a href="#stories">Stories</a>
-<a href="#videos">Videos</a>
-<a href="#upload">Upload</a>
+<a href="#home">Home</a><a href="#books">Books</a>
+<a href="#news">News</a><a href="#exams">Exams</a>
+<a href="#stories">Stories</a><a href="#videos">Videos</a>
+<a href="#upload">Upload</a><a href="#creator">Creator</a>
 </nav>
+<select id="language" onchange="changeLanguage()" style="width:145px">
+<option value="en">🇬🇧 English</option>
+<option value="rw">🇷🇼 Kinyarwanda</option>
+<option value="fr">🇫🇷 Français</option>
+</select>
 </header>
 
 <div class="hero" id="home">
-<h1>Welcome to Read UP</h1>
-<p>Read, Learn, Share and Earn!</p>
-<input class="search" id="search" placeholder="Search books, news, stories...">
+<h1 id="welcome">Welcome to Read UP</h1>
+<p id="tagline">Read • Learn • Share • Earn</p>
+<input id="search" placeholder="Search content..." oninput="searchContent()">
 </div>
 
 <section id="books">
-<h2>📚 Featured Books</h2>
-<div class="grid">
-<div class="card"><h3>The Power of Education</h3><p>A story about knowledge and success.</p><button onclick="alert('Book coming soon!')">Read Book</button></div>
-<div class="card"><h3>Dreams of Tomorrow</h3><p>An inspiring story about dreams.</p><button onclick="alert('Book coming soon!')">Read Book</button></div>
-<div class="card"><h3>Journey to Success</h3><p>A journey of courage and hope.</p><button onclick="alert('Book coming soon!')">Read Book</button></div>
-<div class="card"><h3>Life Lessons</h3><p>Beautiful lessons about life.</p><button onclick="alert('Book coming soon!')">Read Book</button></div>
-</div>
+<h2 id="bookHeading">📚 Our Books</h2>
+<div class="grid" id="bookList"></div>
 </section>
 
-<section id="news"><h2>📰 Latest News</h2><div class="grid" id="newsList"></div></section>
+<section id="readerSection" class="hidden">
+<h2 id="bookTitle"></h2>
+<div class="reader">
+<p id="pageText"></p>
+</div>
+<p id="pageNumber"></p>
+<button onclick="previousPage()">← Previous</button>
+<button onclick="nextPage()">Next →</button>
+</section>
+
+<section id="news"><h2>📰 News</h2><div class="grid" id="newsList"></div></section>
 <section id="exams"><h2>📝 Exam Papers</h2><div class="grid" id="examList"></div></section>
 <section id="stories"><h2>📖 Stories</h2><div class="grid" id="storyList"></div></section>
 <section id="videos"><h2>🎥 Videos</h2><div class="grid" id="videoList"></div></section>
 
 <section id="upload">
-<h2>⬆️ Share Your Content</h2>
-<div class="upload">
+<h2 id="uploadHeading">⬆️ Upload Your Content</h2>
+<div class="card">
 <input id="title" placeholder="Content title">
 <select id="category">
 <option>News</option><option>Exam Papers</option>
 <option>Stories</option><option>Videos</option><option>Books</option>
 </select>
-<textarea id="description" placeholder="Write a description"></textarea>
-<input id="file" type="file">
-<button onclick="publish()">Publish Content</button>
+<textarea id="description" placeholder="Write your content description"></textarea>
+<input id="file" type="file" accept=".pdf,.jpg,.png,.mp4">
+<button onclick="publish()">Publish</button>
 <p id="message"></p>
+<p class="small">Demo upload: content is currently stored in this browser only.</p>
 </div>
 </section>
 
-<section>
+<section id="creator">
 <h2>💰 Creator Dashboard</h2>
-<div class="card">
-<p>Your published posts: <b id="posts">0</b></p>
-<p>Your views: <b id="views">0</b></p>
-<p>Your estimated earnings: <b id="earnings">0 RWF</b></p>
-<p>Note: Earnings are a preview only. Real payments will require a verified backend and payment system.</p>
+<div class="grid">
+<div class="card"><h3>My Posts</h3><h2 id="posts">0</h2></div>
+<div class="card"><h3>Views</h3><h2 id="views">0</h2></div>
+<div class="card"><h3>Estimated Earnings</h3><h2 id="earnings">0 RWF</h2></div>
 </div>
+<p class="small">Demo statistics only. Real creator payments require a secure backend.</p>
 </section>
 
 <footer>
-<h3>Read UP</h3>
+<h2>📚 Read UP</h2>
 <p>Read • Learn • Share • Earn</p>
-<p>© 2026 Read UP. All rights reserved.</p>
+<p>© 2026 Read UP</p>
 </footer>
 
 <script>
-let posts=[];
-function publish(){
-let title=document.getElementById('title').value;
-let category=document.getElementById('category').value;
-let description=document.getElementById('description').value;
-if(!title||!description){alert('Please enter title and description');return;}
-let post={title,category,description};
-posts.push(post);
-let target={News:'newsList','Exam Papers':'examList',Stories:'storyList',Videos:'videoList',Books:'newsList'}[category];
-let card=document.createElement('div');
-card.className='card';
-let h=document.createElement('h3');h.textContent=title;
-let p=document.createElement('p');p.textContent=description;
-card.append(h,p);
-document.getElementById(target).append(card);
-document.getElementById('posts').textContent=posts.length;
-document.getElementById('message').textContent='Content published!';
-document.getElementById('title').value='';
-document.getElementById('description').value='';
+const books=[
+["The Power of Education","Imbaraga z'Uburezi","Le pouvoir de l'éducation"],
+["Dreams of Tomorrow","Inzozi z'ejo hazaza","Les rêves de demain"],
+["Journey to Success","Urugendo rwo gutsinda","Le chemin du succès"],
+["Life Lessons","Amasomo y'ubuzima","Les leçons de la vie"]
+];
+const translations={
+en:{welcome:"Welcome to Read UP",tag:"Read • Learn • Share • Earn",books:"Our Books"},
+rw:{welcome:"Murakaza neza kuri Read UP",tag:"Soma • Iga • Sangiza • Uhembwe",books:"Ibitabo byacu"},
+fr:{welcome:"Bienvenue sur Read UP",tag:"Lire • Apprendre • Partager • Gagner",books:"Nos livres"}
+};
+let lang="en",currentBook=0,page=1,posts=[];
+function changeLanguage(){
+lang=document.getElementById("language").value;
+document.getElementById("welcome").textContent=translations[lang].welcome;
+document.getElementById("tagline").textContent=translations[lang].tag;
+document.getElementById("bookHeading").textContent="📚 "+translations[lang].books;
+renderBooks();
 }
+function renderBooks(){
+document.getElementById("bookList").innerHTML=books.map((b,i)=>`
+<div class="card"><div class="cover">📖</div>
+<h3>${b[lang==="en"?0:lang==="rw"?1:2]}</h3>
+<p>30 pages</p><button onclick="openBook(${i})">Read Book</button></div>`).join("");
+}
+function openBook(i){
+currentBook=i;page=1;
+document.getElementById("readerSection").classList.remove("hidden");
+document.getElementById("bookTitle").textContent=books[i][lang==="en"?0:lang==="rw"?1:2];
+showPage();
+document.getElementById("readerSection").scrollIntoView();
+}
+function showPage(){
+document.getElementById("pageText").textContent=pageContent(currentBook,page);
+document.getElementById("pageNumber").textContent="Page "+page+" / 30";
+}
+function pageContent(book,p){
+const titles=[
+["Education opens doors","Knowledge is power","Learning changes lives"],
+["A dream begins","Believe in yourself","The future is yours"],
+["The first step","Never give up","Success takes effort"],
+["The value of kindness","Learning from mistakes","Hope and courage"]
+];
+const rw=[
+["Uburezi bufungura imiryango","Ubumenyi ni imbaraga","Kwiga bihindura ubuzima"],
+["Inzozi ziratangira","Iyumvemo ubushobozi","Ejo hazaza ni uwawe"],
+["Intambwe ya mbere","Ntucike intege","Gutsinda bisaba umuhate"],
+["Agaciro k'ineza","Kwiga ku makosa","Icyizere n'ubutwari"]
+];
+const fr=[
+["L'éducation ouvre des portes","Le savoir est une force","Apprendre change la vie"],
+["Un rêve commence","Croyez en vous","L'avenir vous appartient"],
+["Le premier pas","N'abandonnez jamais","La réussite demande des efforts"],
+["La valeur de la gentillesse","Apprendre de ses erreurs","Espoir et courage"]
+];
+let headings=lang==="en"?titles:lang==="rw"?rw:fr;
+let h=headings[book][(p-1)%3];
+let paragraphs={
+en:`${h}. Every great journey begins with a small step. We learn from experience, help one another and keep moving forward. Each new day gives us another opportunity to grow, discover our talents and make our dreams real. This is a lesson we should carry with us throughout life.`,
+rw:`${h}. Buri rugendo rukomeye rutangirira ku ntambwe nto. Twigira ku byo tunyuramo, tugafashanya kandi tugakomeza gutera imbere. Buri munsi uduha amahirwe mashya yo kwiga, kuvumbura impano zacu no kugera ku nzozi zacu. Iri ni isomo dukwiye guhora tuzirikana mu buzima.`,
+fr:`${h}. Chaque grand voyage commence par un petit pas. Nous apprenons de nos expériences, nous nous aidons et nous continuons à avancer. Chaque nouveau jour nous donne une occasion de grandir, de découvrir nos talents et de réaliser nos rêves. C'est une leçon à garder toute notre vie.`
+};
+return paragraphs[lang]+" "+paragraphs[lang];
+}
+function nextPage(){if(page<30){page++;showPage();}}
+function previousPage(){if(page>1){page--;showPage();}}
+function publish(){
+let t=document.getElementById("title").value.trim();
+let d=document.getElementById("description").value.trim();
+let c=document.getElementById("category").value;
+if(!t||!d){alert("Enter a title and description");return;}
+posts.push({title:t,description:d,category:c});
+let ids={"News":"newsList","Exam Papers":"examList","Stories":"storyList","Videos":"videoList","Books":"newsList"};
+let el=document.createElement("div");el.className="card";
+let h=document.createElement("h3");h.textContent=t;
+let p=document.createElement("p");p.textContent=d;
+el.append(h,p);
+document.getElementById(ids[c]).prepend(el);
+document.getElementById("posts").textContent=posts.length;
+document.getElementById("message").textContent="Published successfully!";
+document.getElementById("title").value="";
+document.getElementById("description").value="";
+}
+function searchContent(){
+let q=document.getElementById("search").value.toLowerCase();
+document.querySelectorAll(".card").forEach(c=>{
+c.style.display=c.textContent.toLowerCase().includes(q)?"":"none";
+});
+}
+renderBooks();
 </script>
 </body>
 </html>
@@ -593,116 +988,195 @@ document.getElementById('description').value='';
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Read UP</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Read UP | Read Learn Share</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial;background:#f5f7fb;color:#182338}
-header{background:#142b52;color:white;padding:20px 6%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}
-.logo{font-size:28px;font-weight:bold;color:#65d5ff}
+body{margin:0;font-family:Arial,sans-serif;background:#f3f6fc;color:#17233b}
+header{background:#10284b;color:white;padding:18px 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px}
+.logo{font-size:27px;font-weight:bold;color:#65d5ff}
 nav{display:flex;gap:15px;flex-wrap:wrap}
 nav a{color:white;text-decoration:none;font-size:14px}
-.hero{background:linear-gradient(120deg,#142b52,#176b9c);color:white;padding:65px 7%;text-align:center}
-.hero h1{font-size:42px}
-.search{padding:14px;width:80%;max-width:500px;border:0;border-radius:8px}
-button{background:#087db9;color:white;padding:12px 18px;border:0;border-radius:7px;cursor:pointer}
-section{padding:35px 6%}
+select,input,textarea{padding:12px;border:1px solid #ddd;border-radius:8px;width:100%;margin:7px 0}
+button{background:#087eb9;color:white;border:0;border-radius:8px;padding:11px 16px;cursor:pointer}
+.hero{background:linear-gradient(120deg,#10284b,#087eb9);padding:65px 6%;text-align:center;color:white}
+.hero h1{font-size:43px}
+section{padding:32px 6%}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:18px}
-.card{background:white;padding:20px;border-radius:12px;box-shadow:0 3px 12px #0001}
-.card h3{color:#176b9c}
-.upload{background:white;padding:25px;border-radius:12px}
-input,textarea,select{padding:12px;width:100%;margin:8px 0;border:1px solid #ddd;border-radius:7px}
-footer{text-align:center;background:#142b52;color:white;padding:25px}
+.card{background:white;border-radius:12px;padding:19px;box-shadow:0 3px 12px #0001}
+.card h3{color:#087eb9}
+.cover{height:130px;border-radius:9px;background:linear-gradient(135deg,#10284b,#2b9ac9);display:grid;place-items:center;color:white;font-size:38px}
+.reader{background:white;padding:25px;border-radius:12px;line-height:1.8;min-height:220px}
+footer{background:#10284b;color:white;text-align:center;padding:28px}
 .hidden{display:none}
+.small{color:#65748b;font-size:13px}
 </style>
 </head>
 <body>
 <header>
 <div class="logo">📚 Read UP</div>
 <nav>
-<a href="#home">Home</a>
-<a href="#books">Books</a>
-<a href="#news">News</a>
-<a href="#exams">Exam Papers</a>
-<a href="#stories">Stories</a>
-<a href="#videos">Videos</a>
-<a href="#upload">Upload</a>
+<a href="#home">Home</a><a href="#books">Books</a>
+<a href="#news">News</a><a href="#exams">Exams</a>
+<a href="#stories">Stories</a><a href="#videos">Videos</a>
+<a href="#upload">Upload</a><a href="#creator">Creator</a>
 </nav>
+<select id="language" onchange="changeLanguage()" style="width:145px">
+<option value="en">🇬🇧 English</option>
+<option value="rw">🇷🇼 Kinyarwanda</option>
+<option value="fr">🇫🇷 Français</option>
+</select>
 </header>
 
 <div class="hero" id="home">
-<h1>Welcome to Read UP</h1>
-<p>Read, Learn, Share and Earn!</p>
-<input class="search" id="search" placeholder="Search books, news, stories...">
+<h1 id="welcome">Welcome to Read UP</h1>
+<p id="tagline">Read • Learn • Share • Earn</p>
+<input id="search" placeholder="Search content..." oninput="searchContent()">
 </div>
 
 <section id="books">
-<h2>📚 Featured Books</h2>
-<div class="grid">
-<div class="card"><h3>The Power of Education</h3><p>A story about knowledge and success.</p><button onclick="alert('Book coming soon!')">Read Book</button></div>
-<div class="card"><h3>Dreams of Tomorrow</h3><p>An inspiring story about dreams.</p><button onclick="alert('Book coming soon!')">Read Book</button></div>
-<div class="card"><h3>Journey to Success</h3><p>A journey of courage and hope.</p><button onclick="alert('Book coming soon!')">Read Book</button></div>
-<div class="card"><h3>Life Lessons</h3><p>Beautiful lessons about life.</p><button onclick="alert('Book coming soon!')">Read Book</button></div>
-</div>
+<h2 id="bookHeading">📚 Our Books</h2>
+<div class="grid" id="bookList"></div>
 </section>
 
-<section id="news"><h2>📰 Latest News</h2><div class="grid" id="newsList"></div></section>
+<section id="readerSection" class="hidden">
+<h2 id="bookTitle"></h2>
+<div class="reader">
+<p id="pageText"></p>
+</div>
+<p id="pageNumber"></p>
+<button onclick="previousPage()">← Previous</button>
+<button onclick="nextPage()">Next →</button>
+</section>
+
+<section id="news"><h2>📰 News</h2><div class="grid" id="newsList"></div></section>
 <section id="exams"><h2>📝 Exam Papers</h2><div class="grid" id="examList"></div></section>
 <section id="stories"><h2>📖 Stories</h2><div class="grid" id="storyList"></div></section>
 <section id="videos"><h2>🎥 Videos</h2><div class="grid" id="videoList"></div></section>
 
 <section id="upload">
-<h2>⬆️ Share Your Content</h2>
-<div class="upload">
+<h2 id="uploadHeading">⬆️ Upload Your Content</h2>
+<div class="card">
 <input id="title" placeholder="Content title">
 <select id="category">
 <option>News</option><option>Exam Papers</option>
 <option>Stories</option><option>Videos</option><option>Books</option>
 </select>
-<textarea id="description" placeholder="Write a description"></textarea>
-<input id="file" type="file">
-<button onclick="publish()">Publish Content</button>
+<textarea id="description" placeholder="Write your content description"></textarea>
+<input id="file" type="file" accept=".pdf,.jpg,.png,.mp4">
+<button onclick="publish()">Publish</button>
 <p id="message"></p>
+<p class="small">Demo upload: content is currently stored in this browser only.</p>
 </div>
 </section>
 
-<section>
+<section id="creator">
 <h2>💰 Creator Dashboard</h2>
-<div class="card">
-<p>Your published posts: <b id="posts">0</b></p>
-<p>Your views: <b id="views">0</b></p>
-<p>Your estimated earnings: <b id="earnings">0 RWF</b></p>
-<p>Note: Earnings are a preview only. Real payments will require a verified backend and payment system.</p>
+<div class="grid">
+<div class="card"><h3>My Posts</h3><h2 id="posts">0</h2></div>
+<div class="card"><h3>Views</h3><h2 id="views">0</h2></div>
+<div class="card"><h3>Estimated Earnings</h3><h2 id="earnings">0 RWF</h2></div>
 </div>
+<p class="small">Demo statistics only. Real creator payments require a secure backend.</p>
 </section>
 
 <footer>
-<h3>Read UP</h3>
+<h2>📚 Read UP</h2>
 <p>Read • Learn • Share • Earn</p>
-<p>© 2026 Read UP. All rights reserved.</p>
+<p>© 2026 Read UP</p>
 </footer>
 
 <script>
-let posts=[];
-function publish(){
-let title=document.getElementById('title').value;
-let category=document.getElementById('category').value;
-let description=document.getElementById('description').value;
-if(!title||!description){alert('Please enter title and description');return;}
-let post={title,category,description};
-posts.push(post);
-let target={News:'newsList','Exam Papers':'examList',Stories:'storyList',Videos:'videoList',Books:'newsList'}[category];
-let card=document.createElement('div');
-card.className='card';
-let h=document.createElement('h3');h.textContent=title;
-let p=document.createElement('p');p.textContent=description;
-card.append(h,p);
-document.getElementById(target).append(card);
-document.getElementById('posts').textContent=posts.length;
-document.getElementById('message').textContent='Content published!';
-document.getElementById('title').value='';
-document.getElementById('description').value='';
+const books=[
+["The Power of Education","Imbaraga z'Uburezi","Le pouvoir de l'éducation"],
+["Dreams of Tomorrow","Inzozi z'ejo hazaza","Les rêves de demain"],
+["Journey to Success","Urugendo rwo gutsinda","Le chemin du succès"],
+["Life Lessons","Amasomo y'ubuzima","Les leçons de la vie"]
+];
+const translations={
+en:{welcome:"Welcome to Read UP",tag:"Read • Learn • Share • Earn",books:"Our Books"},
+rw:{welcome:"Murakaza neza kuri Read UP",tag:"Soma • Iga • Sangiza • Uhembwe",books:"Ibitabo byacu"},
+fr:{welcome:"Bienvenue sur Read UP",tag:"Lire • Apprendre • Partager • Gagner",books:"Nos livres"}
+};
+let lang="en",currentBook=0,page=1,posts=[];
+function changeLanguage(){
+lang=document.getElementById("language").value;
+document.getElementById("welcome").textContent=translations[lang].welcome;
+document.getElementById("tagline").textContent=translations[lang].tag;
+document.getElementById("bookHeading").textContent="📚 "+translations[lang].books;
+renderBooks();
 }
+function renderBooks(){
+document.getElementById("bookList").innerHTML=books.map((b,i)=>`
+<div class="card"><div class="cover">📖</div>
+<h3>${b[lang==="en"?0:lang==="rw"?1:2]}</h3>
+<p>30 pages</p><button onclick="openBook(${i})">Read Book</button></div>`).join("");
+}
+function openBook(i){
+currentBook=i;page=1;
+document.getElementById("readerSection").classList.remove("hidden");
+document.getElementById("bookTitle").textContent=books[i][lang==="en"?0:lang==="rw"?1:2];
+showPage();
+document.getElementById("readerSection").scrollIntoView();
+}
+function showPage(){
+document.getElementById("pageText").textContent=pageContent(currentBook,page);
+document.getElementById("pageNumber").textContent="Page "+page+" / 30";
+}
+function pageContent(book,p){
+const titles=[
+["Education opens doors","Knowledge is power","Learning changes lives"],
+["A dream begins","Believe in yourself","The future is yours"],
+["The first step","Never give up","Success takes effort"],
+["The value of kindness","Learning from mistakes","Hope and courage"]
+];
+const rw=[
+["Uburezi bufungura imiryango","Ubumenyi ni imbaraga","Kwiga bihindura ubuzima"],
+["Inzozi ziratangira","Iyumvemo ubushobozi","Ejo hazaza ni uwawe"],
+["Intambwe ya mbere","Ntucike intege","Gutsinda bisaba umuhate"],
+["Agaciro k'ineza","Kwiga ku makosa","Icyizere n'ubutwari"]
+];
+const fr=[
+["L'éducation ouvre des portes","Le savoir est une force","Apprendre change la vie"],
+["Un rêve commence","Croyez en vous","L'avenir vous appartient"],
+["Le premier pas","N'abandonnez jamais","La réussite demande des efforts"],
+["La valeur de la gentillesse","Apprendre de ses erreurs","Espoir et courage"]
+];
+let headings=lang==="en"?titles:lang==="rw"?rw:fr;
+let h=headings[book][(p-1)%3];
+let paragraphs={
+en:`${h}. Every great journey begins with a small step. We learn from experience, help one another and keep moving forward. Each new day gives us another opportunity to grow, discover our talents and make our dreams real. This is a lesson we should carry with us throughout life.`,
+rw:`${h}. Buri rugendo rukomeye rutangirira ku ntambwe nto. Twigira ku byo tunyuramo, tugafashanya kandi tugakomeza gutera imbere. Buri munsi uduha amahirwe mashya yo kwiga, kuvumbura impano zacu no kugera ku nzozi zacu. Iri ni isomo dukwiye guhora tuzirikana mu buzima.`,
+fr:`${h}. Chaque grand voyage commence par un petit pas. Nous apprenons de nos expériences, nous nous aidons et nous continuons à avancer. Chaque nouveau jour nous donne une occasion de grandir, de découvrir nos talents et de réaliser nos rêves. C'est une leçon à garder toute notre vie.`
+};
+return paragraphs[lang]+" "+paragraphs[lang];
+}
+function nextPage(){if(page<30){page++;showPage();}}
+function previousPage(){if(page>1){page--;showPage();}}
+function publish(){
+let t=document.getElementById("title").value.trim();
+let d=document.getElementById("description").value.trim();
+let c=document.getElementById("category").value;
+if(!t||!d){alert("Enter a title and description");return;}
+posts.push({title:t,description:d,category:c});
+let ids={"News":"newsList","Exam Papers":"examList","Stories":"storyList","Videos":"videoList","Books":"newsList"};
+let el=document.createElement("div");el.className="card";
+let h=document.createElement("h3");h.textContent=t;
+let p=document.createElement("p");p.textContent=d;
+el.append(h,p);
+document.getElementById(ids[c]).prepend(el);
+document.getElementById("posts").textContent=posts.length;
+document.getElementById("message").textContent="Published successfully!";
+document.getElementById("title").value="";
+document.getElementById("description").value="";
+}
+function searchContent(){
+let q=document.getElementById("search").value.toLowerCase();
+document.querySelectorAll(".card").forEach(c=>{
+c.style.display=c.textContent.toLowerCase().includes(q)?"":"none";
+});
+}
+renderBooks();
 </script>
 </body>
 </html>
@@ -711,116 +1185,195 @@ document.getElementById('description').value='';
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Read UP</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Read UP | Read Learn Share</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial;background:#f5f7fb;color:#182338}
-header{background:#142b52;color:white;padding:20px 6%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}
-.logo{font-size:28px;font-weight:bold;color:#65d5ff}
+body{margin:0;font-family:Arial,sans-serif;background:#f3f6fc;color:#17233b}
+header{background:#10284b;color:white;padding:18px 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px}
+.logo{font-size:27px;font-weight:bold;color:#65d5ff}
 nav{display:flex;gap:15px;flex-wrap:wrap}
 nav a{color:white;text-decoration:none;font-size:14px}
-.hero{background:linear-gradient(120deg,#142b52,#176b9c);color:white;padding:65px 7%;text-align:center}
-.hero h1{font-size:42px}
-.search{padding:14px;width:80%;max-width:500px;border:0;border-radius:8px}
-button{background:#087db9;color:white;padding:12px 18px;border:0;border-radius:7px;cursor:pointer}
-section{padding:35px 6%}
+select,input,textarea{padding:12px;border:1px solid #ddd;border-radius:8px;width:100%;margin:7px 0}
+button{background:#087eb9;color:white;border:0;border-radius:8px;padding:11px 16px;cursor:pointer}
+.hero{background:linear-gradient(120deg,#10284b,#087eb9);padding:65px 6%;text-align:center;color:white}
+.hero h1{font-size:43px}
+section{padding:32px 6%}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:18px}
-.card{background:white;padding:20px;border-radius:12px;box-shadow:0 3px 12px #0001}
-.card h3{color:#176b9c}
-.upload{background:white;padding:25px;border-radius:12px}
-input,textarea,select{padding:12px;width:100%;margin:8px 0;border:1px solid #ddd;border-radius:7px}
-footer{text-align:center;background:#142b52;color:white;padding:25px}
+.card{background:white;border-radius:12px;padding:19px;box-shadow:0 3px 12px #0001}
+.card h3{color:#087eb9}
+.cover{height:130px;border-radius:9px;background:linear-gradient(135deg,#10284b,#2b9ac9);display:grid;place-items:center;color:white;font-size:38px}
+.reader{background:white;padding:25px;border-radius:12px;line-height:1.8;min-height:220px}
+footer{background:#10284b;color:white;text-align:center;padding:28px}
 .hidden{display:none}
+.small{color:#65748b;font-size:13px}
 </style>
 </head>
 <body>
 <header>
 <div class="logo">📚 Read UP</div>
 <nav>
-<a href="#home">Home</a>
-<a href="#books">Books</a>
-<a href="#news">News</a>
-<a href="#exams">Exam Papers</a>
-<a href="#stories">Stories</a>
-<a href="#videos">Videos</a>
-<a href="#upload">Upload</a>
+<a href="#home">Home</a><a href="#books">Books</a>
+<a href="#news">News</a><a href="#exams">Exams</a>
+<a href="#stories">Stories</a><a href="#videos">Videos</a>
+<a href="#upload">Upload</a><a href="#creator">Creator</a>
 </nav>
+<select id="language" onchange="changeLanguage()" style="width:145px">
+<option value="en">🇬🇧 English</option>
+<option value="rw">🇷🇼 Kinyarwanda</option>
+<option value="fr">🇫🇷 Français</option>
+</select>
 </header>
 
 <div class="hero" id="home">
-<h1>Welcome to Read UP</h1>
-<p>Read, Learn, Share and Earn!</p>
-<input class="search" id="search" placeholder="Search books, news, stories...">
+<h1 id="welcome">Welcome to Read UP</h1>
+<p id="tagline">Read • Learn • Share • Earn</p>
+<input id="search" placeholder="Search content..." oninput="searchContent()">
 </div>
 
 <section id="books">
-<h2>📚 Featured Books</h2>
-<div class="grid">
-<div class="card"><h3>The Power of Education</h3><p>A story about knowledge and success.</p><button onclick="alert('Book coming soon!')">Read Book</button></div>
-<div class="card"><h3>Dreams of Tomorrow</h3><p>An inspiring story about dreams.</p><button onclick="alert('Book coming soon!')">Read Book</button></div>
-<div class="card"><h3>Journey to Success</h3><p>A journey of courage and hope.</p><button onclick="alert('Book coming soon!')">Read Book</button></div>
-<div class="card"><h3>Life Lessons</h3><p>Beautiful lessons about life.</p><button onclick="alert('Book coming soon!')">Read Book</button></div>
-</div>
+<h2 id="bookHeading">📚 Our Books</h2>
+<div class="grid" id="bookList"></div>
 </section>
 
-<section id="news"><h2>📰 Latest News</h2><div class="grid" id="newsList"></div></section>
+<section id="readerSection" class="hidden">
+<h2 id="bookTitle"></h2>
+<div class="reader">
+<p id="pageText"></p>
+</div>
+<p id="pageNumber"></p>
+<button onclick="previousPage()">← Previous</button>
+<button onclick="nextPage()">Next →</button>
+</section>
+
+<section id="news"><h2>📰 News</h2><div class="grid" id="newsList"></div></section>
 <section id="exams"><h2>📝 Exam Papers</h2><div class="grid" id="examList"></div></section>
 <section id="stories"><h2>📖 Stories</h2><div class="grid" id="storyList"></div></section>
 <section id="videos"><h2>🎥 Videos</h2><div class="grid" id="videoList"></div></section>
 
 <section id="upload">
-<h2>⬆️ Share Your Content</h2>
-<div class="upload">
+<h2 id="uploadHeading">⬆️ Upload Your Content</h2>
+<div class="card">
 <input id="title" placeholder="Content title">
 <select id="category">
 <option>News</option><option>Exam Papers</option>
 <option>Stories</option><option>Videos</option><option>Books</option>
 </select>
-<textarea id="description" placeholder="Write a description"></textarea>
-<input id="file" type="file">
-<button onclick="publish()">Publish Content</button>
+<textarea id="description" placeholder="Write your content description"></textarea>
+<input id="file" type="file" accept=".pdf,.jpg,.png,.mp4">
+<button onclick="publish()">Publish</button>
 <p id="message"></p>
+<p class="small">Demo upload: content is currently stored in this browser only.</p>
 </div>
 </section>
 
-<section>
+<section id="creator">
 <h2>💰 Creator Dashboard</h2>
-<div class="card">
-<p>Your published posts: <b id="posts">0</b></p>
-<p>Your views: <b id="views">0</b></p>
-<p>Your estimated earnings: <b id="earnings">0 RWF</b></p>
-<p>Note: Earnings are a preview only. Real payments will require a verified backend and payment system.</p>
+<div class="grid">
+<div class="card"><h3>My Posts</h3><h2 id="posts">0</h2></div>
+<div class="card"><h3>Views</h3><h2 id="views">0</h2></div>
+<div class="card"><h3>Estimated Earnings</h3><h2 id="earnings">0 RWF</h2></div>
 </div>
+<p class="small">Demo statistics only. Real creator payments require a secure backend.</p>
 </section>
 
 <footer>
-<h3>Read UP</h3>
+<h2>📚 Read UP</h2>
 <p>Read • Learn • Share • Earn</p>
-<p>© 2026 Read UP. All rights reserved.</p>
+<p>© 2026 Read UP</p>
 </footer>
 
 <script>
-let posts=[];
-function publish(){
-let title=document.getElementById('title').value;
-let category=document.getElementById('category').value;
-let description=document.getElementById('description').value;
-if(!title||!description){alert('Please enter title and description');return;}
-let post={title,category,description};
-posts.push(post);
-let target={News:'newsList','Exam Papers':'examList',Stories:'storyList',Videos:'videoList',Books:'newsList'}[category];
-let card=document.createElement('div');
-card.className='card';
-let h=document.createElement('h3');h.textContent=title;
-let p=document.createElement('p');p.textContent=description;
-card.append(h,p);
-document.getElementById(target).append(card);
-document.getElementById('posts').textContent=posts.length;
-document.getElementById('message').textContent='Content published!';
-document.getElementById('title').value='';
-document.getElementById('description').value='';
+const books=[
+["The Power of Education","Imbaraga z'Uburezi","Le pouvoir de l'éducation"],
+["Dreams of Tomorrow","Inzozi z'ejo hazaza","Les rêves de demain"],
+["Journey to Success","Urugendo rwo gutsinda","Le chemin du succès"],
+["Life Lessons","Amasomo y'ubuzima","Les leçons de la vie"]
+];
+const translations={
+en:{welcome:"Welcome to Read UP",tag:"Read • Learn • Share • Earn",books:"Our Books"},
+rw:{welcome:"Murakaza neza kuri Read UP",tag:"Soma • Iga • Sangiza • Uhembwe",books:"Ibitabo byacu"},
+fr:{welcome:"Bienvenue sur Read UP",tag:"Lire • Apprendre • Partager • Gagner",books:"Nos livres"}
+};
+let lang="en",currentBook=0,page=1,posts=[];
+function changeLanguage(){
+lang=document.getElementById("language").value;
+document.getElementById("welcome").textContent=translations[lang].welcome;
+document.getElementById("tagline").textContent=translations[lang].tag;
+document.getElementById("bookHeading").textContent="📚 "+translations[lang].books;
+renderBooks();
 }
+function renderBooks(){
+document.getElementById("bookList").innerHTML=books.map((b,i)=>`
+<div class="card"><div class="cover">📖</div>
+<h3>${b[lang==="en"?0:lang==="rw"?1:2]}</h3>
+<p>30 pages</p><button onclick="openBook(${i})">Read Book</button></div>`).join("");
+}
+function openBook(i){
+currentBook=i;page=1;
+document.getElementById("readerSection").classList.remove("hidden");
+document.getElementById("bookTitle").textContent=books[i][lang==="en"?0:lang==="rw"?1:2];
+showPage();
+document.getElementById("readerSection").scrollIntoView();
+}
+function showPage(){
+document.getElementById("pageText").textContent=pageContent(currentBook,page);
+document.getElementById("pageNumber").textContent="Page "+page+" / 30";
+}
+function pageContent(book,p){
+const titles=[
+["Education opens doors","Knowledge is power","Learning changes lives"],
+["A dream begins","Believe in yourself","The future is yours"],
+["The first step","Never give up","Success takes effort"],
+["The value of kindness","Learning from mistakes","Hope and courage"]
+];
+const rw=[
+["Uburezi bufungura imiryango","Ubumenyi ni imbaraga","Kwiga bihindura ubuzima"],
+["Inzozi ziratangira","Iyumvemo ubushobozi","Ejo hazaza ni uwawe"],
+["Intambwe ya mbere","Ntucike intege","Gutsinda bisaba umuhate"],
+["Agaciro k'ineza","Kwiga ku makosa","Icyizere n'ubutwari"]
+];
+const fr=[
+["L'éducation ouvre des portes","Le savoir est une force","Apprendre change la vie"],
+["Un rêve commence","Croyez en vous","L'avenir vous appartient"],
+["Le premier pas","N'abandonnez jamais","La réussite demande des efforts"],
+["La valeur de la gentillesse","Apprendre de ses erreurs","Espoir et courage"]
+];
+let headings=lang==="en"?titles:lang==="rw"?rw:fr;
+let h=headings[book][(p-1)%3];
+let paragraphs={
+en:`${h}. Every great journey begins with a small step. We learn from experience, help one another and keep moving forward. Each new day gives us another opportunity to grow, discover our talents and make our dreams real. This is a lesson we should carry with us throughout life.`,
+rw:`${h}. Buri rugendo rukomeye rutangirira ku ntambwe nto. Twigira ku byo tunyuramo, tugafashanya kandi tugakomeza gutera imbere. Buri munsi uduha amahirwe mashya yo kwiga, kuvumbura impano zacu no kugera ku nzozi zacu. Iri ni isomo dukwiye guhora tuzirikana mu buzima.`,
+fr:`${h}. Chaque grand voyage commence par un petit pas. Nous apprenons de nos expériences, nous nous aidons et nous continuons à avancer. Chaque nouveau jour nous donne une occasion de grandir, de découvrir nos talents et de réaliser nos rêves. C'est une leçon à garder toute notre vie.`
+};
+return paragraphs[lang]+" "+paragraphs[lang];
+}
+function nextPage(){if(page<30){page++;showPage();}}
+function previousPage(){if(page>1){page--;showPage();}}
+function publish(){
+let t=document.getElementById("title").value.trim();
+let d=document.getElementById("description").value.trim();
+let c=document.getElementById("category").value;
+if(!t||!d){alert("Enter a title and description");return;}
+posts.push({title:t,description:d,category:c});
+let ids={"News":"newsList","Exam Papers":"examList","Stories":"storyList","Videos":"videoList","Books":"newsList"};
+let el=document.createElement("div");el.className="card";
+let h=document.createElement("h3");h.textContent=t;
+let p=document.createElement("p");p.textContent=d;
+el.append(h,p);
+document.getElementById(ids[c]).prepend(el);
+document.getElementById("posts").textContent=posts.length;
+document.getElementById("message").textContent="Published successfully!";
+document.getElementById("title").value="";
+document.getElementById("description").value="";
+}
+function searchContent(){
+let q=document.getElementById("search").value.toLowerCase();
+document.querySelectorAll(".card").forEach(c=>{
+c.style.display=c.textContent.toLowerCase().includes(q)?"":"none";
+});
+}
+renderBooks();
 </script>
 </body>
 </html>
@@ -829,470 +1382,196 @@ document.getElementById('description').value='';
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Read UP</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Read UP | Read Learn Share</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial;background:#f5f7fb;color:#182338}
-header{background:#142b52;color:white;padding:20px 6%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}
-.logo{font-size:28px;font-weight:bold;color:#65d5ff}
+body{margin:0;font-family:Arial,sans-serif;background:#f3f6fc;color:#17233b}
+header{background:#10284b;color:white;padding:18px 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px}
+.logo{font-size:27px;font-weight:bold;color:#65d5ff}
 nav{display:flex;gap:15px;flex-wrap:wrap}
 nav a{color:white;text-decoration:none;font-size:14px}
-.hero{background:linear-gradient(120deg,#142b52,#176b9c);color:white;padding:65px 7%;text-align:center}
-.hero h1{font-size:42px}
-.search{padding:14px;width:80%;max-width:500px;border:0;border-radius:8px}
-button{background:#087db9;color:white;padding:12px 18px;border:0;border-radius:7px;cursor:pointer}
-section{padding:35px 6%}
+select,input,textarea{padding:12px;border:1px solid #ddd;border-radius:8px;width:100%;margin:7px 0}
+button{background:#087eb9;color:white;border:0;border-radius:8px;padding:11px 16px;cursor:pointer}
+.hero{background:linear-gradient(120deg,#10284b,#087eb9);padding:65px 6%;text-align:center;color:white}
+.hero h1{font-size:43px}
+section{padding:32px 6%}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:18px}
-.card{background:white;padding:20px;border-radius:12px;box-shadow:0 3px 12px #0001}
-.card h3{color:#176b9c}
-.upload{background:white;padding:25px;border-radius:12px}
-input,textarea,select{padding:12px;width:100%;margin:8px 0;border:1px solid #ddd;border-radius:7px}
-footer{text-align:center;background:#142b52;color:white;padding:25px}
+.card{background:white;border-radius:12px;padding:19px;box-shadow:0 3px 12px #0001}
+.card h3{color:#087eb9}
+.cover{height:130px;border-radius:9px;background:linear-gradient(135deg,#10284b,#2b9ac9);display:grid;place-items:center;color:white;font-size:38px}
+.reader{background:white;padding:25px;border-radius:12px;line-height:1.8;min-height:220px}
+footer{background:#10284b;color:white;text-align:center;padding:28px}
 .hidden{display:none}
+.small{color:#65748b;font-size:13px}
 </style>
 </head>
 <body>
 <header>
 <div class="logo">📚 Read UP</div>
 <nav>
-<a href="#home">Home</a>
-<a href="#books">Books</a>
-<a href="#news">News</a>
-<a href="#exams">Exam Papers</a>
-<a href="#stories">Stories</a>
-<a href="#videos">Videos</a>
-<a href="#upload">Upload</a>
+<a href="#home">Home</a><a href="#books">Books</a>
+<a href="#news">News</a><a href="#exams">Exams</a>
+<a href="#stories">Stories</a><a href="#videos">Videos</a>
+<a href="#upload">Upload</a><a href="#creator">Creator</a>
 </nav>
+<select id="language" onchange="changeLanguage()" style="width:145px">
+<option value="en">🇬🇧 English</option>
+<option value="rw">🇷🇼 Kinyarwanda</option>
+<option value="fr">🇫🇷 Français</option>
+</select>
 </header>
 
 <div class="hero" id="home">
-<h1>Welcome to Read UP</h1>
-<p>Read, Learn, Share and Earn!</p>
-<input class="search" id="search" placeholder="Search books, news, stories...">
+<h1 id="welcome">Welcome to Read UP</h1>
+<p id="tagline">Read • Learn • Share • Earn</p>
+<input id="search" placeholder="Search content..." oninput="searchContent()">
 </div>
 
 <section id="books">
-<h2>📚 Featured Books</h2>
-<div class="grid">
-<div class="card"><h3>The Power of Education</h3><p>A story about knowledge and success.</p><button onclick="alert('Book coming soon!')">Read Book</button></div>
-<div class="card"><h3>Dreams of Tomorrow</h3><p>An inspiring story about dreams.</p><button onclick="alert('Book coming soon!')">Read Book</button></div>
-<div class="card"><h3>Journey to Success</h3><p>A journey of courage and hope.</p><button onclick="alert('Book coming soon!')">Read Book</button></div>
-<div class="card"><h3>Life Lessons</h3><p>Beautiful lessons about life.</p><button onclick="alert('Book coming soon!')">Read Book</button></div>
-</div>
+<h2 id="bookHeading">📚 Our Books</h2>
+<div class="grid" id="bookList"></div>
 </section>
 
-<section id="news"><h2>📰 Latest News</h2><div class="grid" id="newsList"></div></section>
+<section id="readerSection" class="hidden">
+<h2 id="bookTitle"></h2>
+<div class="reader">
+<p id="pageText"></p>
+</div>
+<p id="pageNumber"></p>
+<button onclick="previousPage()">← Previous</button>
+<button onclick="nextPage()">Next →</button>
+</section>
+
+<section id="news"><h2>📰 News</h2><div class="grid" id="newsList"></div></section>
 <section id="exams"><h2>📝 Exam Papers</h2><div class="grid" id="examList"></div></section>
 <section id="stories"><h2>📖 Stories</h2><div class="grid" id="storyList"></div></section>
 <section id="videos"><h2>🎥 Videos</h2><div class="grid" id="videoList"></div></section>
 
 <section id="upload">
-<h2>⬆️ Share Your Content</h2>
-<div class="upload">
+<h2 id="uploadHeading">⬆️ Upload Your Content</h2>
+<div class="card">
 <input id="title" placeholder="Content title">
 <select id="category">
 <option>News</option><option>Exam Papers</option>
 <option>Stories</option><option>Videos</option><option>Books</option>
 </select>
-<textarea id="description" placeholder="Write a description"></textarea>
-<input id="file" type="file">
-<button onclick="publish()">Publish Content</button>
+<textarea id="description" placeholder="Write your content description"></textarea>
+<input id="file" type="file" accept=".pdf,.jpg,.png,.mp4">
+<button onclick="publish()">Publish</button>
 <p id="message"></p>
+<p class="small">Demo upload: content is currently stored in this browser only.</p>
 </div>
 </section>
 
-<section>
+<section id="creator">
 <h2>💰 Creator Dashboard</h2>
-<div class="card">
-<p>Your published posts: <b id="posts">0</b></p>
-<p>Your views: <b id="views">0</b></p>
-<p>Your estimated earnings: <b id="earnings">0 RWF</b></p>
-<p>Note: Earnings are a preview only. Real payments will require a verified backend and payment system.</p>
-</div>
-</section>
-
-<footer>
-<h3>Read UP</h3>
-<p>Read • Learn • Share • Earn</p>
-<p>© 2026 Read UP. All rights reserved.</p>
-</footer>
-
-<script>
-let posts=[];
-function publish(){
-let title=document.getElementById('title').value;
-let category=document.getElementById('category').value;
-let description=document.getElementById('description').value;
-if(!title||!description){alert('Please enter title and description');return;}
-let post={title,category,description};
-posts.push(post);
-let target={News:'newsList','Exam Papers':'examList',Stories:'storyList',Videos:'videoList',Books:'newsList'}[category];
-let card=document.createElement('div');
-card.className='card';
-let h=document.createElement('h3');h.textContent=title;
-let p=document.createElement('p');p.textContent=description;
-card.append(h,p);
-document.getElementById(target).append(card);
-document.getElementById('posts').textContent=posts.length;
-document.getElementById('message').textContent='Content published!';
-document.getElementById('title').value='';
-document.getElementById('description').value='';
-}
-</script>
-</body>
-</html>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Read UP</title>
-<style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial;background:#f5f7fb;color:#182338}
-header{background:#142b52;color:white;padding:20px 6%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}
-.logo{font-size:28px;font-weight:bold;color:#65d5ff}
-nav{display:flex;gap:15px;flex-wrap:wrap}
-nav a{color:white;text-decoration:none;font-size:14px}
-.hero{background:linear-gradient(120deg,#142b52,#176b9c);color:white;padding:65px 7%;text-align:center}
-.hero h1{font-size:42px}
-.search{padding:14px;width:80%;max-width:500px;border:0;border-radius:8px}
-button{background:#087db9;color:white;padding:12px 18px;border:0;border-radius:7px;cursor:pointer}
-section{padding:35px 6%}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:18px}
-.card{background:white;padding:20px;border-radius:12px;box-shadow:0 3px 12px #0001}
-.card h3{color:#176b9c}
-.upload{background:white;padding:25px;border-radius:12px}
-input,textarea,select{padding:12px;width:100%;margin:8px 0;border:1px solid #ddd;border-radius:7px}
-footer{text-align:center;background:#142b52;color:white;padding:25px}
-.hidden{display:none}
-</style>
-</head>
-<body>
-<header>
-<div class="logo">📚 Read UP</div>
-<nav>
-<a href="#home">Home</a>
-<a href="#books">Books</a>
-<a href="#news">News</a>
-<a href="#exams">Exam Papers</a>
-<a href="#stories">Stories</a>
-<a href="#videos">Videos</a>
-<a href="#upload">Upload</a>
-</nav>
-</header>
-
-<div class="hero" id="home">
-<h1>Welcome to Read UP</h1>
-<p>Read, Learn, Share and Earn!</p>
-<input class="search" id="search" placeholder="Search books, news, stories...">
-</div>
-
-<section id="books">
-<h2>📚 Featured Books</h2>
 <div class="grid">
-<div class="card"><h3>The Power of Education</h3><p>A story about knowledge and success.</p><button onclick="alert('Book coming soon!')">Read Book</button></div>
-<div class="card"><h3>Dreams of Tomorrow</h3><p>An inspiring story about dreams.</p><button onclick="alert('Book coming soon!')">Read Book</button></div>
-<div class="card"><h3>Journey to Success</h3><p>A journey of courage and hope.</p><button onclick="alert('Book coming soon!')">Read Book</button></div>
-<div class="card"><h3>Life Lessons</h3><p>Beautiful lessons about life.</p><button onclick="alert('Book coming soon!')">Read Book</button></div>
+<div class="card"><h3>My Posts</h3><h2 id="posts">0</h2></div>
+<div class="card"><h3>Views</h3><h2 id="views">0</h2></div>
+<div class="card"><h3>Estimated Earnings</h3><h2 id="earnings">0 RWF</h2></div>
 </div>
-</section>
-
-<section id="news"><h2>📰 Latest News</h2><div class="grid" id="newsList"></div></section>
-<section id="exams"><h2>📝 Exam Papers</h2><div class="grid" id="examList"></div></section>
-<section id="stories"><h2>📖 Stories</h2><div class="grid" id="storyList"></div></section>
-<section id="videos"><h2>🎥 Videos</h2><div class="grid" id="videoList"></div></section>
-
-<section id="upload">
-<h2>⬆️ Share Your Content</h2>
-<div class="upload">
-<input id="title" placeholder="Content title">
-<select id="category">
-<option>News</option><option>Exam Papers</option>
-<option>Stories</option><option>Videos</option><option>Books</option>
-</select>
-<textarea id="description" placeholder="Write a description"></textarea>
-<input id="file" type="file">
-<button onclick="publish()">Publish Content</button>
-<p id="message"></p>
-</div>
-</section>
-
-<section>
-<h2>💰 Creator Dashboard</h2>
-<div class="card">
-<p>Your published posts: <b id="posts">0</b></p>
-<p>Your views: <b id="views">0</b></p>
-<p>Your estimated earnings: <b id="earnings">0 RWF</b></p>
-<p>Note: Earnings are a preview only. Real payments will require a verified backend and payment system.</p>
-</div>
+<p class="small">Demo statistics only. Real creator payments require a secure backend.</p>
 </section>
 
 <footer>
-<h3>Read UP</h3>
+<h2>📚 Read UP</h2>
 <p>Read • Learn • Share • Earn</p>
-<p>© 2026 Read UP. All rights reserved.</p>
+<p>© 2026 Read UP</p>
 </footer>
 
 <script>
-let posts=[];
-function publish(){
-let title=document.getElementById('title').value;
-let category=document.getElementById('category').value;
-let description=document.getElementById('description').value;
-if(!title||!description){alert('Please enter title and description');return;}
-let post={title,category,description};
-posts.push(post);
-let target={News:'newsList','Exam Papers':'examList',Stories:'storyList',Videos:'videoList',Books:'newsList'}[category];
-let card=document.createElement('div');
-card.className='card';
-let h=document.createElement('h3');h.textContent=title;
-let p=document.createElement('p');p.textContent=description;
-card.append(h,p);
-document.getElementById(target).append(card);
-document.getElementById('posts').textContent=posts.length;
-document.getElementById('message').textContent='Content published!';
-document.getElementById('title').value='';
-document.getElementById('description').value='';
+const books=[
+["The Power of Education","Imbaraga z'Uburezi","Le pouvoir de l'éducation"],
+["Dreams of Tomorrow","Inzozi z'ejo hazaza","Les rêves de demain"],
+["Journey to Success","Urugendo rwo gutsinda","Le chemin du succès"],
+["Life Lessons","Amasomo y'ubuzima","Les leçons de la vie"]
+];
+const translations={
+en:{welcome:"Welcome to Read UP",tag:"Read • Learn • Share • Earn",books:"Our Books"},
+rw:{welcome:"Murakaza neza kuri Read UP",tag:"Soma • Iga • Sangiza • Uhembwe",books:"Ibitabo byacu"},
+fr:{welcome:"Bienvenue sur Read UP",tag:"Lire • Apprendre • Partager • Gagner",books:"Nos livres"}
+};
+let lang="en",currentBook=0,page=1,posts=[];
+function changeLanguage(){
+lang=document.getElementById("language").value;
+document.getElementById("welcome").textContent=translations[lang].welcome;
+document.getElementById("tagline").textContent=translations[lang].tag;
+document.getElementById("bookHeading").textContent="📚 "+translations[lang].books;
+renderBooks();
 }
+function renderBooks(){
+document.getElementById("bookList").innerHTML=books.map((b,i)=>`
+<div class="card"><div class="cover">📖</div>
+<h3>${b[lang==="en"?0:lang==="rw"?1:2]}</h3>
+<p>30 pages</p><button onclick="openBook(${i})">Read Book</button></div>`).join("");
+}
+function openBook(i){
+currentBook=i;page=1;
+document.getElementById("readerSection").classList.remove("hidden");
+document.getElementById("bookTitle").textContent=books[i][lang==="en"?0:lang==="rw"?1:2];
+showPage();
+document.getElementById("readerSection").scrollIntoView();
+}
+function showPage(){
+document.getElementById("pageText").textContent=pageContent(currentBook,page);
+document.getElementById("pageNumber").textContent="Page "+page+" / 30";
+}
+function pageContent(book,p){
+const titles=[
+["Education opens doors","Knowledge is power","Learning changes lives"],
+["A dream begins","Believe in yourself","The future is yours"],
+["The first step","Never give up","Success takes effort"],
+["The value of kindness","Learning from mistakes","Hope and courage"]
+];
+const rw=[
+["Uburezi bufungura imiryango","Ubumenyi ni imbaraga","Kwiga bihindura ubuzima"],
+["Inzozi ziratangira","Iyumvemo ubushobozi","Ejo hazaza ni uwawe"],
+["Intambwe ya mbere","Ntucike intege","Gutsinda bisaba umuhate"],
+["Agaciro k'ineza","Kwiga ku makosa","Icyizere n'ubutwari"]
+];
+const fr=[
+["L'éducation ouvre des portes","Le savoir est une force","Apprendre change la vie"],
+["Un rêve commence","Croyez en vous","L'avenir vous appartient"],
+["Le premier pas","N'abandonnez jamais","La réussite demande des efforts"],
+["La valeur de la gentillesse","Apprendre de ses erreurs","Espoir et courage"]
+];
+let headings=lang==="en"?titles:lang==="rw"?rw:fr;
+let h=headings[book][(p-1)%3];
+let paragraphs={
+en:`${h}. Every great journey begins with a small step. We learn from experience, help one another and keep moving forward. Each new day gives us another opportunity to grow, discover our talents and make our dreams real. This is a lesson we should carry with us throughout life.`,
+rw:`${h}. Buri rugendo rukomeye rutangirira ku ntambwe nto. Twigira ku byo tunyuramo, tugafashanya kandi tugakomeza gutera imbere. Buri munsi uduha amahirwe mashya yo kwiga, kuvumbura impano zacu no kugera ku nzozi zacu. Iri ni isomo dukwiye guhora tuzirikana mu buzima.`,
+fr:`${h}. Chaque grand voyage commence par un petit pas. Nous apprenons de nos expériences, nous nous aidons et nous continuons à avancer. Chaque nouveau jour nous donne une occasion de grandir, de découvrir nos talents et de réaliser nos rêves. C'est une leçon à garder toute notre vie.`
+};
+return paragraphs[lang]+" "+paragraphs[lang];
+}
+function nextPage(){if(page<30){page++;showPage();}}
+function previousPage(){if(page>1){page--;showPage();}}
+function publish(){
+let t=document.getElementById("title").value.trim();
+let d=document.getElementById("description").value.trim();
+let c=document.getElementById("category").value;
+if(!t||!d){alert("Enter a title and description");return;}
+posts.push({title:t,description:d,category:c});
+let ids={"News":"newsList","Exam Papers":"examList","Stories":"storyList","Videos":"videoList","Books":"newsList"};
+let el=document.createElement("div");el.className="card";
+let h=document.createElement("h3");h.textContent=t;
+let p=document.createElement("p");p.textContent=d;
+el.append(h,p);
+document.getElementById(ids[c]).prepend(el);
+document.getElementById("posts").textContent=posts.length;
+document.getElementById("message").textContent="Published successfully!";
+document.getElementById("title").value="";
+document.getElementById("description").value="";
+}
+function searchContent(){
+let q=document.getElementById("search").value.toLowerCase();
+document.querySelectorAll(".card").forEach(c=>{
+c.style.display=c.textContent.toLowerCase().includes(q)?"":"none";
+});
+}
+renderBooks();
 </script>
 </body>
 </html>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Read UP</title>
-<style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial;background:#f5f7fb;color:#182338}
-header{background:#142b52;color:white;padding:20px 6%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}
-.logo{font-size:28px;font-weight:bold;color:#65d5ff}
-nav{display:flex;gap:15px;flex-wrap:wrap}
-nav a{color:white;text-decoration:none;font-size:14px}
-.hero{background:linear-gradient(120deg,#142b52,#176b9c);color:white;padding:65px 7%;text-align:center}
-.hero h1{font-size:42px}
-.search{padding:14px;width:80%;max-width:500px;border:0;border-radius:8px}
-button{background:#087db9;color:white;padding:12px 18px;border:0;border-radius:7px;cursor:pointer}
-section{padding:35px 6%}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:18px}
-.card{background:white;padding:20px;border-radius:12px;box-shadow:0 3px 12px #0001}
-.card h3{color:#176b9c}
-.upload{background:white;padding:25px;border-radius:12px}
-input,textarea,select{padding:12px;width:100%;margin:8px 0;border:1px solid #ddd;border-radius:7px}
-footer{text-align:center;background:#142b52;color:white;padding:25px}
-.hidden{display:none}
-</style>
-</head>
-<body>
-<header>
-<div class="logo">📚 Read UP</div>
-<nav>
-<a href="#home">Home</a>
-<a href="#books">Books</a>
-<a href="#news">News</a>
-<a href="#exams">Exam Papers</a>
-<a href="#stories">Stories</a>
-<a href="#videos">Videos</a>
-<a href="#upload">Upload</a>
-</nav>
-</header>
-
-<div class="hero" id="home">
-<h1>Welcome to Read UP</h1>
-<p>Read, Learn, Share and Earn!</p>
-<input class="search" id="search" placeholder="Search books, news, stories...">
-</div>
-
-<section id="books">
-<h2>📚 Featured Books</h2>
-<div class="grid">
-<div class="card"><h3>The Power of Education</h3><p>A story about knowledge and success.</p><button onclick="alert('Book coming soon!')">Read Book</button></div>
-<div class="card"><h3>Dreams of Tomorrow</h3><p>An inspiring story about dreams.</p><button onclick="alert('Book coming soon!')">Read Book</button></div>
-<div class="card"><h3>Journey to Success</h3><p>A journey of courage and hope.</p><button onclick="alert('Book coming soon!')">Read Book</button></div>
-<div class="card"><h3>Life Lessons</h3><p>Beautiful lessons about life.</p><button onclick="alert('Book coming soon!')">Read Book</button></div>
-</div>
-</section>
-
-<section id="news"><h2>📰 Latest News</h2><div class="grid" id="newsList"></div></section>
-<section id="exams"><h2>📝 Exam Papers</h2><div class="grid" id="examList"></div></section>
-<section id="stories"><h2>📖 Stories</h2><div class="grid" id="storyList"></div></section>
-<section id="videos"><h2>🎥 Videos</h2><div class="grid" id="videoList"></div></section>
-
-<section id="upload">
-<h2>⬆️ Share Your Content</h2>
-<div class="upload">
-<input id="title" placeholder="Content title">
-<select id="category">
-<option>News</option><option>Exam Papers</option>
-<option>Stories</option><option>Videos</option><option>Books</option>
-</select>
-<textarea id="description" placeholder="Write a description"></textarea>
-<input id="file" type="file">
-<button onclick="publish()">Publish Content</button>
-<p id="message"></p>
-</div>
-</section>
-
-<section>
-<h2>💰 Creator Dashboard</h2>
-<div class="card">
-<p>Your published posts: <b id="posts">0</b></p>
-<p>Your views: <b id="views">0</b></p>
-<p>Your estimated earnings: <b id="earnings">0 RWF</b></p>
-<p>Note: Earnings are a preview only. Real payments will require a verified backend and payment system.</p>
-</div>
-</section>
-
-<footer>
-<h3>Read UP</h3>
-<p>Read • Learn • Share • Earn</p>
-<p>© 2026 Read UP. All rights reserved.</p>
-</footer>
-
-<script>
-let posts=[];
-function publish(){
-let title=document.getElementById('title').value;
-let category=document.getElementById('category').value;
-let description=document.getElementById('description').value;
-if(!title||!description){alert('Please enter title and description');return;}
-let post={title,category,description};
-posts.push(post);
-let target={News:'newsList','Exam Papers':'examList',Stories:'storyList',Videos:'videoList',Books:'newsList'}[category];
-let card=document.createElement('div');
-card.className='card';
-let h=document.createElement('h3');h.textContent=title;
-let p=document.createElement('p');p.textContent=description;
-card.append(h,p);
-document.getElementById(target).append(card);
-document.getElementById('posts').textContent=posts.length;
-document.getElementById('message').textContent='Content published!';
-document.getElementById('title').value='';
-document.getElementById('description').value='';
-}
-</script>
-</body>
-</html>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Read UP</title>
-<style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial;background:#f5f7fb;color:#182338}
-header{background:#142b52;color:white;padding:20px 6%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}
-.logo{font-size:28px;font-weight:bold;color:#65d5ff}
-nav{display:flex;gap:15px;flex-wrap:wrap}
-nav a{color:white;text-decoration:none;font-size:14px}
-.hero{background:linear-gradient(120deg,#142b52,#176b9c);color:white;padding:65px 7%;text-align:center}
-.hero h1{font-size:42px}
-.search{padding:14px;width:80%;max-width:500px;border:0;border-radius:8px}
-button{background:#087db9;color:white;padding:12px 18px;border:0;border-radius:7px;cursor:pointer}
-section{padding:35px 6%}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:18px}
-.card{background:white;padding:20px;border-radius:12px;box-shadow:0 3px 12px #0001}
-.card h3{color:#176b9c}
-.upload{background:white;padding:25px;border-radius:12px}
-input,textarea,select{padding:12px;width:100%;margin:8px 0;border:1px solid #ddd;border-radius:7px}
-footer{text-align:center;background:#142b52;color:white;padding:25px}
-.hidden{display:none}
-</style>
-</head>
-<body>
-<header>
-<div class="logo">📚 Read UP</div>
-<nav>
-<a href="#home">Home</a>
-<a href="#books">Books</a>
-<a href="#news">News</a>
-<a href="#exams">Exam Papers</a>
-<a href="#stories">Stories</a>
-<a href="#videos">Videos</a>
-<a href="#upload">Upload</a>
-</nav>
-</header>
-
-<div class="hero" id="home">
-<h1>Welcome to Read UP</h1>
-<p>Read, Learn, Share and Earn!</p>
-<input class="search" id="search" placeholder="Search books, news, stories...">
-</div>
-
-<section id="books">
-<h2>📚 Featured Books</h2>
-<div class="grid">
-<div class="card"><h3>The Power of Education</h3><p>A story about knowledge and success.</p><button onclick="alert('Book coming soon!')">Read Book</button></div>
-<div class="card"><h3>Dreams of Tomorrow</h3><p>An inspiring story about dreams.</p><button onclick="alert('Book coming soon!')">Read Book</button></div>
-<div class="card"><h3>Journey to Success</h3><p>A journey of courage and hope.</p><button onclick="alert('Book coming soon!')">Read Book</button></div>
-<div class="card"><h3>Life Lessons</h3><p>Beautiful lessons about life.</p><button onclick="alert('Book coming soon!')">Read Book</button></div>
-</div>
-</section>
-
-<section id="news"><h2>📰 Latest News</h2><div class="grid" id="newsList"></div></section>
-<section id="exams"><h2>📝 Exam Papers</h2><div class="grid" id="examList"></div></section>
-<section id="stories"><h2>📖 Stories</h2><div class="grid" id="storyList"></div></section>
-<section id="videos"><h2>🎥 Videos</h2><div class="grid" id="videoList"></div></section>
-
-<section id="upload">
-<h2>⬆️ Share Your Content</h2>
-<div class="upload">
-<input id="title" placeholder="Content title">
-<select id="category">
-<option>News</option><option>Exam Papers</option>
-<option>Stories</option><option>Videos</option><option>Books</option>
-</select>
-<textarea id="description" placeholder="Write a description"></textarea>
-<input id="file" type="file">
-<button onclick="publish()">Publish Content</button>
-<p id="message"></p>
-</div>
-</section>
-
-<section>
-<h2>💰 Creator Dashboard</h2>
-<div class="card">
-<p>Your published posts: <b id="posts">0</b></p>
-<p>Your views: <b id="views">0</b></p>
-<p>Your estimated earnings: <b id="earnings">0 RWF</b></p>
-<p>Note: Earnings are a preview only. Real payments will require a verified backend and payment system.</p>
-</div>
-</section>
-
-<footer>
-<h3>Read UP</h3>
-<p>Read • Learn • Share • Earn</p>
-<p>© 2026 Read UP. All rights reserved.</p>
-</footer>
-
-<script>
-let posts=[];
-function publish(){
-let title=document.getElementById('title').value;
-let category=document.getElementById('category').value;
-let description=document.getElementById('description').value;
-if(!title||!description){alert('Please enter title and description');return;}
-let post={title,category,description};
-posts.push(post);
-let target={News:'newsList','Exam Papers':'examList',Stories:'storyList',Videos:'videoList',Books:'newsList'}[category];
-let card=document.createElement('div');
-card.className='card';
-let h=document.createElement('h3');h.textContent=title;
-let p=document.createElement('p');p.textContent=description;
-card.append(h,p);
-document.getElementById(target).append(card);
-document.getElementById('posts').textContent=posts.length;
-document.getElementById('message').textContent='Content published!';
-document.getElementById('title').value='';
-document.getElementById('description').value='';
-}
-</script>
-</body>
-</html>
+vv
