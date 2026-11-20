@@ -1134,6 +1134,75 @@ function setLanguage(value){
 }
 
 function renderBooks(){
+function renderPage(){
+ const b=books[bookIndex];
+ const t=ui[lang];
+ const L=["en","rw","fr"].indexOf(lang);
+
+ el("readerTitle").textContent=b.title[L];
+ el("readerImage").src=b.image;
+ el("pageLabel").textContent=t.label;
+
+ // Buri paji ifite inkuru yayo yuzuye
+ el("pageTitle").textContent=b.chapters[L][pageIndex];
+ el("pageText").textContent=b.stories[L][pageIndex];
+
+ el("pageNumber").textContent=
+   `${t.page} ${pageIndex+1} ${t.of} 30`;
+
+ el("prev").textContent=t.prev;
+ el("next").textContent=t.next;
+
+ el("prev").disabled=pageIndex===0;
+ el("next").disabled=pageIndex===29;
+}
+
+function renderPage(){
+ const b=books[bookIndex];
+ const t=ui[lang];
+ const L=["en","rw","fr"].indexOf(lang);
+
+ el("readerTitle").textContent=b.title[L];
+ el("readerImage").src=b.image;
+ el("pageLabel").textContent=t.label;
+
+ // Buri paji ifite inkuru yayo yuzuye
+ el("pageTitle").textContent=b.chapters[L][pageIndex];
+ el("pageText").textContent=b.stories[L][pageIndex];
+
+ el("pageNumber").textContent=
+   `${t.page} ${pageIndex+1} ${t.of} 30`;
+
+ el("prev").textContent=t.prev;
+ el("next").textContent=t.next;
+
+ el("prev").disabled=pageIndex===0;
+ el("next").disabled=pageIndex===29;
+}
+
+function renderPage(){
+ const b=books[bookIndex];
+ const t=ui[lang];
+ const L=["en","rw","fr"].indexOf(lang);
+
+ el("readerTitle").textContent=b.title[L];
+ el("readerImage").src=b.image;
+ el("pageLabel").textContent=t.label;
+
+ // Buri paji ifite inkuru yayo yuzuye
+ el("pageTitle").textContent=b.chapters[L][pageIndex];
+ el("pageText").textContent=b.stories[L][pageIndex];
+
+ el("pageNumber").textContent=
+   `${t.page} ${pageIndex+1} ${t.of} 30`;
+
+ el("prev").textContent=t.prev;
+ el("next").textContent=t.next;
+
+ el("prev").disabled=pageIndex===0;
+ el("next").disabled=pageIndex===29;
+}
+
  const term=el("search").value.toLowerCase();
  el("bookList").innerHTML="";
  books.forEach((b,i)=>{
