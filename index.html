@@ -1,6938 +1,780 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Read UP - Learn • Practice • Grow</title>
-
+<title>Read UP | Learn • Practice • Grow</title>
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:Arial, sans-serif;
-}
-
-body{
-  background:#f4f7fc;
-  color:#10264d;
-}
-
-/* SIDEBAR */
-.sidebar{
-  position:fixed;
-  left:0;
-  top:0;
-  width:250px;
-  height:100vh;
-  background:#06275c;
-  color:white;
-  padding:20px 15px;
-  overflow-y:auto;
-}
-
-.logo{
-  text-align:center;
-  padding:10px 0 25px;
-}
-
-.logo-icon{
-  font-size:48px;
-}
-
-.logo h1{
-  color:white;
-  font-size:32px;
-}
-
-.logo h1 span{
-  color:#ffd21c;
-}
-
-.logo p{
-  font-size:12px;
-  color:#ddd;
-}
-
-.menu{
-  margin-top:10px;
-}
-
-.menu button{
-  width:100%;
-  border:0;
-  background:transparent;
-  color:white;
-  padding:14px 15px;
-  margin:3px 0;
-  border-radius:12px;
-  text-align:left;
-  font-size:15px;
-  cursor:pointer;
-}
-
-.menu button:hover,
-.menu button.active{
-  background:#ffd21c;
-  color:#06275c;
-  font-weight:bold;
-}
-
-.bottom-logo{
-  margin-top:30px;
-  background:#073878;
-  padding:20px;
-  border-radius:15px;
-  text-align:center;
-}
-
-.bottom-logo strong{
-  color:#ffd21c;
-}
-
-/* MAIN */
-.main{
-  margin-left:250px;
-  min-height:100vh;
-}
-
-/* TOPBAR */
-.topbar{
-  height:70px;
-  background:white;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 30px;
-  box-shadow:0 2px 10px rgba(0,0,0,.06);
-  position:sticky;
-  top:0;
-  z-index:5;
-}
-
-.search{
-  width:45%;
-  display:flex;
-}
-
-.search input{
-  width:100%;
-  padding:13px 18px;
-  border:1px solid #ddd;
-  border-radius:25px 0 0 25px;
-  outline:none;
-}
-
-.search button{
-  width:55px;
-  border:0;
-  background:#087cf5;
-  color:white;
-  border-radius:0 25px 25px 0;
-  cursor:pointer;
-}
-
-.user{
-  display:flex;
-  align-items:center;
-  gap:15px;
-}
-
-.notification{
-  font-size:22px;
-  cursor:pointer;
-}
-
-.avatar{
-  width:40px;
-  height:40px;
-  border-radius:50%;
-  background:#087cf5;
-  color:white;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:bold;
-}
-
-/* PAGE */
-.page{
-  display:none;
-  padding:30px;
-}
-
-.page.active{
-  display:block;
-}
-
-/* HERO */
-.hero{
-  background:linear-gradient(110deg,#052c73,#087cf5);
-  color:white;
-  padding:30px;
-  border-radius:20px;
-  min-height:210px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  overflow:hidden;
-}
-
-.hero h2{
-  font-size:32px;
-  margin-bottom:10px;
-}
-
-.hero h2 span{
-  color:#ffd21c;
-}
-
-.hero p{
-  font-size:17px;
-  margin-bottom:20px;
-}
-
-.yellow-btn{
-  background:#ffd21c;
-  border:none;
-  color:#06275c;
-  padding:13px 22px;
-  border-radius:25px;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-.hero-art{
-  font-size:100px;
-}
-
-/* STATS */
-.stats{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:18px;
-  margin:22px 0;
-}
-
-.stat{
-  padding:22px;
-  border-radius:18px;
-  color:white;
-  min-height:125px;
-}
-
-.stat h3{
-  font-size:27px;
-  margin-top:12px;
-}
-
-.stat p{
-  margin-top:5px;
-}
-
-.blue{background:#087cf5;}
-.green{background:#20b86b;}
-.orange{background:#ff9f1c;}
-.purple{background:#8e4de8;}
-
-/* CARDS */
-.section-title{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin:25px 0 15px;
-}
-
-.section-title h2{
-  font-size:22px;
-}
-
-.cards{
-  display:grid;
-  grid-template-columns:repeat(6,1fr);
-  gap:15px;
-}
-
-.card{
-  background:white;
-  padding:22px 10px;
-  border-radius:17px;
-  text-align:center;
-  box-shadow:0 5px 20px rgba(0,0,0,.06);
-  cursor:pointer;
-  transition:.2s;
-}
-
-.card:hover{
-  transform:translateY(-4px);
-}
-
-.card-icon{
-  font-size:32px;
-  margin-bottom:10px;
-}
-
-.card h3{
-  font-size:14px;
-}
-
-.card p{
-  color:#777;
-  font-size:12px;
-  margin-top:5px;
-}
-
-/* TWO COLUMNS */
-.two-columns{
-  display:grid;
-  grid-template-columns:1.5fr 1fr;
-  gap:20px;
-}
-
-.panel{
-  background:white;
-  border-radius:18px;
-  padding:22px;
-  box-shadow:0 5px 20px rgba(0,0,0,.05);
-}
-
-.activity{
-  display:flex;
-  align-items:center;
-  gap:15px;
-  padding:15px 0;
-  border-bottom:1px solid #eee;
-}
-
-.activity:last-child{
-  border-bottom:0;
-}
-
-.activity-icon{
-  width:42px;
-  height:42px;
-  border-radius:12px;
-  background:#eaf3ff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:20px;
-}
-
-/* UPLOAD */
-.upload-box{
-  background:linear-gradient(120deg,#fff7cf,#fff);
-  border:2px dashed #ffd21c;
-  padding:25px;
-  border-radius:18px;
-}
-
-.upload-buttons{
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:10px;
-  margin-top:18px;
-}
-
-.upload-buttons button{
-  border:0;
-  padding:15px 5px;
-  border-radius:12px;
-  background:white;
-  cursor:pointer;
-  font-weight:bold;
-}
-
-.upload-buttons button:hover{
-  background:#ffd21c;
-}
-
-/* HOME */
-.home-hero{
-  background:linear-gradient(110deg,#032b70,#0b6fe9);
-  border-radius:22px;
-  color:white;
-  padding:40px;
-  min-height:300px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-.home-hero h1{
-  font-size:46px;
-}
-
-.home-hero h1 span{
-  color:#ffd21c;
-}
-
-.home-hero p{
-  font-size:19px;
-  max-width:550px;
-  margin:15px 0 25px;
-}
-
-.resource-grid{
-  display:grid;
-  grid-template-columns:repeat(6,1fr);
-  gap:15px;
-  margin-top:20px;
-}
-
-/* FOOTER */
-footer{
-  background:#06275c;
-  color:white;
-  margin-top:40px;
-  padding:30px;
-  text-align:center;
-}
-
-footer span{
-  color:#ffd21c;
-}
-
-/* MOBILE */
+:root{--navy:#08285d;--blue:#087cf5;--yellow:#ffd329;--bg:#f3f6fc;--green:#16a66a}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:var(--bg);color:#182b49}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.sidebar{position:fixed;inset:0 auto 0 0;width:245px;background:var(--navy);color:white;padding:20px 13px;overflow:auto;z-index:10}
+.brand{text-align:center;padding:8px 0 24px}
+.brand .symbol{font-size:40px}
+.brand h1{font-size:31px}.brand h1 span{color:var(--yellow)}
+.brand small{color:#cbd8ed}
+.menu button{width:100%;display:block;text-align:left;border:0;background:none;color:white;padding:13px 14px;border-radius:10px;margin:3px 0}
+.menu button:hover,.menu button.active{background:var(--yellow);color:var(--navy);font-weight:bold}
+.main{margin-left:245px;min-height:100vh}
+.topbar{height:70px;background:white;display:flex;align-items:center;justify-content:space-between;padding:10px 25px;position:sticky;top:0;z-index:5;box-shadow:0 2px 9px #0001;gap:12px}
+.search{display:flex;max-width:520px;width:55%}
+.search input{width:100%;padding:12px;border:1px solid #ddd;border-radius:22px 0 0 22px;outline:none}
+.search button{border:0;background:var(--blue);color:white;padding:0 18px;border-radius:0 22px 22px 0}
+.user{display:flex;align-items:center;gap:12px}
+.avatar{background:var(--blue);color:white;border-radius:50%;width:38px;height:38px;display:grid;place-items:center}
+.page{display:none;padding:25px;max-width:1500px;margin:auto}
+.page.active{display:block}
+.hero{background:linear-gradient(115deg,#06275d,#087cf5);color:white;padding:35px;border-radius:20px;display:flex;justify-content:space-between;align-items:center;gap:15px;min-height:190px}
+.hero h2{font-size:30px;margin-bottom:12px}.hero h2 span{color:var(--yellow)}
+.hero p{line-height:1.6}.hero-art{font-size:75px}
+.btn{border:0;background:var(--yellow);color:var(--navy);padding:12px 19px;border-radius:25px;font-weight:bold;margin-top:15px}
+.btn.bluebtn{background:var(--blue);color:white}
+.btn.dark{background:var(--navy);color:white}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:20px 0}
+.stat{padding:20px;border-radius:15px;color:white;min-height:110px}
+.stat strong{display:block;font-size:25px;margin:10px 0}
+.blue{background:#087cf5}.green{background:#16a66a}.orange{background:#f49b20}.purple{background:#8453d8}
+.heading{display:flex;justify-content:space-between;align-items:center;margin:24px 0 14px;gap:10px}
+.heading h2{font-size:21px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.card,.panel{background:white;border-radius:16px;padding:18px;box-shadow:0 4px 18px #10264d0b}
+.card{cursor:pointer;transition:.2s}.card:hover{transform:translateY(-4px);box-shadow:0 7px 20px #10264d19}
+.cover{height:150px;border-radius:12px;display:grid;place-items:center;font-size:55px;margin-bottom:13px;color:white;background:linear-gradient(135deg,#123d80,#399bdf)}
+.cover.gold{background:linear-gradient(135deg,#a86a16,#edc46a)}
+.cover.pink{background:linear-gradient(135deg,#9b4e78,#e5a5bc)}
+.cover.greencover{background:linear-gradient(135deg,#176c52,#70b99b)}
+.card h3{font-size:16px;margin:8px 0}.card p{font-size:13px;color:#69778d;line-height:1.5}
+.tag{display:inline-block;background:#eaf2ff;color:#1764c4;padding:5px 9px;border-radius:20px;font-size:11px;margin-top:8px}
+.two{display:grid;grid-template-columns:1.4fr 1fr;gap:17px}
+.activity{padding:13px 0;border-bottom:1px solid #eee;line-height:1.6}
+.activity:last-child{border:0}
+.resource-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.resource{background:white;border-radius:15px;padding:20px;cursor:pointer}
+.resource:hover{outline:2px solid var(--blue)}
+.resource b{display:block;margin:9px 0}
+.book-reader{max-width:850px;margin:auto;background:white;border-radius:18px;padding:30px;min-height:430px;box-shadow:0 5px 25px #0001}
+.book-reader h2{margin:10px 0 20px;color:var(--navy)}
+.book-reader p{font-size:17px;line-height:1.9;white-space:pre-line}
+.reader-controls{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:25px}
+.progress{height:8px;background:#e8edf5;border-radius:20px;margin:15px 0;overflow:hidden}
+.progress div{height:100%;background:var(--blue)}
+input,select,textarea{padding:12px;border:1px solid #d5ddeb;border-radius:9px;width:100%;margin:7px 0}
+textarea{min-height:100px}
+footer{text-align:center;padding:30px;background:var(--navy);color:white;margin-top:30px}
+footer span{color:var(--yellow)}
+.notice{background:#fff5d4;border-radius:12px;padding:13px;margin:12px 0;font-size:13px}
+.hidden{display:none!important}
 @media(max-width:900px){
-  .sidebar{
-    width:75px;
-    padding:10px 8px;
-  }
-
-  .logo h1,
-  .logo p,
-  .menu span,
-  .bottom-logo{
-    display:none;
-  }
-
-  .main{
-    margin-left:75px;
-  }
-
-  .stats{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .cards,
-  .resource-grid{
-    grid-template-columns:repeat(3,1fr);
-  }
-
-  .two-columns{
-    grid-template-columns:1fr;
-  }
-
-  .upload-buttons{
-    grid-template-columns:repeat(3,1fr);
-  }
+.sidebar{width:70px;padding:12px 7px}
+.brand h1,.brand small,.brand .symbol{font-size:0}
+.brand h1 span{font-size:0}
+.menu button{font-size:18px;text-align:center;padding:14px 2px}
+.menu button .label{display:none}
+.main{margin-left:70px}
+.stats{grid-template-columns:repeat(2,1fr)}
+.grid{grid-template-columns:repeat(2,1fr)}
 }
-
 @media(max-width:600px){
-  .topbar{
-    padding:0 12px;
-  }
-
-  .search{
-    width:55%;
-  }
-
-  .page{
-    padding:15px;
-  }
-
-  .hero,
-  .home-hero{
-    padding:25px;
-  }
-
-  .hero h2{
-    font-size:24px;
-  }
-
-  .home-hero h1{
-    font-size:32px;
-  }
-
-  .hero-art{
-    display:none;
-  }
-
-  .stats{
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-  }
-
-  .cards,
-  .resource-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .upload-buttons{
-    grid-template-columns:repeat(2,1fr);
-  }
+.topbar{padding:9px}.user strong{display:none}
+.page{padding:13px}
+.hero{padding:22px}.hero h2{font-size:23px}.hero-art{font-size:45px}
+.stats{gap:9px}.stat{padding:13px}.stat strong{font-size:20px}
+.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.resource-grid{grid-template-columns:repeat(2,1fr)}
+.two{grid-template-columns:1fr}
+.book-reader{padding:19px}
+.book-reader p{font-size:15px}
 }
 </style>
 </head>
-
 <body>
 
-<!-- SIDEBAR -->
 <aside class="sidebar">
-
-  <div class="logo">
-    <div class="logo-icon">📚🎓</div>
-    <h1>Read <span>UP</span></h1>
-    <p>Learn • Practice • Grow</p>
-  </div>
-
-  <div class="menu">
-
-    <button class="active" onclick="showPage('dashboard',this)">
-      🏠 <span>Dashboard</span>
-    </button>
-
-    <button onclick="showPage('home',this)">
-      🏡 <span>Home</span>
-    </button>
-
-    <button>
-      📚 <span>My Books</span>
-    </button>
-
-    <button>
-      📄 <span>Past Papers</span>
-    </button>
-
-    <button>
-      📝 <span>Notes</span>
-    </button>
-
-    <button>
-      ❓ <span>Questions & Exams</span>
-    </button>
-
-    <button>
-      🎥 <span>Videos</span>
-    </button>
-
-    <button>
-      ▶️ <span>MyTube</span>
-    </button>
-
-    <button>
-      👥 <span>Channels</span>
-    </button>
-
-    <button>
-      🔍 <span>Search</span>
-    </button>
-
-    <button>
-      🔔 <span>Notifications</span>
-    </button>
-
-    <button>
-      👤 <span>Profile</span>
-    </button>
-
-    <button>
-      ⚙️ <span>Settings</span>
-    </button>
-
-  </div>
-
-  <div class="bottom-logo">
-    <div style="font-size:35px;">🏆</div>
-    <h3>Read UP</h3>
-    <strong>Earn More!</strong>
-    <p>Create • Share • Earn</p>
-  </div>
-
+ <div class="brand">
+  <div class="symbol">📚🎓</div>
+  <h1>Read <span>UP</span></h1>
+  <small>Learn • Practice • Grow</small>
+ </div>
+ <nav class="menu" id="menu">
+  <button class="active" data-page="dashboard">📊 <span class="label">Dashboard</span></button>
+  <button data-page="home">🏠 <span class="label">Home</span></button>
+  <button data-page="books">📚 <span class="label">Books</span></button>
+  <button data-page="papers">📄 <span class="label">Past Papers</span></button>
+  <button data-page="notes">📝 <span class="label">Notes</span></button>
+  <button data-page="exams">❓ <span class="label">Questions & Exams</span></button>
+  <button data-page="videos">🎥 <span class="label">Videos</span></button>
+  <button data-page="mytube">▶️ <span class="label">MyTube</span></button>
+  <button data-page="channels">👥 <span class="label">Channels</span></button>
+  <button data-page="upload">⬆️ <span class="label">Upload & Earn</span></button>
+  <button data-page="notifications">🔔 <span class="label">Notifications</span></button>
+  <button data-page="profile">👤 <span class="label">Profile</span></button>
+  <button data-page="settings">⚙️ <span class="label">Settings</span></button>
+ </nav>
 </aside>
 
-
-<!-- MAIN -->
 <main class="main">
-
-<!-- TOPBAR -->
 <header class="topbar">
-
-  <div class="search">
-    <input type="text" placeholder="Search books, notes, videos...">
-    <button>🔎</button>
-  </div>
-
-  <div class="user">
-    <div class="notification">🔔</div>
-
-    <div class="avatar">ML</div>
-
-    <strong>Macumu Lionel ▾</strong>
-  </div>
-
+ <div class="search">
+  <input id="searchInput" placeholder="Search Read UP...">
+  <button onclick="searchContent()">🔎</button>
+ </div>
+ <div class="user">
+  <span>🔔</span><div class="avatar">U</div><strong id="userName">Student</strong>
+ </div>
 </header>
 
-
-<!-- ================= DASHBOARD ================= -->
-<section id="dashboard" class="page active">
-
-  <div class="hero">
-
-    <div>
-      <h2>Welcome Back, <span>Macumu Lionel!</span></h2>
-
-      <p>
-        Read. Learn. Share. Earn.
-      </p>
-
-      <button class="yellow-btn">
-        Explore Resources →
-      </button>
-    </div>
-
-    <div class="hero-art">
-      📚🎓
-    </div>
-
-  </div>
-
-
-  <!-- STATS -->
-  <div class="stats">
-
-    <div class="stat blue">
-      👥
-      <h3>125,430</h3>
-      <p>Total Visitors</p>
-    </div>
-
-    <div class="stat green">
-      👁️
-      <h3>917,240</h3>
-      <p>Content Views</p>
-    </div>
-
-    <div class="stat orange">
-      💰
-      <h3>RWF 48,750</h3>
-      <p>Earnings Balance</p>
-    </div>
-
-    <div class="stat purple">
-      👑
-      <h3>RWF 32,000</h3>
-      <p>Creator Earnings</p>
-    </div>
-
-  </div>
-
-
-  <!-- UPLOAD & EARN -->
-  <div class="panel upload-box">
-
-    <div class="section-title">
-      <div>
-        <h2>👑 Creator Area — Upload & Earn</h2>
-        <p>Share your knowledge and earn money from your content.</p>
-      </div>
-
-      <strong>💰 RWF 32,000</strong>
-    </div>
-
-    <div class="upload-buttons">
-
-      <button>📚<br>Upload Books</button>
-
-      <button>📄<br>Upload Notes</button>
-
-      <button>📝<br>Upload Past Papers</button>
-
-      <button>❓<br>Upload Questions</button>
-
-      <button>🎥<br>Upload Videos</button>
-
-    </div>
-
-    <br>
-
-    <button class="yellow-btn">
-      ⬆ Upload & Earn →
-    </button>
-
-  </div>
-
-
-  <!-- QUICK ACCESS -->
-  <div class="section-title">
-    <h2>📚 Quick Access</h2>
-    <span>See All →</span>
-  </div>
-
-  <div class="cards">
-
-    <div class="card">
-      <div class="card-icon">📚</div>
-      <h3>Books</h3>
-      <p>Read & Learn</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">📄</div>
-      <h3>Past Papers</h3>
-      <p>Practice</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">📝</div>
-      <h3>Notes</h3>
-      <p>Study</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">❓</div>
-      <h3>Exams</h3>
-      <p>Test Yourself</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">🎥</div>
-      <h3>Videos</h3>
-      <p>Watch & Learn</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">▶️</div>
-      <h3>MyTube</h3>
-      <p>Educational Videos</p>
-    </div>
-
-  </div>
-
-
-  <!-- ACTIVITY -->
-  <div class="two-columns">
-
-    <div class="panel">
-
-      <div class="section-title">
-        <h2>📈 Recent Activity</h2>
-        <span>See All →</span>
-      </div>
-
-      <div class="activity">
-        <div class="activity-icon">📚</div>
-        <div>
-          <strong>A student read your book</strong>
-          <p>2 minutes ago</p>
-        </div>
-      </div>
-
-      <div class="activity">
-        <div class="activity-icon">🎥</div>
-        <div>
-          <strong>Someone watched your video</strong>
-          <p>5 minutes ago</p>
-        </div>
-      </div>
-
-      <div class="activity">
-        <div class="activity-icon">📄</div>
-        <div>
-          <strong>A student downloaded your notes</strong>
-          <p>10 minutes ago</p>
-        </div>
-      </div>
-
-    </div>
-
-
-    <div class="panel">
-
-      <div class="section-title">
-        <h2>🏆 Rewards & Achievements</h2>
-      </div>
-
-      <div style="text-align:center;padding:20px">
-
-        <div style="font-size:75px">🏆</div>
-
-        <h2>Great Job!</h2>
-
-        <p>
-          You are growing as a Read UP creator.
-        </p>
-
-        <br>
-
-        <button class="yellow-btn">
-          View Rewards →
-        </button>
-
-      </div>
-
-    </div>
-
-  </div>
-
+<section class="page active" id="dashboard">
+ <div class="hero">
+  <div><h2>Welcome to <span>Read UP!</span></h2>
+   <p>Learn. Practice. Share your knowledge. Grow every day.</p>
+   <button class="btn" onclick="go('books')">Explore Books →</button>
+  </div><div class="hero-art">📚🎓</div>
+ </div>
+ <div class="stats">
+  <div class="stat blue">👥<strong id="visitorCount">—</strong>Platform Visitors</div>
+  <div class="stat green">👁️<strong id="viewCount">0</strong>Your Reading Views</div>
+  <div class="stat orange">💰<strong>RWF 0</strong>Your Earnings</div>
+  <div class="stat purple">👑<strong>0</strong>Creator Earnings</div>
+ </div>
+ <div class="panel">
+  <div class="heading"><h2>👑 Creator Area</h2><button class="btn" onclick="go('upload')">Upload Content +</button></div>
+  Share your books, notes, papers and educational videos with other learners.
+ </div>
+ <div class="heading"><h2>Quick Access</h2></div>
+ <div class="resource-grid">
+  <div class="resource" onclick="go('books')">📚<b>Books</b>Read learning books</div>
+  <div class="resource" onclick="go('papers')">📄<b>Past Papers</b>Practice questions</div>
+  <div class="resource" onclick="go('notes')">📝<b>Notes</b>Study resources</div>
+  <div class="resource" onclick="go('exams')">❓<b>Exams</b>Test your knowledge</div>
+  <div class="resource" onclick="go('videos')">🎥<b>Videos</b>Watch lessons</div>
+  <div class="resource" onclick="go('mytube')">▶️<b>MyTube</b>Video learning</div>
+ </div>
+ <div class="heading"><h2>Recent Activity</h2></div>
+ <div class="panel" id="activity">Welcome to Read UP! Your activity will appear here.</div>
 </section>
 
-
-
-<!-- ================= HOME ================= -->
-<section id="home" class="page">
-
-  <div class="home-hero">
-
-    <div>
-
-      <h1>
-        Read • <span>Share • Earn</span>
-      </h1>
-
-      <p>
-        Read amazing educational content, share your own knowledge,
-        and earn money according to Read UP platform rules.
-      </p>
-
-      <button class="yellow-btn">
-        Start Exploring →
-      </button>
-
-    </div>
-
-    <div style="font-size:120px;">
-      👩‍🎓📚
-    </div>
-
-  </div>
-
-
-  <!-- HOME STATS -->
-  <div class="stats">
-
-    <div class="stat blue">
-      👥
-      <h3>1,250,000+</h3>
-      <p>Total Visitors</p>
-    </div>
-
-    <div class="stat green">
-      📚
-      <h3>8,750+</h3>
-      <p>Total Books</p>
-    </div>
-
-    <div class="stat purple">
-      🎥
-      <h3>4,320+</h3>
-      <p>Total Videos</p>
-    </div>
-
-    <div class="stat orange">
-      👥
-      <h3>320,000+</h3>
-      <p>Active Users</p>
-    </div>
-
-  </div>
-
-
-  <div class="section-title">
-    <h2>📚 Explore Our Resources</h2>
-    <span>View All →</span>
-  </div>
-
-
-  <div class="resource-grid">
-
-    <div class="card">
-      <div class="card-icon">📚</div>
-      <h3>Books</h3>
-      <p>Read & Learn</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">📄</div>
-      <h3>Past Papers</h3>
-      <p>Practice</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">📝</div>
-      <h3>Notes</h3>
-      <p>Study</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">❓</div>
-      <h3>Questions & Exams</h3>
-      <p>Test Yourself</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">🎥</div>
-      <h3>Videos</h3>
-      <p>Watch & Learn</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">▶️</div>
-      <h3>MyTube</h3>
-      <p>Educational</p>
-    </div>
-
-  </div>
-
-
-  <!-- WHY READ UP -->
-  <div class="two-columns" style="margin-top:25px">
-
-    <div class="panel">
-
-      <h2>⭐ Why Read UP?</h2>
-
-      <br>
-
-      <p>✅ Free & Easy Access</p>
-      <br>
-
-      <p>✅ Upload Your Content & Earn</p>
-      <br>
-
-      <p>✅ Track Reads & Earnings</p>
-      <br>
-
-      <p>✅ Books, Notes, Exams & Videos</p>
-      <br>
-
-      <p>✅ English • Kinyarwanda • Français</p>
-
-      <br>
-
-      <button class="yellow-btn">
-        Join Our Community →
-      </button>
-
-    </div>
-
-
-    <div class="panel">
-
-      <h2>📰 Latest News</h2>
-
-      <br>
-
-      <div class="activity">
-        <div class="activity-icon">🏫</div>
-
-        <div>
-          <strong>Education News</strong>
-          <p>Read the latest updates on Read UP.</p>
-        </div>
-      </div>
-
-      <div class="activity">
-        <div class="activity-icon">⚽</div>
-
-        <div>
-          <strong>Sports News</strong>
-          <p>Latest sports content.</p>
-        </div>
-      </div>
-
-    </div>
-
-  </div>
-
+<section class="page" id="home">
+ <div class="hero">
+  <div><h2>Read • <span>Share • Earn</span></h2>
+  <p>Discover books, study resources and educational videos in one place.</p>
+  <button class="btn" onclick="go('books')">Start Reading →</button></div>
+  <div class="hero-art">🌍📖</div>
+ </div>
+ <div class="stats">
+  <div class="stat blue">📚<strong>Books</strong>Explore our library</div>
+  <div class="stat green">📝<strong>Notes</strong>Study resources</div>
+  <div class="stat purple">🎥<strong>Videos</strong>Learn visually</div>
+  <div class="stat orange">🌍<strong>3 Languages</strong>English, Kinyarwanda, Français</div>
+ </div>
+ <div class="heading"><h2>Explore Read UP</h2></div>
+ <div class="resource-grid">
+  <div class="resource" onclick="go('books')">📚<b>Books</b>Read books online</div>
+  <div class="resource" onclick="go('papers')">📄<b>Past Papers</b>Find practice papers</div>
+  <div class="resource" onclick="go('notes')">📝<b>Notes</b>Learn from notes</div>
+  <div class="resource" onclick="go('exams')">❓<b>Exams</b>Practice tests</div>
+  <div class="resource" onclick="go('videos')">🎥<b>Videos</b>Watch lessons</div>
+  <div class="resource" onclick="go('channels')">👥<b>Channels</b>Discover creators</div>
+ </div>
+ <div class="panel" style="margin-top:20px"><h2>Learn • Practice • Grow</h2><p style="margin-top:10px">Together for a smarter Rwanda 🇷🇼</p></div>
 </section>
 
+<section class="page" id="books">
+ <div class="heading"><h2>📚 Read UP Library</h2><span>4 Books</span></div>
+ <p>Choose a book to read its original 30-page learning companion.</p>
+ <div class="grid" id="bookGrid"></div>
+</section>
 
-<footer>
-  <strong>Read <span>UP</span></strong>
-  <p>Learn • Practice • Grow</p>
-  <br>
-  <p>© 2026 Read UP — Together for a Smarter Rwanda 🇷🇼</p>
-</footer>
+<section class="page" id="reader">
+ <div class="heading"><button class="btn dark" onclick="go('books')">← Back to Books</button><span id="readerTitle"></span></div>
+ <div class="book-reader">
+  <div class="tag">READ UP LEARNING COMPANION</div>
+  <h2 id="chapterTitle"></h2>
+  <div class="progress"><div id="progressBar" style="width:3.33%"></div></div>
+  <p id="chapterText"></p>
+  <div class="reader-controls">
+   <button class="btn dark" id="prevBtn" onclick="changePage(-1)">← Previous</button>
+   <strong id="pageNumber">1 / 30</strong>
+   <button class="btn bluebtn" id="nextBtn" onclick="changePage(1)">Next →</button>
+  </div>
+ </div>
+</section>
 
+<section class="page" id="papers">
+ <div class="heading"><h2>📄 Past Papers</h2></div>
+ <div class="panel"><p>Past paper library. Add your own authorized papers using Upload & Earn.</p><div class="notice">No past papers have been uploaded yet.</div><button class="btn" onclick="go('upload')">Upload a Paper</button></div>
+</section>
+<section class="page" id="notes">
+ <div class="heading"><h2>📝 Study Notes</h2></div>
+ <div class="panel"><p>Find notes to support your studies.</p><div class="notice">No notes have been uploaded yet.</div><button class="btn" onclick="go('upload')">Upload Notes</button></div>
+</section>
+<section class="page" id="exams">
+ <div class="heading"><h2>❓ Questions & Exams</h2></div>
+ <div class="panel"><h3>Practice question</h3><p style="margin:15px 0">Which of these is a renewable energy source?</p>
+ <label><input type="radio" name="answer" value="a" style="width:auto"> Coal</label><br>
+ <label><input type="radio" name="answer" value="b" style="width:auto"> Solar energy</label><br>
+ <label><input type="radio" name="answer" value="c" style="width:auto"> Petroleum</label><br>
+ <button class="btn" onclick="checkAnswer()">Submit Answer</button><p id="answerResult" style="margin-top:12px"></p></div>
+</section>
+<section class="page" id="videos">
+ <div class="heading"><h2>🎥 Educational Videos</h2></div>
+ <div class="panel"><p>Videos uploaded by Read UP creators will appear here.</p><div class="notice">No videos available yet.</div><button class="btn" onclick="go('upload')">Upload Video</button></div>
+</section>
+<section class="page" id="mytube">
+ <div class="heading"><h2>▶️ MyTube</h2></div>
+ <div class="panel"><p>Discover and watch educational videos from channels.</p><div class="notice">MyTube is ready for video content. No videos uploaded yet.</div><button class="btn" onclick="go('channels')">Explore Channels</button></div>
+</section>
+<section class="page" id="channels">
+ <div class="heading"><h2>👥 Read UP Channels</h2></div>
+ <div class="panel"><p>Creators and teachers can share educational content through channels.</p><div class="notice">No channels have been created yet.</div><button class="btn" onclick="go('profile')">Create Your Profile</button></div>
+</section>
+<section class="page" id="upload">
+ <div class="heading"><h2>⬆️ Upload & Earn</h2></div>
+ <div class="panel">
+  <p>Share educational content with Read UP learners.</p>
+  <form id="uploadForm">
+   <label>Content title</label><input required id="contentTitle" placeholder="Enter title">
+   <label>Content category</label><select id="contentType"><option>Book</option><option>Notes</option><option>Past Paper</option><option>Questions</option><option>Video</option></select>
+   <label>Description</label><textarea id="contentDescription" placeholder="Describe your content"></textarea>
+   <label>Select a file</label><input type="file" id="contentFile" required>
+   <button class="btn" type="submit">Submit Content</button>
+  </form>
+  <div class="notice">This demo previews your submission locally. Actual publishing and earnings require a connected server and review process.</div>
+  <div id="uploadResult"></div>
+ </div>
+</section>
+<section class="page" id="notifications">
+ <div class="heading"><h2>🔔 Notifications</h2></div>
+ <div class="panel">You have no new notifications.</div>
+</section>
+<section class="page" id="profile">
+ <div class="heading"><h2>👤 My Profile</h2></div>
+ <div class="panel">
+  <div class="avatar">U</div><h2 style="margin:12px 0">Read UP Student</h2>
+  <label>Your display name</label><input id="profileName" placeholder="Enter your name">
+  <label>Your email</label><input id="profileEmail" type="email" placeholder="Enter email">
+  <button class="btn" onclick="saveProfile()">Save Profile</button>
+  <p id="profileResult"></p>
+ </div>
+</section>
+<section class="page" id="settings">
+ <div class="heading"><h2>⚙️ Settings</h2></div>
+ <div class="panel">
+  <label>Language</label>
+  <select id="language" onchange="setLanguage()">
+   <option>English</option><option>Ikinyarwanda</option><option>Français</option>
+  </select>
+  <p id="languageResult">Choose your preferred language.</p>
+  <button class="btn dark" onclick="go('home')">Return Home</button>
+ </div>
+</section>
+
+<footer><h2>Read <span>UP</span></h2><p>Learn • Practice • Grow</p><p>© 2026 Read UP 🇷🇼</p></footer>
 </main>
 
-
 <script>
+const books=[
+ {id:"alchemist",title:"The Alchemist",author:"Paulo Coelho",icon:"⚗️",color:"gold",
+ themes:["The Journey Begins","Dreams and Ambitions","Listening to Your Heart","The Meaning of Personal Legend","Leaving the Familiar","Learning from the World","Meeting New People","The Language of the World","Fear and Courage","Recognising Opportunities","The Value of Patience","Learning from Setbacks","The Desert Journey","Trust and Friendship","Understanding Nature","The Importance of Love","Finding Direction","The Power of Observation","Small Signs and Decisions","Overcoming Doubt","The Search for Treasure","Wisdom from Experience","Changing Perspectives","The Meaning of Sacrifice","The Courage to Continue","Discovering Inner Strength","Lessons Along the Way","The Journey and the Destination","What Treasure Means","Your Own Personal Journey"]},
+ {id:"potter",title:"Harry Potter and the Philosopher's Stone",author:"J. K. Rowling",icon:"⚡",color:"",
+ themes:["An Unusual Beginning","Discovering a Hidden World","A New School","Friendship and Belonging","A Mysterious Past","Learning New Skills","Rules and Responsibility","The Power of Curiosity","Facing Challenges","Choosing Good Friends","Courage Under Pressure","A World of Discovery","The Importance of Teamwork","Secrets and Questions","Learning from Mistakes","Standing Up for Others","The Meaning of Loyalty","Knowledge and Wisdom","Facing Fear","A Difficult Choice","The Value of Honesty","Working Together","Understanding the Past","The Power of Hope","Protecting What Matters","The Final Challenge","Courage and Sacrifice","The Meaning of Home","Growing Through Adventure","Lessons from the Story"]},
+ {id:"prince",title:"The Little Prince",author:"Antoine de Saint-Exupéry",icon:"⭐",color:"pink",
+ themes:["A Child's Imagination","Seeing the World Differently","The Importance of Questions","A Strange Encounter","Understanding Friendship","The Meaning of Responsibility","Looking Beyond Appearances","Learning from Adults","The Value of Simplicity","A Journey of Discovery","Understanding Loneliness","The Importance of Time","Taking Care of What Matters","The Meaning of Love","Learning to Listen","The Nature of Relationships","Discovering New Perspectives","The Power of Imagination","Understanding Feelings","What Makes Things Valuable","The Importance of Trust","Growing in Understanding","The Meaning of Home","Learning Through Travel","Seeing with the Heart","The Value of Memories","Care and Commitment","The Beauty of Simple Things","Lessons in Humanity","A Story to Remember"]},
+ {id:"habits",title:"Atomic Habits",author:"James Clear",icon:"🧠",color:"greencover",
+ themes:["The Power of Small Changes","How Habits Shape Life","Identity and Behaviour","Building Better Systems","Understanding Habit Loops","Making Habits Obvious","Designing Your Environment","Starting with Small Steps","Making Habits Attractive","Finding Motivation","Making Habits Easy","Reducing Friction","Making Habits Satisfying","Tracking Progress","The Two-Minute Rule","Building Consistency","Breaking Bad Habits","Changing Your Environment","The Role of Rewards","Learning from Setbacks","Improving by One Percent","The Power of Repetition","Creating a Routine","Managing Distractions","Building Strong Identity","Reviewing Your Progress","Staying Consistent","Long-Term Improvement","Making Change Last","Your Personal Habit Plan"]}
+];
+let currentBook=0,currentPage=0;
+let views=Number(localStorage.getItem("readup_views")||0);
+const $=id=>document.getElementById(id);
 
-function showPage(pageId, button){
-
-  // Hide all pages
-  document.querySelectorAll(".page").forEach(page=>{
-    page.classList.remove("active");
-  });
-
-  // Show selected page
-  document.getElementById(pageId).classList.add("active");
-
-  // Remove active from menu
-  document.querySelectorAll(".menu button").forEach(btn=>{
-    btn.classList.remove("active");
-  });
-
-  // Add active
-  button.classList.add("active");
-
-  // Scroll top
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
+function go(id){
+ document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+ const target=$(id);if(target)target.classList.add("active");
+ document.querySelectorAll("#menu button").forEach(b=>b.classList.toggle("active",b.dataset.page===id));
+ window.scrollTo({top:0,behavior:"smooth"});
+ if(id==="books")renderBooks();
 }
+document.querySelectorAll("#menu button").forEach(b=>b.addEventListener("click",()=>go(b.dataset.page)));
 
+function renderBooks(){
+ $("bookGrid").innerHTML=books.map((b,i)=>`
+ <article class="card" onclick="openBook(${i})">
+  <div class="cover ${b.color}">${b.icon}</div>
+  <h3>${b.title}</h3><p>${b.author}</p>
+  <span class="tag">30 learning pages</span>
+  <br><button class="btn">Read Book →</button>
+ </article>`).join("");
+}
+function openBook(i){
+ currentBook=i;currentPage=0;renderReader();go("reader");
+}
+function renderReader(){
+ const b=books[currentBook],theme=b.themes[currentPage];
+ $("readerTitle").textContent=b.title;
+ $("chapterTitle").textContent="Page "+(currentPage+1)+": "+theme;
+ $("pageNumber").textContent=(currentPage+1)+" / 30";
+ $("progressBar").style.width=((currentPage+1)/30*100)+"%";
+ $("prevBtn").disabled=currentPage===0;
+ $("nextBtn").disabled=currentPage===29;
+ $("prevBtn").style.opacity=currentPage===0?".4":"1";
+ $("nextBtn").style.opacity=currentPage===29?".4":"1";
+ $("chapterText").textContent=makeLesson(b,currentPage);
+}
+function makeLesson(book,n){
+ const topic=book.themes[n];
+ const intro=[
+  `This page explores ${topic.toLowerCase()} and why it matters in the ideas presented by ${book.title}.`,
+  `A useful way to understand this theme is to connect it with everyday experiences. People learn and grow when they observe situations carefully and reflect on their choices.`,
+  `The story or ideas invite readers to think about how this subject affects decisions, relationships and personal development. Different people may understand the same experience in different ways.`,
+  `For a practical activity, write down one example from your own life that connects with this topic. Explain what happened, what you learned and what you might do differently next time.`,
+  `Remember that reading is not only about following events. It is also about asking questions, considering different perspectives and applying useful lessons responsibly.`
+ ];
+ return intro.join("\n\n")+
+ "\n\nReflection questions\n"+
+ "1. What does this topic mean to you?\n"+
+ "2. How could it apply to everyday life?\n"+
+ "3. What lesson can a reader take from it?\n\n"+
+ "Key lesson\n"+
+ topic+" encourages thoughtful reflection. Use this page as a study companion, then read the original book for its complete story and full context.";
+}
+function changePage(step){
+ currentPage=Math.max(0,Math.min(29,currentPage+step));
+ views++;localStorage.setItem("readup_views",views);
+ $("viewCount").textContent=views;
+ renderReader();
+}
+function checkAnswer(){
+ const answer=document.querySelector('input[name="answer"]:checked');
+ $("answerResult").textContent=!answer?"Please select an answer.":answer.value==="b"?"Correct! Solar energy is renewable.":"Not quite. Try again!";
+}
+function searchContent(){
+ const q=$("searchInput").value.trim().toLowerCase();
+ if(!q){alert("Please enter something to search.");return}
+ const found=books.findIndex(b=>b.title.toLowerCase().includes(q)||b.author.toLowerCase().includes(q));
+ if(found>=0){openBook(found);return}
+ const pages=[["past papers","papers"],["notes","notes"],["exam","exams"],["video","videos"],["mytube","mytube"],["channel","channels"]];
+ const match=pages.find(x=>x[0].includes(q)||q.includes(x[0]));
+ if(match){go(match[1]);return}
+ alert("No matching content found. Try a book title or section name.");
+}
+$("searchInput").addEventListener("keydown",e=>{if(e.key==="Enter")searchContent()});
+function saveProfile(){
+ const name=$("profileName").value.trim();
+ if(!name){$("profileResult").textContent="Please enter your name.";return}
+ localStorage.setItem("readup_name",name);
+ $("userName").textContent=name;
+ $("profileResult").textContent="Profile saved on this browser.";
+}
+function setLanguage(){
+ $("languageResult").textContent="Language preference: "+$("language").value+". Full translation will be connected in a future update.";
+ localStorage.setItem("readup_language",$("language").value);
+}
+$("uploadForm").addEventListener("submit",e=>{
+ e.preventDefault();
+ const file=$("contentFile").files[0];
+ if(!file)return;
+ $("uploadResult").innerHTML="<div class='notice'>Submission preview created: "+$("contentTitle").value+" ("+file.name+"). This file has not been published or uploaded to a server.</div>";
+ $("uploadForm").reset();
+});
+$("visitorCount").textContent="Not connected";
+$("viewCount").textContent=views;
+const savedName=localStorage.getItem("readup_name");
+if(savedName){$("userName").textContent=savedName;$("profileName").value=savedName}
+const savedLanguage=localStorage.getItem("readup_language");
+if(savedLanguage)$("language").value=savedLanguage;
+renderBooks();
 </script>
-
 </body>
-</html><!DOCTYPE html>
+</html>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Read UP - Learn • Practice • Grow</title>
-
+<title>Read UP | Learn • Practice • Grow</title>
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:Arial, sans-serif;
-}
-
-body{
-  background:#f4f7fc;
-  color:#10264d;
-}
-
-/* SIDEBAR */
-.sidebar{
-  position:fixed;
-  left:0;
-  top:0;
-  width:250px;
-  height:100vh;
-  background:#06275c;
-  color:white;
-  padding:20px 15px;
-  overflow-y:auto;
-}
-
-.logo{
-  text-align:center;
-  padding:10px 0 25px;
-}
-
-.logo-icon{
-  font-size:48px;
-}
-
-.logo h1{
-  color:white;
-  font-size:32px;
-}
-
-.logo h1 span{
-  color:#ffd21c;
-}
-
-.logo p{
-  font-size:12px;
-  color:#ddd;
-}
-
-.menu{
-  margin-top:10px;
-}
-
-.menu button{
-  width:100%;
-  border:0;
-  background:transparent;
-  color:white;
-  padding:14px 15px;
-  margin:3px 0;
-  border-radius:12px;
-  text-align:left;
-  font-size:15px;
-  cursor:pointer;
-}
-
-.menu button:hover,
-.menu button.active{
-  background:#ffd21c;
-  color:#06275c;
-  font-weight:bold;
-}
-
-.bottom-logo{
-  margin-top:30px;
-  background:#073878;
-  padding:20px;
-  border-radius:15px;
-  text-align:center;
-}
-
-.bottom-logo strong{
-  color:#ffd21c;
-}
-
-/* MAIN */
-.main{
-  margin-left:250px;
-  min-height:100vh;
-}
-
-/* TOPBAR */
-.topbar{
-  height:70px;
-  background:white;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 30px;
-  box-shadow:0 2px 10px rgba(0,0,0,.06);
-  position:sticky;
-  top:0;
-  z-index:5;
-}
-
-.search{
-  width:45%;
-  display:flex;
-}
-
-.search input{
-  width:100%;
-  padding:13px 18px;
-  border:1px solid #ddd;
-  border-radius:25px 0 0 25px;
-  outline:none;
-}
-
-.search button{
-  width:55px;
-  border:0;
-  background:#087cf5;
-  color:white;
-  border-radius:0 25px 25px 0;
-  cursor:pointer;
-}
-
-.user{
-  display:flex;
-  align-items:center;
-  gap:15px;
-}
-
-.notification{
-  font-size:22px;
-  cursor:pointer;
-}
-
-.avatar{
-  width:40px;
-  height:40px;
-  border-radius:50%;
-  background:#087cf5;
-  color:white;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:bold;
-}
-
-/* PAGE */
-.page{
-  display:none;
-  padding:30px;
-}
-
-.page.active{
-  display:block;
-}
-
-/* HERO */
-.hero{
-  background:linear-gradient(110deg,#052c73,#087cf5);
-  color:white;
-  padding:30px;
-  border-radius:20px;
-  min-height:210px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  overflow:hidden;
-}
-
-.hero h2{
-  font-size:32px;
-  margin-bottom:10px;
-}
-
-.hero h2 span{
-  color:#ffd21c;
-}
-
-.hero p{
-  font-size:17px;
-  margin-bottom:20px;
-}
-
-.yellow-btn{
-  background:#ffd21c;
-  border:none;
-  color:#06275c;
-  padding:13px 22px;
-  border-radius:25px;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-.hero-art{
-  font-size:100px;
-}
-
-/* STATS */
-.stats{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:18px;
-  margin:22px 0;
-}
-
-.stat{
-  padding:22px;
-  border-radius:18px;
-  color:white;
-  min-height:125px;
-}
-
-.stat h3{
-  font-size:27px;
-  margin-top:12px;
-}
-
-.stat p{
-  margin-top:5px;
-}
-
-.blue{background:#087cf5;}
-.green{background:#20b86b;}
-.orange{background:#ff9f1c;}
-.purple{background:#8e4de8;}
-
-/* CARDS */
-.section-title{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin:25px 0 15px;
-}
-
-.section-title h2{
-  font-size:22px;
-}
-
-.cards{
-  display:grid;
-  grid-template-columns:repeat(6,1fr);
-  gap:15px;
-}
-
-.card{
-  background:white;
-  padding:22px 10px;
-  border-radius:17px;
-  text-align:center;
-  box-shadow:0 5px 20px rgba(0,0,0,.06);
-  cursor:pointer;
-  transition:.2s;
-}
-
-.card:hover{
-  transform:translateY(-4px);
-}
-
-.card-icon{
-  font-size:32px;
-  margin-bottom:10px;
-}
-
-.card h3{
-  font-size:14px;
-}
-
-.card p{
-  color:#777;
-  font-size:12px;
-  margin-top:5px;
-}
-
-/* TWO COLUMNS */
-.two-columns{
-  display:grid;
-  grid-template-columns:1.5fr 1fr;
-  gap:20px;
-}
-
-.panel{
-  background:white;
-  border-radius:18px;
-  padding:22px;
-  box-shadow:0 5px 20px rgba(0,0,0,.05);
-}
-
-.activity{
-  display:flex;
-  align-items:center;
-  gap:15px;
-  padding:15px 0;
-  border-bottom:1px solid #eee;
-}
-
-.activity:last-child{
-  border-bottom:0;
-}
-
-.activity-icon{
-  width:42px;
-  height:42px;
-  border-radius:12px;
-  background:#eaf3ff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:20px;
-}
-
-/* UPLOAD */
-.upload-box{
-  background:linear-gradient(120deg,#fff7cf,#fff);
-  border:2px dashed #ffd21c;
-  padding:25px;
-  border-radius:18px;
-}
-
-.upload-buttons{
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:10px;
-  margin-top:18px;
-}
-
-.upload-buttons button{
-  border:0;
-  padding:15px 5px;
-  border-radius:12px;
-  background:white;
-  cursor:pointer;
-  font-weight:bold;
-}
-
-.upload-buttons button:hover{
-  background:#ffd21c;
-}
-
-/* HOME */
-.home-hero{
-  background:linear-gradient(110deg,#032b70,#0b6fe9);
-  border-radius:22px;
-  color:white;
-  padding:40px;
-  min-height:300px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-.home-hero h1{
-  font-size:46px;
-}
-
-.home-hero h1 span{
-  color:#ffd21c;
-}
-
-.home-hero p{
-  font-size:19px;
-  max-width:550px;
-  margin:15px 0 25px;
-}
-
-.resource-grid{
-  display:grid;
-  grid-template-columns:repeat(6,1fr);
-  gap:15px;
-  margin-top:20px;
-}
-
-/* FOOTER */
-footer{
-  background:#06275c;
-  color:white;
-  margin-top:40px;
-  padding:30px;
-  text-align:center;
-}
-
-footer span{
-  color:#ffd21c;
-}
-
-/* MOBILE */
+:root{--navy:#08285d;--blue:#087cf5;--yellow:#ffd329;--bg:#f3f6fc;--green:#16a66a}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:var(--bg);color:#182b49}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.sidebar{position:fixed;inset:0 auto 0 0;width:245px;background:var(--navy);color:white;padding:20px 13px;overflow:auto;z-index:10}
+.brand{text-align:center;padding:8px 0 24px}
+.brand .symbol{font-size:40px}
+.brand h1{font-size:31px}.brand h1 span{color:var(--yellow)}
+.brand small{color:#cbd8ed}
+.menu button{width:100%;display:block;text-align:left;border:0;background:none;color:white;padding:13px 14px;border-radius:10px;margin:3px 0}
+.menu button:hover,.menu button.active{background:var(--yellow);color:var(--navy);font-weight:bold}
+.main{margin-left:245px;min-height:100vh}
+.topbar{height:70px;background:white;display:flex;align-items:center;justify-content:space-between;padding:10px 25px;position:sticky;top:0;z-index:5;box-shadow:0 2px 9px #0001;gap:12px}
+.search{display:flex;max-width:520px;width:55%}
+.search input{width:100%;padding:12px;border:1px solid #ddd;border-radius:22px 0 0 22px;outline:none}
+.search button{border:0;background:var(--blue);color:white;padding:0 18px;border-radius:0 22px 22px 0}
+.user{display:flex;align-items:center;gap:12px}
+.avatar{background:var(--blue);color:white;border-radius:50%;width:38px;height:38px;display:grid;place-items:center}
+.page{display:none;padding:25px;max-width:1500px;margin:auto}
+.page.active{display:block}
+.hero{background:linear-gradient(115deg,#06275d,#087cf5);color:white;padding:35px;border-radius:20px;display:flex;justify-content:space-between;align-items:center;gap:15px;min-height:190px}
+.hero h2{font-size:30px;margin-bottom:12px}.hero h2 span{color:var(--yellow)}
+.hero p{line-height:1.6}.hero-art{font-size:75px}
+.btn{border:0;background:var(--yellow);color:var(--navy);padding:12px 19px;border-radius:25px;font-weight:bold;margin-top:15px}
+.btn.bluebtn{background:var(--blue);color:white}
+.btn.dark{background:var(--navy);color:white}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:20px 0}
+.stat{padding:20px;border-radius:15px;color:white;min-height:110px}
+.stat strong{display:block;font-size:25px;margin:10px 0}
+.blue{background:#087cf5}.green{background:#16a66a}.orange{background:#f49b20}.purple{background:#8453d8}
+.heading{display:flex;justify-content:space-between;align-items:center;margin:24px 0 14px;gap:10px}
+.heading h2{font-size:21px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.card,.panel{background:white;border-radius:16px;padding:18px;box-shadow:0 4px 18px #10264d0b}
+.card{cursor:pointer;transition:.2s}.card:hover{transform:translateY(-4px);box-shadow:0 7px 20px #10264d19}
+.cover{height:150px;border-radius:12px;display:grid;place-items:center;font-size:55px;margin-bottom:13px;color:white;background:linear-gradient(135deg,#123d80,#399bdf)}
+.cover.gold{background:linear-gradient(135deg,#a86a16,#edc46a)}
+.cover.pink{background:linear-gradient(135deg,#9b4e78,#e5a5bc)}
+.cover.greencover{background:linear-gradient(135deg,#176c52,#70b99b)}
+.card h3{font-size:16px;margin:8px 0}.card p{font-size:13px;color:#69778d;line-height:1.5}
+.tag{display:inline-block;background:#eaf2ff;color:#1764c4;padding:5px 9px;border-radius:20px;font-size:11px;margin-top:8px}
+.two{display:grid;grid-template-columns:1.4fr 1fr;gap:17px}
+.activity{padding:13px 0;border-bottom:1px solid #eee;line-height:1.6}
+.activity:last-child{border:0}
+.resource-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.resource{background:white;border-radius:15px;padding:20px;cursor:pointer}
+.resource:hover{outline:2px solid var(--blue)}
+.resource b{display:block;margin:9px 0}
+.book-reader{max-width:850px;margin:auto;background:white;border-radius:18px;padding:30px;min-height:430px;box-shadow:0 5px 25px #0001}
+.book-reader h2{margin:10px 0 20px;color:var(--navy)}
+.book-reader p{font-size:17px;line-height:1.9;white-space:pre-line}
+.reader-controls{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:25px}
+.progress{height:8px;background:#e8edf5;border-radius:20px;margin:15px 0;overflow:hidden}
+.progress div{height:100%;background:var(--blue)}
+input,select,textarea{padding:12px;border:1px solid #d5ddeb;border-radius:9px;width:100%;margin:7px 0}
+textarea{min-height:100px}
+footer{text-align:center;padding:30px;background:var(--navy);color:white;margin-top:30px}
+footer span{color:var(--yellow)}
+.notice{background:#fff5d4;border-radius:12px;padding:13px;margin:12px 0;font-size:13px}
+.hidden{display:none!important}
 @media(max-width:900px){
-  .sidebar{
-    width:75px;
-    padding:10px 8px;
-  }
-
-  .logo h1,
-  .logo p,
-  .menu span,
-  .bottom-logo{
-    display:none;
-  }
-
-  .main{
-    margin-left:75px;
-  }
-
-  .stats{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .cards,
-  .resource-grid{
-    grid-template-columns:repeat(3,1fr);
-  }
-
-  .two-columns{
-    grid-template-columns:1fr;
-  }
-
-  .upload-buttons{
-    grid-template-columns:repeat(3,1fr);
-  }
+.sidebar{width:70px;padding:12px 7px}
+.brand h1,.brand small,.brand .symbol{font-size:0}
+.brand h1 span{font-size:0}
+.menu button{font-size:18px;text-align:center;padding:14px 2px}
+.menu button .label{display:none}
+.main{margin-left:70px}
+.stats{grid-template-columns:repeat(2,1fr)}
+.grid{grid-template-columns:repeat(2,1fr)}
 }
-
 @media(max-width:600px){
-  .topbar{
-    padding:0 12px;
-  }
-
-  .search{
-    width:55%;
-  }
-
-  .page{
-    padding:15px;
-  }
-
-  .hero,
-  .home-hero{
-    padding:25px;
-  }
-
-  .hero h2{
-    font-size:24px;
-  }
-
-  .home-hero h1{
-    font-size:32px;
-  }
-
-  .hero-art{
-    display:none;
-  }
-
-  .stats{
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-  }
-
-  .cards,
-  .resource-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .upload-buttons{
-    grid-template-columns:repeat(2,1fr);
-  }
+.topbar{padding:9px}.user strong{display:none}
+.page{padding:13px}
+.hero{padding:22px}.hero h2{font-size:23px}.hero-art{font-size:45px}
+.stats{gap:9px}.stat{padding:13px}.stat strong{font-size:20px}
+.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.resource-grid{grid-template-columns:repeat(2,1fr)}
+.two{grid-template-columns:1fr}
+.book-reader{padding:19px}
+.book-reader p{font-size:15px}
 }
 </style>
 </head>
-
 <body>
 
-<!-- SIDEBAR -->
 <aside class="sidebar">
-
-  <div class="logo">
-    <div class="logo-icon">📚🎓</div>
-    <h1>Read <span>UP</span></h1>
-    <p>Learn • Practice • Grow</p>
-  </div>
-
-  <div class="menu">
-
-    <button class="active" onclick="showPage('dashboard',this)">
-      🏠 <span>Dashboard</span>
-    </button>
-
-    <button onclick="showPage('home',this)">
-      🏡 <span>Home</span>
-    </button>
-
-    <button>
-      📚 <span>My Books</span>
-    </button>
-
-    <button>
-      📄 <span>Past Papers</span>
-    </button>
-
-    <button>
-      📝 <span>Notes</span>
-    </button>
-
-    <button>
-      ❓ <span>Questions & Exams</span>
-    </button>
-
-    <button>
-      🎥 <span>Videos</span>
-    </button>
-
-    <button>
-      ▶️ <span>MyTube</span>
-    </button>
-
-    <button>
-      👥 <span>Channels</span>
-    </button>
-
-    <button>
-      🔍 <span>Search</span>
-    </button>
-
-    <button>
-      🔔 <span>Notifications</span>
-    </button>
-
-    <button>
-      👤 <span>Profile</span>
-    </button>
-
-    <button>
-      ⚙️ <span>Settings</span>
-    </button>
-
-  </div>
-
-  <div class="bottom-logo">
-    <div style="font-size:35px;">🏆</div>
-    <h3>Read UP</h3>
-    <strong>Earn More!</strong>
-    <p>Create • Share • Earn</p>
-  </div>
-
+ <div class="brand">
+  <div class="symbol">📚🎓</div>
+  <h1>Read <span>UP</span></h1>
+  <small>Learn • Practice • Grow</small>
+ </div>
+ <nav class="menu" id="menu">
+  <button class="active" data-page="dashboard">📊 <span class="label">Dashboard</span></button>
+  <button data-page="home">🏠 <span class="label">Home</span></button>
+  <button data-page="books">📚 <span class="label">Books</span></button>
+  <button data-page="papers">📄 <span class="label">Past Papers</span></button>
+  <button data-page="notes">📝 <span class="label">Notes</span></button>
+  <button data-page="exams">❓ <span class="label">Questions & Exams</span></button>
+  <button data-page="videos">🎥 <span class="label">Videos</span></button>
+  <button data-page="mytube">▶️ <span class="label">MyTube</span></button>
+  <button data-page="channels">👥 <span class="label">Channels</span></button>
+  <button data-page="upload">⬆️ <span class="label">Upload & Earn</span></button>
+  <button data-page="notifications">🔔 <span class="label">Notifications</span></button>
+  <button data-page="profile">👤 <span class="label">Profile</span></button>
+  <button data-page="settings">⚙️ <span class="label">Settings</span></button>
+ </nav>
 </aside>
 
-
-<!-- MAIN -->
 <main class="main">
-
-<!-- TOPBAR -->
 <header class="topbar">
-
-  <div class="search">
-    <input type="text" placeholder="Search books, notes, videos...">
-    <button>🔎</button>
-  </div>
-
-  <div class="user">
-    <div class="notification">🔔</div>
-
-    <div class="avatar">ML</div>
-
-    <strong>Macumu Lionel ▾</strong>
-  </div>
-
+ <div class="search">
+  <input id="searchInput" placeholder="Search Read UP...">
+  <button onclick="searchContent()">🔎</button>
+ </div>
+ <div class="user">
+  <span>🔔</span><div class="avatar">U</div><strong id="userName">Student</strong>
+ </div>
 </header>
 
-
-<!-- ================= DASHBOARD ================= -->
-<section id="dashboard" class="page active">
-
-  <div class="hero">
-
-    <div>
-      <h2>Welcome Back, <span>Macumu Lionel!</span></h2>
-
-      <p>
-        Read. Learn. Share. Earn.
-      </p>
-
-      <button class="yellow-btn">
-        Explore Resources →
-      </button>
-    </div>
-
-    <div class="hero-art">
-      📚🎓
-    </div>
-
-  </div>
-
-
-  <!-- STATS -->
-  <div class="stats">
-
-    <div class="stat blue">
-      👥
-      <h3>125,430</h3>
-      <p>Total Visitors</p>
-    </div>
-
-    <div class="stat green">
-      👁️
-      <h3>917,240</h3>
-      <p>Content Views</p>
-    </div>
-
-    <div class="stat orange">
-      💰
-      <h3>RWF 48,750</h3>
-      <p>Earnings Balance</p>
-    </div>
-
-    <div class="stat purple">
-      👑
-      <h3>RWF 32,000</h3>
-      <p>Creator Earnings</p>
-    </div>
-
-  </div>
-
-
-  <!-- UPLOAD & EARN -->
-  <div class="panel upload-box">
-
-    <div class="section-title">
-      <div>
-        <h2>👑 Creator Area — Upload & Earn</h2>
-        <p>Share your knowledge and earn money from your content.</p>
-      </div>
-
-      <strong>💰 RWF 32,000</strong>
-    </div>
-
-    <div class="upload-buttons">
-
-      <button>📚<br>Upload Books</button>
-
-      <button>📄<br>Upload Notes</button>
-
-      <button>📝<br>Upload Past Papers</button>
-
-      <button>❓<br>Upload Questions</button>
-
-      <button>🎥<br>Upload Videos</button>
-
-    </div>
-
-    <br>
-
-    <button class="yellow-btn">
-      ⬆ Upload & Earn →
-    </button>
-
-  </div>
-
-
-  <!-- QUICK ACCESS -->
-  <div class="section-title">
-    <h2>📚 Quick Access</h2>
-    <span>See All →</span>
-  </div>
-
-  <div class="cards">
-
-    <div class="card">
-      <div class="card-icon">📚</div>
-      <h3>Books</h3>
-      <p>Read & Learn</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">📄</div>
-      <h3>Past Papers</h3>
-      <p>Practice</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">📝</div>
-      <h3>Notes</h3>
-      <p>Study</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">❓</div>
-      <h3>Exams</h3>
-      <p>Test Yourself</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">🎥</div>
-      <h3>Videos</h3>
-      <p>Watch & Learn</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">▶️</div>
-      <h3>MyTube</h3>
-      <p>Educational Videos</p>
-    </div>
-
-  </div>
-
-
-  <!-- ACTIVITY -->
-  <div class="two-columns">
-
-    <div class="panel">
-
-      <div class="section-title">
-        <h2>📈 Recent Activity</h2>
-        <span>See All →</span>
-      </div>
-
-      <div class="activity">
-        <div class="activity-icon">📚</div>
-        <div>
-          <strong>A student read your book</strong>
-          <p>2 minutes ago</p>
-        </div>
-      </div>
-
-      <div class="activity">
-        <div class="activity-icon">🎥</div>
-        <div>
-          <strong>Someone watched your video</strong>
-          <p>5 minutes ago</p>
-        </div>
-      </div>
-
-      <div class="activity">
-        <div class="activity-icon">📄</div>
-        <div>
-          <strong>A student downloaded your notes</strong>
-          <p>10 minutes ago</p>
-        </div>
-      </div>
-
-    </div>
-
-
-    <div class="panel">
-
-      <div class="section-title">
-        <h2>🏆 Rewards & Achievements</h2>
-      </div>
-
-      <div style="text-align:center;padding:20px">
-
-        <div style="font-size:75px">🏆</div>
-
-        <h2>Great Job!</h2>
-
-        <p>
-          You are growing as a Read UP creator.
-        </p>
-
-        <br>
-
-        <button class="yellow-btn">
-          View Rewards →
-        </button>
-
-      </div>
-
-    </div>
-
-  </div>
-
+<section class="page active" id="dashboard">
+ <div class="hero">
+  <div><h2>Welcome to <span>Read UP!</span></h2>
+   <p>Learn. Practice. Share your knowledge. Grow every day.</p>
+   <button class="btn" onclick="go('books')">Explore Books →</button>
+  </div><div class="hero-art">📚🎓</div>
+ </div>
+ <div class="stats">
+  <div class="stat blue">👥<strong id="visitorCount">—</strong>Platform Visitors</div>
+  <div class="stat green">👁️<strong id="viewCount">0</strong>Your Reading Views</div>
+  <div class="stat orange">💰<strong>RWF 0</strong>Your Earnings</div>
+  <div class="stat purple">👑<strong>0</strong>Creator Earnings</div>
+ </div>
+ <div class="panel">
+  <div class="heading"><h2>👑 Creator Area</h2><button class="btn" onclick="go('upload')">Upload Content +</button></div>
+  Share your books, notes, papers and educational videos with other learners.
+ </div>
+ <div class="heading"><h2>Quick Access</h2></div>
+ <div class="resource-grid">
+  <div class="resource" onclick="go('books')">📚<b>Books</b>Read learning books</div>
+  <div class="resource" onclick="go('papers')">📄<b>Past Papers</b>Practice questions</div>
+  <div class="resource" onclick="go('notes')">📝<b>Notes</b>Study resources</div>
+  <div class="resource" onclick="go('exams')">❓<b>Exams</b>Test your knowledge</div>
+  <div class="resource" onclick="go('videos')">🎥<b>Videos</b>Watch lessons</div>
+  <div class="resource" onclick="go('mytube')">▶️<b>MyTube</b>Video learning</div>
+ </div>
+ <div class="heading"><h2>Recent Activity</h2></div>
+ <div class="panel" id="activity">Welcome to Read UP! Your activity will appear here.</div>
 </section>
 
-
-
-<!-- ================= HOME ================= -->
-<section id="home" class="page">
-
-  <div class="home-hero">
-
-    <div>
-
-      <h1>
-        Read • <span>Share • Earn</span>
-      </h1>
-
-      <p>
-        Read amazing educational content, share your own knowledge,
-        and earn money according to Read UP platform rules.
-      </p>
-
-      <button class="yellow-btn">
-        Start Exploring →
-      </button>
-
-    </div>
-
-    <div style="font-size:120px;">
-      👩‍🎓📚
-    </div>
-
-  </div>
-
-
-  <!-- HOME STATS -->
-  <div class="stats">
-
-    <div class="stat blue">
-      👥
-      <h3>1,250,000+</h3>
-      <p>Total Visitors</p>
-    </div>
-
-    <div class="stat green">
-      📚
-      <h3>8,750+</h3>
-      <p>Total Books</p>
-    </div>
-
-    <div class="stat purple">
-      🎥
-      <h3>4,320+</h3>
-      <p>Total Videos</p>
-    </div>
-
-    <div class="stat orange">
-      👥
-      <h3>320,000+</h3>
-      <p>Active Users</p>
-    </div>
-
-  </div>
-
-
-  <div class="section-title">
-    <h2>📚 Explore Our Resources</h2>
-    <span>View All →</span>
-  </div>
-
-
-  <div class="resource-grid">
-
-    <div class="card">
-      <div class="card-icon">📚</div>
-      <h3>Books</h3>
-      <p>Read & Learn</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">📄</div>
-      <h3>Past Papers</h3>
-      <p>Practice</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">📝</div>
-      <h3>Notes</h3>
-      <p>Study</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">❓</div>
-      <h3>Questions & Exams</h3>
-      <p>Test Yourself</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">🎥</div>
-      <h3>Videos</h3>
-      <p>Watch & Learn</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">▶️</div>
-      <h3>MyTube</h3>
-      <p>Educational</p>
-    </div>
-
-  </div>
-
-
-  <!-- WHY READ UP -->
-  <div class="two-columns" style="margin-top:25px">
-
-    <div class="panel">
-
-      <h2>⭐ Why Read UP?</h2>
-
-      <br>
-
-      <p>✅ Free & Easy Access</p>
-      <br>
-
-      <p>✅ Upload Your Content & Earn</p>
-      <br>
-
-      <p>✅ Track Reads & Earnings</p>
-      <br>
-
-      <p>✅ Books, Notes, Exams & Videos</p>
-      <br>
-
-      <p>✅ English • Kinyarwanda • Français</p>
-
-      <br>
-
-      <button class="yellow-btn">
-        Join Our Community →
-      </button>
-
-    </div>
-
-
-    <div class="panel">
-
-      <h2>📰 Latest News</h2>
-
-      <br>
-
-      <div class="activity">
-        <div class="activity-icon">🏫</div>
-
-        <div>
-          <strong>Education News</strong>
-          <p>Read the latest updates on Read UP.</p>
-        </div>
-      </div>
-
-      <div class="activity">
-        <div class="activity-icon">⚽</div>
-
-        <div>
-          <strong>Sports News</strong>
-          <p>Latest sports content.</p>
-        </div>
-      </div>
-
-    </div>
-
-  </div>
-
+<section class="page" id="home">
+ <div class="hero">
+  <div><h2>Read • <span>Share • Earn</span></h2>
+  <p>Discover books, study resources and educational videos in one place.</p>
+  <button class="btn" onclick="go('books')">Start Reading →</button></div>
+  <div class="hero-art">🌍📖</div>
+ </div>
+ <div class="stats">
+  <div class="stat blue">📚<strong>Books</strong>Explore our library</div>
+  <div class="stat green">📝<strong>Notes</strong>Study resources</div>
+  <div class="stat purple">🎥<strong>Videos</strong>Learn visually</div>
+  <div class="stat orange">🌍<strong>3 Languages</strong>English, Kinyarwanda, Français</div>
+ </div>
+ <div class="heading"><h2>Explore Read UP</h2></div>
+ <div class="resource-grid">
+  <div class="resource" onclick="go('books')">📚<b>Books</b>Read books online</div>
+  <div class="resource" onclick="go('papers')">📄<b>Past Papers</b>Find practice papers</div>
+  <div class="resource" onclick="go('notes')">📝<b>Notes</b>Learn from notes</div>
+  <div class="resource" onclick="go('exams')">❓<b>Exams</b>Practice tests</div>
+  <div class="resource" onclick="go('videos')">🎥<b>Videos</b>Watch lessons</div>
+  <div class="resource" onclick="go('channels')">👥<b>Channels</b>Discover creators</div>
+ </div>
+ <div class="panel" style="margin-top:20px"><h2>Learn • Practice • Grow</h2><p style="margin-top:10px">Together for a smarter Rwanda 🇷🇼</p></div>
 </section>
 
+<section class="page" id="books">
+ <div class="heading"><h2>📚 Read UP Library</h2><span>4 Books</span></div>
+ <p>Choose a book to read its original 30-page learning companion.</p>
+ <div class="grid" id="bookGrid"></div>
+</section>
 
-<footer>
-  <strong>Read <span>UP</span></strong>
-  <p>Learn • Practice • Grow</p>
-  <br>
-  <p>© 2026 Read UP — Together for a Smarter Rwanda 🇷🇼</p>
-</footer>
+<section class="page" id="reader">
+ <div class="heading"><button class="btn dark" onclick="go('books')">← Back to Books</button><span id="readerTitle"></span></div>
+ <div class="book-reader">
+  <div class="tag">READ UP LEARNING COMPANION</div>
+  <h2 id="chapterTitle"></h2>
+  <div class="progress"><div id="progressBar" style="width:3.33%"></div></div>
+  <p id="chapterText"></p>
+  <div class="reader-controls">
+   <button class="btn dark" id="prevBtn" onclick="changePage(-1)">← Previous</button>
+   <strong id="pageNumber">1 / 30</strong>
+   <button class="btn bluebtn" id="nextBtn" onclick="changePage(1)">Next →</button>
+  </div>
+ </div>
+</section>
 
+<section class="page" id="papers">
+ <div class="heading"><h2>📄 Past Papers</h2></div>
+ <div class="panel"><p>Past paper library. Add your own authorized papers using Upload & Earn.</p><div class="notice">No past papers have been uploaded yet.</div><button class="btn" onclick="go('upload')">Upload a Paper</button></div>
+</section>
+<section class="page" id="notes">
+ <div class="heading"><h2>📝 Study Notes</h2></div>
+ <div class="panel"><p>Find notes to support your studies.</p><div class="notice">No notes have been uploaded yet.</div><button class="btn" onclick="go('upload')">Upload Notes</button></div>
+</section>
+<section class="page" id="exams">
+ <div class="heading"><h2>❓ Questions & Exams</h2></div>
+ <div class="panel"><h3>Practice question</h3><p style="margin:15px 0">Which of these is a renewable energy source?</p>
+ <label><input type="radio" name="answer" value="a" style="width:auto"> Coal</label><br>
+ <label><input type="radio" name="answer" value="b" style="width:auto"> Solar energy</label><br>
+ <label><input type="radio" name="answer" value="c" style="width:auto"> Petroleum</label><br>
+ <button class="btn" onclick="checkAnswer()">Submit Answer</button><p id="answerResult" style="margin-top:12px"></p></div>
+</section>
+<section class="page" id="videos">
+ <div class="heading"><h2>🎥 Educational Videos</h2></div>
+ <div class="panel"><p>Videos uploaded by Read UP creators will appear here.</p><div class="notice">No videos available yet.</div><button class="btn" onclick="go('upload')">Upload Video</button></div>
+</section>
+<section class="page" id="mytube">
+ <div class="heading"><h2>▶️ MyTube</h2></div>
+ <div class="panel"><p>Discover and watch educational videos from channels.</p><div class="notice">MyTube is ready for video content. No videos uploaded yet.</div><button class="btn" onclick="go('channels')">Explore Channels</button></div>
+</section>
+<section class="page" id="channels">
+ <div class="heading"><h2>👥 Read UP Channels</h2></div>
+ <div class="panel"><p>Creators and teachers can share educational content through channels.</p><div class="notice">No channels have been created yet.</div><button class="btn" onclick="go('profile')">Create Your Profile</button></div>
+</section>
+<section class="page" id="upload">
+ <div class="heading"><h2>⬆️ Upload & Earn</h2></div>
+ <div class="panel">
+  <p>Share educational content with Read UP learners.</p>
+  <form id="uploadForm">
+   <label>Content title</label><input required id="contentTitle" placeholder="Enter title">
+   <label>Content category</label><select id="contentType"><option>Book</option><option>Notes</option><option>Past Paper</option><option>Questions</option><option>Video</option></select>
+   <label>Description</label><textarea id="contentDescription" placeholder="Describe your content"></textarea>
+   <label>Select a file</label><input type="file" id="contentFile" required>
+   <button class="btn" type="submit">Submit Content</button>
+  </form>
+  <div class="notice">This demo previews your submission locally. Actual publishing and earnings require a connected server and review process.</div>
+  <div id="uploadResult"></div>
+ </div>
+</section>
+<section class="page" id="notifications">
+ <div class="heading"><h2>🔔 Notifications</h2></div>
+ <div class="panel">You have no new notifications.</div>
+</section>
+<section class="page" id="profile">
+ <div class="heading"><h2>👤 My Profile</h2></div>
+ <div class="panel">
+  <div class="avatar">U</div><h2 style="margin:12px 0">Read UP Student</h2>
+  <label>Your display name</label><input id="profileName" placeholder="Enter your name">
+  <label>Your email</label><input id="profileEmail" type="email" placeholder="Enter email">
+  <button class="btn" onclick="saveProfile()">Save Profile</button>
+  <p id="profileResult"></p>
+ </div>
+</section>
+<section class="page" id="settings">
+ <div class="heading"><h2>⚙️ Settings</h2></div>
+ <div class="panel">
+  <label>Language</label>
+  <select id="language" onchange="setLanguage()">
+   <option>English</option><option>Ikinyarwanda</option><option>Français</option>
+  </select>
+  <p id="languageResult">Choose your preferred language.</p>
+  <button class="btn dark" onclick="go('home')">Return Home</button>
+ </div>
+</section>
+
+<footer><h2>Read <span>UP</span></h2><p>Learn • Practice • Grow</p><p>© 2026 Read UP 🇷🇼</p></footer>
 </main>
 
-
 <script>
+const books=[
+ {id:"alchemist",title:"The Alchemist",author:"Paulo Coelho",icon:"⚗️",color:"gold",
+ themes:["The Journey Begins","Dreams and Ambitions","Listening to Your Heart","The Meaning of Personal Legend","Leaving the Familiar","Learning from the World","Meeting New People","The Language of the World","Fear and Courage","Recognising Opportunities","The Value of Patience","Learning from Setbacks","The Desert Journey","Trust and Friendship","Understanding Nature","The Importance of Love","Finding Direction","The Power of Observation","Small Signs and Decisions","Overcoming Doubt","The Search for Treasure","Wisdom from Experience","Changing Perspectives","The Meaning of Sacrifice","The Courage to Continue","Discovering Inner Strength","Lessons Along the Way","The Journey and the Destination","What Treasure Means","Your Own Personal Journey"]},
+ {id:"potter",title:"Harry Potter and the Philosopher's Stone",author:"J. K. Rowling",icon:"⚡",color:"",
+ themes:["An Unusual Beginning","Discovering a Hidden World","A New School","Friendship and Belonging","A Mysterious Past","Learning New Skills","Rules and Responsibility","The Power of Curiosity","Facing Challenges","Choosing Good Friends","Courage Under Pressure","A World of Discovery","The Importance of Teamwork","Secrets and Questions","Learning from Mistakes","Standing Up for Others","The Meaning of Loyalty","Knowledge and Wisdom","Facing Fear","A Difficult Choice","The Value of Honesty","Working Together","Understanding the Past","The Power of Hope","Protecting What Matters","The Final Challenge","Courage and Sacrifice","The Meaning of Home","Growing Through Adventure","Lessons from the Story"]},
+ {id:"prince",title:"The Little Prince",author:"Antoine de Saint-Exupéry",icon:"⭐",color:"pink",
+ themes:["A Child's Imagination","Seeing the World Differently","The Importance of Questions","A Strange Encounter","Understanding Friendship","The Meaning of Responsibility","Looking Beyond Appearances","Learning from Adults","The Value of Simplicity","A Journey of Discovery","Understanding Loneliness","The Importance of Time","Taking Care of What Matters","The Meaning of Love","Learning to Listen","The Nature of Relationships","Discovering New Perspectives","The Power of Imagination","Understanding Feelings","What Makes Things Valuable","The Importance of Trust","Growing in Understanding","The Meaning of Home","Learning Through Travel","Seeing with the Heart","The Value of Memories","Care and Commitment","The Beauty of Simple Things","Lessons in Humanity","A Story to Remember"]},
+ {id:"habits",title:"Atomic Habits",author:"James Clear",icon:"🧠",color:"greencover",
+ themes:["The Power of Small Changes","How Habits Shape Life","Identity and Behaviour","Building Better Systems","Understanding Habit Loops","Making Habits Obvious","Designing Your Environment","Starting with Small Steps","Making Habits Attractive","Finding Motivation","Making Habits Easy","Reducing Friction","Making Habits Satisfying","Tracking Progress","The Two-Minute Rule","Building Consistency","Breaking Bad Habits","Changing Your Environment","The Role of Rewards","Learning from Setbacks","Improving by One Percent","The Power of Repetition","Creating a Routine","Managing Distractions","Building Strong Identity","Reviewing Your Progress","Staying Consistent","Long-Term Improvement","Making Change Last","Your Personal Habit Plan"]}
+];
+let currentBook=0,currentPage=0;
+let views=Number(localStorage.getItem("readup_views")||0);
+const $=id=>document.getElementById(id);
 
-function showPage(pageId, button){
-
-  // Hide all pages
-  document.querySelectorAll(".page").forEach(page=>{
-    page.classList.remove("active");
-  });
-
-  // Show selected page
-  document.getElementById(pageId).classList.add("active");
-
-  // Remove active from menu
-  document.querySelectorAll(".menu button").forEach(btn=>{
-    btn.classList.remove("active");
-  });
-
-  // Add active
-  button.classList.add("active");
-
-  // Scroll top
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
+function go(id){
+ document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+ const target=$(id);if(target)target.classList.add("active");
+ document.querySelectorAll("#menu button").forEach(b=>b.classList.toggle("active",b.dataset.page===id));
+ window.scrollTo({top:0,behavior:"smooth"});
+ if(id==="books")renderBooks();
 }
+document.querySelectorAll("#menu button").forEach(b=>b.addEventListener("click",()=>go(b.dataset.page)));
 
+function renderBooks(){
+ $("bookGrid").innerHTML=books.map((b,i)=>`
+ <article class="card" onclick="openBook(${i})">
+  <div class="cover ${b.color}">${b.icon}</div>
+  <h3>${b.title}</h3><p>${b.author}</p>
+  <span class="tag">30 learning pages</span>
+  <br><button class="btn">Read Book →</button>
+ </article>`).join("");
+}
+function openBook(i){
+ currentBook=i;currentPage=0;renderReader();go("reader");
+}
+function renderReader(){
+ const b=books[currentBook],theme=b.themes[currentPage];
+ $("readerTitle").textContent=b.title;
+ $("chapterTitle").textContent="Page "+(currentPage+1)+": "+theme;
+ $("pageNumber").textContent=(currentPage+1)+" / 30";
+ $("progressBar").style.width=((currentPage+1)/30*100)+"%";
+ $("prevBtn").disabled=currentPage===0;
+ $("nextBtn").disabled=currentPage===29;
+ $("prevBtn").style.opacity=currentPage===0?".4":"1";
+ $("nextBtn").style.opacity=currentPage===29?".4":"1";
+ $("chapterText").textContent=makeLesson(b,currentPage);
+}
+function makeLesson(book,n){
+ const topic=book.themes[n];
+ const intro=[
+  `This page explores ${topic.toLowerCase()} and why it matters in the ideas presented by ${book.title}.`,
+  `A useful way to understand this theme is to connect it with everyday experiences. People learn and grow when they observe situations carefully and reflect on their choices.`,
+  `The story or ideas invite readers to think about how this subject affects decisions, relationships and personal development. Different people may understand the same experience in different ways.`,
+  `For a practical activity, write down one example from your own life that connects with this topic. Explain what happened, what you learned and what you might do differently next time.`,
+  `Remember that reading is not only about following events. It is also about asking questions, considering different perspectives and applying useful lessons responsibly.`
+ ];
+ return intro.join("\n\n")+
+ "\n\nReflection questions\n"+
+ "1. What does this topic mean to you?\n"+
+ "2. How could it apply to everyday life?\n"+
+ "3. What lesson can a reader take from it?\n\n"+
+ "Key lesson\n"+
+ topic+" encourages thoughtful reflection. Use this page as a study companion, then read the original book for its complete story and full context.";
+}
+function changePage(step){
+ currentPage=Math.max(0,Math.min(29,currentPage+step));
+ views++;localStorage.setItem("readup_views",views);
+ $("viewCount").textContent=views;
+ renderReader();
+}
+function checkAnswer(){
+ const answer=document.querySelector('input[name="answer"]:checked');
+ $("answerResult").textContent=!answer?"Please select an answer.":answer.value==="b"?"Correct! Solar energy is renewable.":"Not quite. Try again!";
+}
+function searchContent(){
+ const q=$("searchInput").value.trim().toLowerCase();
+ if(!q){alert("Please enter something to search.");return}
+ const found=books.findIndex(b=>b.title.toLowerCase().includes(q)||b.author.toLowerCase().includes(q));
+ if(found>=0){openBook(found);return}
+ const pages=[["past papers","papers"],["notes","notes"],["exam","exams"],["video","videos"],["mytube","mytube"],["channel","channels"]];
+ const match=pages.find(x=>x[0].includes(q)||q.includes(x[0]));
+ if(match){go(match[1]);return}
+ alert("No matching content found. Try a book title or section name.");
+}
+$("searchInput").addEventListener("keydown",e=>{if(e.key==="Enter")searchContent()});
+function saveProfile(){
+ const name=$("profileName").value.trim();
+ if(!name){$("profileResult").textContent="Please enter your name.";return}
+ localStorage.setItem("readup_name",name);
+ $("userName").textContent=name;
+ $("profileResult").textContent="Profile saved on this browser.";
+}
+function setLanguage(){
+ $("languageResult").textContent="Language preference: "+$("language").value+". Full translation will be connected in a future update.";
+ localStorage.setItem("readup_language",$("language").value);
+}
+$("uploadForm").addEventListener("submit",e=>{
+ e.preventDefault();
+ const file=$("contentFile").files[0];
+ if(!file)return;
+ $("uploadResult").innerHTML="<div class='notice'>Submission preview created: "+$("contentTitle").value+" ("+file.name+"). This file has not been published or uploaded to a server.</div>";
+ $("uploadForm").reset();
+});
+$("visitorCount").textContent="Not connected";
+$("viewCount").textContent=views;
+const savedName=localStorage.getItem("readup_name");
+if(savedName){$("userName").textContent=savedName;$("profileName").value=savedName}
+const savedLanguage=localStorage.getItem("readup_language");
+if(savedLanguage)$("language").value=savedLanguage;
+renderBooks();
 </script>
-
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Read UP - Learn • Practice • Grow</title>
-
-<style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:Arial, sans-serif;
-}
-
-body{
-  background:#f4f7fc;
-  color:#10264d;
-}
-
-/* SIDEBAR */
-.sidebar{
-  position:fixed;
-  left:0;
-  top:0;
-  width:250px;
-  height:100vh;
-  background:#06275c;
-  color:white;
-  padding:20px 15px;
-  overflow-y:auto;
-}
-
-.logo{
-  text-align:center;
-  padding:10px 0 25px;
-}
-
-.logo-icon{
-  font-size:48px;
-}
-
-.logo h1{
-  color:white;
-  font-size:32px;
-}
-
-.logo h1 span{
-  color:#ffd21c;
-}
-
-.logo p{
-  font-size:12px;
-  color:#ddd;
-}
-
-.menu{
-  margin-top:10px;
-}
-
-.menu button{
-  width:100%;
-  border:0;
-  background:transparent;
-  color:white;
-  padding:14px 15px;
-  margin:3px 0;
-  border-radius:12px;
-  text-align:left;
-  font-size:15px;
-  cursor:pointer;
-}
-
-.menu button:hover,
-.menu button.active{
-  background:#ffd21c;
-  color:#06275c;
-  font-weight:bold;
-}
-
-.bottom-logo{
-  margin-top:30px;
-  background:#073878;
-  padding:20px;
-  border-radius:15px;
-  text-align:center;
-}
-
-.bottom-logo strong{
-  color:#ffd21c;
-}
-
-/* MAIN */
-.main{
-  margin-left:250px;
-  min-height:100vh;
-}
-
-/* TOPBAR */
-.topbar{
-  height:70px;
-  background:white;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 30px;
-  box-shadow:0 2px 10px rgba(0,0,0,.06);
-  position:sticky;
-  top:0;
-  z-index:5;
-}
-
-.search{
-  width:45%;
-  display:flex;
-}
-
-.search input{
-  width:100%;
-  padding:13px 18px;
-  border:1px solid #ddd;
-  border-radius:25px 0 0 25px;
-  outline:none;
-}
-
-.search button{
-  width:55px;
-  border:0;
-  background:#087cf5;
-  color:white;
-  border-radius:0 25px 25px 0;
-  cursor:pointer;
-}
-
-.user{
-  display:flex;
-  align-items:center;
-  gap:15px;
-}
-
-.notification{
-  font-size:22px;
-  cursor:pointer;
-}
-
-.avatar{
-  width:40px;
-  height:40px;
-  border-radius:50%;
-  background:#087cf5;
-  color:white;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:bold;
-}
-
-/* PAGE */
-.page{
-  display:none;
-  padding:30px;
-}
-
-.page.active{
-  display:block;
-}
-
-/* HERO */
-.hero{
-  background:linear-gradient(110deg,#052c73,#087cf5);
-  color:white;
-  padding:30px;
-  border-radius:20px;
-  min-height:210px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  overflow:hidden;
-}
-
-.hero h2{
-  font-size:32px;
-  margin-bottom:10px;
-}
-
-.hero h2 span{
-  color:#ffd21c;
-}
-
-.hero p{
-  font-size:17px;
-  margin-bottom:20px;
-}
-
-.yellow-btn{
-  background:#ffd21c;
-  border:none;
-  color:#06275c;
-  padding:13px 22px;
-  border-radius:25px;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-.hero-art{
-  font-size:100px;
-}
-
-/* STATS */
-.stats{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:18px;
-  margin:22px 0;
-}
-
-.stat{
-  padding:22px;
-  border-radius:18px;
-  color:white;
-  min-height:125px;
-}
-
-.stat h3{
-  font-size:27px;
-  margin-top:12px;
-}
-
-.stat p{
-  margin-top:5px;
-}
-
-.blue{background:#087cf5;}
-.green{background:#20b86b;}
-.orange{background:#ff9f1c;}
-.purple{background:#8e4de8;}
-
-/* CARDS */
-.section-title{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin:25px 0 15px;
-}
-
-.section-title h2{
-  font-size:22px;
-}
-
-.cards{
-  display:grid;
-  grid-template-columns:repeat(6,1fr);
-  gap:15px;
-}
-
-.card{
-  background:white;
-  padding:22px 10px;
-  border-radius:17px;
-  text-align:center;
-  box-shadow:0 5px 20px rgba(0,0,0,.06);
-  cursor:pointer;
-  transition:.2s;
-}
-
-.card:hover{
-  transform:translateY(-4px);
-}
-
-.card-icon{
-  font-size:32px;
-  margin-bottom:10px;
-}
-
-.card h3{
-  font-size:14px;
-}
-
-.card p{
-  color:#777;
-  font-size:12px;
-  margin-top:5px;
-}
-
-/* TWO COLUMNS */
-.two-columns{
-  display:grid;
-  grid-template-columns:1.5fr 1fr;
-  gap:20px;
-}
-
-.panel{
-  background:white;
-  border-radius:18px;
-  padding:22px;
-  box-shadow:0 5px 20px rgba(0,0,0,.05);
-}
-
-.activity{
-  display:flex;
-  align-items:center;
-  gap:15px;
-  padding:15px 0;
-  border-bottom:1px solid #eee;
-}
-
-.activity:last-child{
-  border-bottom:0;
-}
-
-.activity-icon{
-  width:42px;
-  height:42px;
-  border-radius:12px;
-  background:#eaf3ff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:20px;
-}
-
-/* UPLOAD */
-.upload-box{
-  background:linear-gradient(120deg,#fff7cf,#fff);
-  border:2px dashed #ffd21c;
-  padding:25px;
-  border-radius:18px;
-}
-
-.upload-buttons{
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:10px;
-  margin-top:18px;
-}
-
-.upload-buttons button{
-  border:0;
-  padding:15px 5px;
-  border-radius:12px;
-  background:white;
-  cursor:pointer;
-  font-weight:bold;
-}
-
-.upload-buttons button:hover{
-  background:#ffd21c;
-}
-
-/* HOME */
-.home-hero{
-  background:linear-gradient(110deg,#032b70,#0b6fe9);
-  border-radius:22px;
-  color:white;
-  padding:40px;
-  min-height:300px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-.home-hero h1{
-  font-size:46px;
-}
-
-.home-hero h1 span{
-  color:#ffd21c;
-}
-
-.home-hero p{
-  font-size:19px;
-  max-width:550px;
-  margin:15px 0 25px;
-}
-
-.resource-grid{
-  display:grid;
-  grid-template-columns:repeat(6,1fr);
-  gap:15px;
-  margin-top:20px;
-}
-
-/* FOOTER */
-footer{
-  background:#06275c;
-  color:white;
-  margin-top:40px;
-  padding:30px;
-  text-align:center;
-}
-
-footer span{
-  color:#ffd21c;
-}
-
-/* MOBILE */
-@media(max-width:900px){
-  .sidebar{
-    width:75px;
-    padding:10px 8px;
-  }
-
-  .logo h1,
-  .logo p,
-  .menu span,
-  .bottom-logo{
-    display:none;
-  }
-
-  .main{
-    margin-left:75px;
-  }
-
-  .stats{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .cards,
-  .resource-grid{
-    grid-template-columns:repeat(3,1fr);
-  }
-
-  .two-columns{
-    grid-template-columns:1fr;
-  }
-
-  .upload-buttons{
-    grid-template-columns:repeat(3,1fr);
-  }
-}
-
-@media(max-width:600px){
-  .topbar{
-    padding:0 12px;
-  }
-
-  .search{
-    width:55%;
-  }
-
-  .page{
-    padding:15px;
-  }
-
-  .hero,
-  .home-hero{
-    padding:25px;
-  }
-
-  .hero h2{
-    font-size:24px;
-  }
-
-  .home-hero h1{
-    font-size:32px;
-  }
-
-  .hero-art{
-    display:none;
-  }
-
-  .stats{
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-  }
-
-  .cards,
-  .resource-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .upload-buttons{
-    grid-template-columns:repeat(2,1fr);
-  }
-}
-</style>
-</head>
-
-<body>
-
-<!-- SIDEBAR -->
-<aside class="sidebar">
-
-  <div class="logo">
-    <div class="logo-icon">📚🎓</div>
-    <h1>Read <span>UP</span></h1>
-    <p>Learn • Practice • Grow</p>
-  </div>
-
-  <div class="menu">
-
-    <button class="active" onclick="showPage('dashboard',this)">
-      🏠 <span>Dashboard</span>
-    </button>
-
-    <button onclick="showPage('home',this)">
-      🏡 <span>Home</span>
-    </button>
-
-    <button>
-      📚 <span>My Books</span>
-    </button>
-
-    <button>
-      📄 <span>Past Papers</span>
-    </button>
-
-    <button>
-      📝 <span>Notes</span>
-    </button>
-
-    <button>
-      ❓ <span>Questions & Exams</span>
-    </button>
-
-    <button>
-      🎥 <span>Videos</span>
-    </button>
-
-    <button>
-      ▶️ <span>MyTube</span>
-    </button>
-
-    <button>
-      👥 <span>Channels</span>
-    </button>
-
-    <button>
-      🔍 <span>Search</span>
-    </button>
-
-    <button>
-      🔔 <span>Notifications</span>
-    </button>
-
-    <button>
-      👤 <span>Profile</span>
-    </button>
-
-    <button>
-      ⚙️ <span>Settings</span>
-    </button>
-
-  </div>
-
-  <div class="bottom-logo">
-    <div style="font-size:35px;">🏆</div>
-    <h3>Read UP</h3>
-    <strong>Earn More!</strong>
-    <p>Create • Share • Earn</p>
-  </div>
-
-</aside>
-
-
-<!-- MAIN -->
-<main class="main">
-
-<!-- TOPBAR -->
-<header class="topbar">
-
-  <div class="search">
-    <input type="text" placeholder="Search books, notes, videos...">
-    <button>🔎</button>
-  </div>
-
-  <div class="user">
-    <div class="notification">🔔</div>
-
-    <div class="avatar">ML</div>
-
-    <strong>Macumu Lionel ▾</strong>
-  </div>
-
-</header>
-
-
-<!-- ================= DASHBOARD ================= -->
-<section id="dashboard" class="page active">
-
-  <div class="hero">
-
-    <div>
-      <h2>Welcome Back, <span>Macumu Lionel!</span></h2>
-
-      <p>
-        Read. Learn. Share. Earn.
-      </p>
-
-      <button class="yellow-btn">
-        Explore Resources →
-      </button>
-    </div>
-
-    <div class="hero-art">
-      📚🎓
-    </div>
-
-  </div>
-
-
-  <!-- STATS -->
-  <div class="stats">
-
-    <div class="stat blue">
-      👥
-      <h3>125,430</h3>
-      <p>Total Visitors</p>
-    </div>
-
-    <div class="stat green">
-      👁️
-      <h3>917,240</h3>
-      <p>Content Views</p>
-    </div>
-
-    <div class="stat orange">
-      💰
-      <h3>RWF 48,750</h3>
-      <p>Earnings Balance</p>
-    </div>
-
-    <div class="stat purple">
-      👑
-      <h3>RWF 32,000</h3>
-      <p>Creator Earnings</p>
-    </div>
-
-  </div>
-
-
-  <!-- UPLOAD & EARN -->
-  <div class="panel upload-box">
-
-    <div class="section-title">
-      <div>
-        <h2>👑 Creator Area — Upload & Earn</h2>
-        <p>Share your knowledge and earn money from your content.</p>
-      </div>
-
-      <strong>💰 RWF 32,000</strong>
-    </div>
-
-    <div class="upload-buttons">
-
-      <button>📚<br>Upload Books</button>
-
-      <button>📄<br>Upload Notes</button>
-
-      <button>📝<br>Upload Past Papers</button>
-
-      <button>❓<br>Upload Questions</button>
-
-      <button>🎥<br>Upload Videos</button>
-
-    </div>
-
-    <br>
-
-    <button class="yellow-btn">
-      ⬆ Upload & Earn →
-    </button>
-
-  </div>
-
-
-  <!-- QUICK ACCESS -->
-  <div class="section-title">
-    <h2>📚 Quick Access</h2>
-    <span>See All →</span>
-  </div>
-
-  <div class="cards">
-
-    <div class="card">
-      <div class="card-icon">📚</div>
-      <h3>Books</h3>
-      <p>Read & Learn</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">📄</div>
-      <h3>Past Papers</h3>
-      <p>Practice</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">📝</div>
-      <h3>Notes</h3>
-      <p>Study</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">❓</div>
-      <h3>Exams</h3>
-      <p>Test Yourself</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">🎥</div>
-      <h3>Videos</h3>
-      <p>Watch & Learn</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">▶️</div>
-      <h3>MyTube</h3>
-      <p>Educational Videos</p>
-    </div>
-
-  </div>
-
-
-  <!-- ACTIVITY -->
-  <div class="two-columns">
-
-    <div class="panel">
-
-      <div class="section-title">
-        <h2>📈 Recent Activity</h2>
-        <span>See All →</span>
-      </div>
-
-      <div class="activity">
-        <div class="activity-icon">📚</div>
-        <div>
-          <strong>A student read your book</strong>
-          <p>2 minutes ago</p>
-        </div>
-      </div>
-
-      <div class="activity">
-        <div class="activity-icon">🎥</div>
-        <div>
-          <strong>Someone watched your video</strong>
-          <p>5 minutes ago</p>
-        </div>
-      </div>
-
-      <div class="activity">
-        <div class="activity-icon">📄</div>
-        <div>
-          <strong>A student downloaded your notes</strong>
-          <p>10 minutes ago</p>
-        </div>
-      </div>
-
-    </div>
-
-
-    <div class="panel">
-
-      <div class="section-title">
-        <h2>🏆 Rewards & Achievements</h2>
-      </div>
-
-      <div style="text-align:center;padding:20px">
-
-        <div style="font-size:75px">🏆</div>
-
-        <h2>Great Job!</h2>
-
-        <p>
-          You are growing as a Read UP creator.
-        </p>
-
-        <br>
-
-        <button class="yellow-btn">
-          View Rewards →
-        </button>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-
-<!-- ================= HOME ================= -->
-<section id="home" class="page">
-
-  <div class="home-hero">
-
-    <div>
-
-      <h1>
-        Read • <span>Share • Earn</span>
-      </h1>
-
-      <p>
-        Read amazing educational content, share your own knowledge,
-        and earn money according to Read UP platform rules.
-      </p>
-
-      <button class="yellow-btn">
-        Start Exploring →
-      </button>
-
-    </div>
-
-    <div style="font-size:120px;">
-      👩‍🎓📚
-    </div>
-
-  </div>
-
-
-  <!-- HOME STATS -->
-  <div class="stats">
-
-    <div class="stat blue">
-      👥
-      <h3>1,250,000+</h3>
-      <p>Total Visitors</p>
-    </div>
-
-    <div class="stat green">
-      📚
-      <h3>8,750+</h3>
-      <p>Total Books</p>
-    </div>
-
-    <div class="stat purple">
-      🎥
-      <h3>4,320+</h3>
-      <p>Total Videos</p>
-    </div>
-
-    <div class="stat orange">
-      👥
-      <h3>320,000+</h3>
-      <p>Active Users</p>
-    </div>
-
-  </div>
-
-
-  <div class="section-title">
-    <h2>📚 Explore Our Resources</h2>
-    <span>View All →</span>
-  </div>
-
-
-  <div class="resource-grid">
-
-    <div class="card">
-      <div class="card-icon">📚</div>
-      <h3>Books</h3>
-      <p>Read & Learn</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">📄</div>
-      <h3>Past Papers</h3>
-      <p>Practice</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">📝</div>
-      <h3>Notes</h3>
-      <p>Study</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">❓</div>
-      <h3>Questions & Exams</h3>
-      <p>Test Yourself</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">🎥</div>
-      <h3>Videos</h3>
-      <p>Watch & Learn</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">▶️</div>
-      <h3>MyTube</h3>
-      <p>Educational</p>
-    </div>
-
-  </div>
-
-
-  <!-- WHY READ UP -->
-  <div class="two-columns" style="margin-top:25px">
-
-    <div class="panel">
-
-      <h2>⭐ Why Read UP?</h2>
-
-      <br>
-
-      <p>✅ Free & Easy Access</p>
-      <br>
-
-      <p>✅ Upload Your Content & Earn</p>
-      <br>
-
-      <p>✅ Track Reads & Earnings</p>
-      <br>
-
-      <p>✅ Books, Notes, Exams & Videos</p>
-      <br>
-
-      <p>✅ English • Kinyarwanda • Français</p>
-
-      <br>
-
-      <button class="yellow-btn">
-        Join Our Community →
-      </button>
-
-    </div>
-
-
-    <div class="panel">
-
-      <h2>📰 Latest News</h2>
-
-      <br>
-
-      <div class="activity">
-        <div class="activity-icon">🏫</div>
-
-        <div>
-          <strong>Education News</strong>
-          <p>Read the latest updates on Read UP.</p>
-        </div>
-      </div>
-
-      <div class="activity">
-        <div class="activity-icon">⚽</div>
-
-        <div>
-          <strong>Sports News</strong>
-          <p>Latest sports content.</p>
-        </div>
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<footer>
-  <strong>Read <span>UP</span></strong>
-  <p>Learn • Practice • Grow</p>
-  <br>
-  <p>© 2026 Read UP — Together for a Smarter Rwanda 🇷🇼</p>
-</footer>
-
-</main>
-
-
-<script>
-
-function showPage(pageId, button){
-
-  // Hide all pages
-  document.querySelectorAll(".page").forEach(page=>{
-    page.classList.remove("active");
-  });
-
-  // Show selected page
-  document.getElementById(pageId).classList.add("active");
-
-  // Remove active from menu
-  document.querySelectorAll(".menu button").forEach(btn=>{
-    btn.classList.remove("active");
-  });
-
-  // Add active
-  button.classList.add("active");
-
-  // Scroll top
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
-}
-
-</script>
-
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Read UP - Learn • Practice • Grow</title>
-
-<style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:Arial, sans-serif;
-}
-
-body{
-  background:#f4f7fc;
-  color:#10264d;
-}
-
-/* SIDEBAR */
-.sidebar{
-  position:fixed;
-  left:0;
-  top:0;
-  width:250px;
-  height:100vh;
-  background:#06275c;
-  color:white;
-  padding:20px 15px;
-  overflow-y:auto;
-}
-
-.logo{
-  text-align:center;
-  padding:10px 0 25px;
-}
-
-.logo-icon{
-  font-size:48px;
-}
-
-.logo h1{
-  color:white;
-  font-size:32px;
-}
-
-.logo h1 span{
-  color:#ffd21c;
-}
-
-.logo p{
-  font-size:12px;
-  color:#ddd;
-}
-
-.menu{
-  margin-top:10px;
-}
-
-.menu button{
-  width:100%;
-  border:0;
-  background:transparent;
-  color:white;
-  padding:14px 15px;
-  margin:3px 0;
-  border-radius:12px;
-  text-align:left;
-  font-size:15px;
-  cursor:pointer;
-}
-
-.menu button:hover,
-.menu button.active{
-  background:#ffd21c;
-  color:#06275c;
-  font-weight:bold;
-}
-
-.bottom-logo{
-  margin-top:30px;
-  background:#073878;
-  padding:20px;
-  border-radius:15px;
-  text-align:center;
-}
-
-.bottom-logo strong{
-  color:#ffd21c;
-}
-
-/* MAIN */
-.main{
-  margin-left:250px;
-  min-height:100vh;
-}
-
-/* TOPBAR */
-.topbar{
-  height:70px;
-  background:white;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 30px;
-  box-shadow:0 2px 10px rgba(0,0,0,.06);
-  position:sticky;
-  top:0;
-  z-index:5;
-}
-
-.search{
-  width:45%;
-  display:flex;
-}
-
-.search input{
-  width:100%;
-  padding:13px 18px;
-  border:1px solid #ddd;
-  border-radius:25px 0 0 25px;
-  outline:none;
-}
-
-.search button{
-  width:55px;
-  border:0;
-  background:#087cf5;
-  color:white;
-  border-radius:0 25px 25px 0;
-  cursor:pointer;
-}
-
-.user{
-  display:flex;
-  align-items:center;
-  gap:15px;
-}
-
-.notification{
-  font-size:22px;
-  cursor:pointer;
-}
-
-.avatar{
-  width:40px;
-  height:40px;
-  border-radius:50%;
-  background:#087cf5;
-  color:white;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:bold;
-}
-
-/* PAGE */
-.page{
-  display:none;
-  padding:30px;
-}
-
-.page.active{
-  display:block;
-}
-
-/* HERO */
-.hero{
-  background:linear-gradient(110deg,#052c73,#087cf5);
-  color:white;
-  padding:30px;
-  border-radius:20px;
-  min-height:210px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  overflow:hidden;
-}
-
-.hero h2{
-  font-size:32px;
-  margin-bottom:10px;
-}
-
-.hero h2 span{
-  color:#ffd21c;
-}
-
-.hero p{
-  font-size:17px;
-  margin-bottom:20px;
-}
-
-.yellow-btn{
-  background:#ffd21c;
-  border:none;
-  color:#06275c;
-  padding:13px 22px;
-  border-radius:25px;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-.hero-art{
-  font-size:100px;
-}
-
-/* STATS */
-.stats{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:18px;
-  margin:22px 0;
-}
-
-.stat{
-  padding:22px;
-  border-radius:18px;
-  color:white;
-  min-height:125px;
-}
-
-.stat h3{
-  font-size:27px;
-  margin-top:12px;
-}
-
-.stat p{
-  margin-top:5px;
-}
-
-.blue{background:#087cf5;}
-.green{background:#20b86b;}
-.orange{background:#ff9f1c;}
-.purple{background:#8e4de8;}
-
-/* CARDS */
-.section-title{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin:25px 0 15px;
-}
-
-.section-title h2{
-  font-size:22px;
-}
-
-.cards{
-  display:grid;
-  grid-template-columns:repeat(6,1fr);
-  gap:15px;
-}
-
-.card{
-  background:white;
-  padding:22px 10px;
-  border-radius:17px;
-  text-align:center;
-  box-shadow:0 5px 20px rgba(0,0,0,.06);
-  cursor:pointer;
-  transition:.2s;
-}
-
-.card:hover{
-  transform:translateY(-4px);
-}
-
-.card-icon{
-  font-size:32px;
-  margin-bottom:10px;
-}
-
-.card h3{
-  font-size:14px;
-}
-
-.card p{
-  color:#777;
-  font-size:12px;
-  margin-top:5px;
-}
-
-/* TWO COLUMNS */
-.two-columns{
-  display:grid;
-  grid-template-columns:1.5fr 1fr;
-  gap:20px;
-}
-
-.panel{
-  background:white;
-  border-radius:18px;
-  padding:22px;
-  box-shadow:0 5px 20px rgba(0,0,0,.05);
-}
-
-.activity{
-  display:flex;
-  align-items:center;
-  gap:15px;
-  padding:15px 0;
-  border-bottom:1px solid #eee;
-}
-
-.activity:last-child{
-  border-bottom:0;
-}
-
-.activity-icon{
-  width:42px;
-  height:42px;
-  border-radius:12px;
-  background:#eaf3ff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:20px;
-}
-
-/* UPLOAD */
-.upload-box{
-  background:linear-gradient(120deg,#fff7cf,#fff);
-  border:2px dashed #ffd21c;
-  padding:25px;
-  border-radius:18px;
-}
-
-.upload-buttons{
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:10px;
-  margin-top:18px;
-}
-
-.upload-buttons button{
-  border:0;
-  padding:15px 5px;
-  border-radius:12px;
-  background:white;
-  cursor:pointer;
-  font-weight:bold;
-}
-
-.upload-buttons button:hover{
-  background:#ffd21c;
-}
-
-/* HOME */
-.home-hero{
-  background:linear-gradient(110deg,#032b70,#0b6fe9);
-  border-radius:22px;
-  color:white;
-  padding:40px;
-  min-height:300px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-.home-hero h1{
-  font-size:46px;
-}
-
-.home-hero h1 span{
-  color:#ffd21c;
-}
-
-.home-hero p{
-  font-size:19px;
-  max-width:550px;
-  margin:15px 0 25px;
-}
-
-.resource-grid{
-  display:grid;
-  grid-template-columns:repeat(6,1fr);
-  gap:15px;
-  margin-top:20px;
-}
-
-/* FOOTER */
-footer{
-  background:#06275c;
-  color:white;
-  margin-top:40px;
-  padding:30px;
-  text-align:center;
-}
-
-footer span{
-  color:#ffd21c;
-}
-
-/* MOBILE */
-@media(max-width:900px){
-  .sidebar{
-    width:75px;
-    padding:10px 8px;
-  }
-
-  .logo h1,
-  .logo p,
-  .menu span,
-  .bottom-logo{
-    display:none;
-  }
-
-  .main{
-    margin-left:75px;
-  }
-
-  .stats{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .cards,
-  .resource-grid{
-    grid-template-columns:repeat(3,1fr);
-  }
-
-  .two-columns{
-    grid-template-columns:1fr;
-  }
-
-  .upload-buttons{
-    grid-template-columns:repeat(3,1fr);
-  }
-}
-
-@media(max-width:600px){
-  .topbar{
-    padding:0 12px;
-  }
-
-  .search{
-    width:55%;
-  }
-
-  .page{
-    padding:15px;
-  }
-
-  .hero,
-  .home-hero{
-    padding:25px;
-  }
-
-  .hero h2{
-    font-size:24px;
-  }
-
-  .home-hero h1{
-    font-size:32px;
-  }
-
-  .hero-art{
-    display:none;
-  }
-
-  .stats{
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-  }
-
-  .cards,
-  .resource-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .upload-buttons{
-    grid-template-columns:repeat(2,1fr);
-  }
-}
-</style>
-</head>
-
-<body>
-
-<!-- SIDEBAR -->
-<aside class="sidebar">
-
-  <div class="logo">
-    <div class="logo-icon">📚🎓</div>
-    <h1>Read <span>UP</span></h1>
-    <p>Learn • Practice • Grow</p>
-  </div>
-
-  <div class="menu">
-
-    <button class="active" onclick="showPage('dashboard',this)">
-      🏠 <span>Dashboard</span>
-    </button>
-
-    <button onclick="showPage('home',this)">
-      🏡 <span>Home</span>
-    </button>
-
-    <button>
-      📚 <span>My Books</span>
-    </button>
-
-    <button>
-      📄 <span>Past Papers</span>
-    </button>
-
-    <button>
-      📝 <span>Notes</span>
-    </button>
-
-    <button>
-      ❓ <span>Questions & Exams</span>
-    </button>
-
-    <button>
-      🎥 <span>Videos</span>
-    </button>
-
-    <button>
-      ▶️ <span>MyTube</span>
-    </button>
-
-    <button>
-      👥 <span>Channels</span>
-    </button>
-
-    <button>
-      🔍 <span>Search</span>
-    </button>
-
-    <button>
-      🔔 <span>Notifications</span>
-    </button>
-
-    <button>
-      👤 <span>Profile</span>
-    </button>
-
-    <button>
-      ⚙️ <span>Settings</span>
-    </button>
-
-  </div>
-
-  <div class="bottom-logo">
-    <div style="font-size:35px;">🏆</div>
-    <h3>Read UP</h3>
-    <strong>Earn More!</strong>
-    <p>Create • Share • Earn</p>
-  </div>
-
-</aside>
-
-
-<!-- MAIN -->
-<main class="main">
-
-<!-- TOPBAR -->
-<header class="topbar">
-
-  <div class="search">
-    <input type="text" placeholder="Search books, notes, videos...">
-    <button>🔎</button>
-  </div>
-
-  <div class="user">
-    <div class="notification">🔔</div>
-
-    <div class="avatar">ML</div>
-
-    <strong>Macumu Lionel ▾</strong>
-  </div>
-
-</header>
-
-
-<!-- ================= DASHBOARD ================= -->
-<section id="dashboard" class="page active">
-
-  <div class="hero">
-
-    <div>
-      <h2>Welcome Back, <span>Macumu Lionel!</span></h2>
-
-      <p>
-        Read. Learn. Share. Earn.
-      </p>
-
-      <button class="yellow-btn">
-        Explore Resources →
-      </button>
-    </div>
-
-    <div class="hero-art">
-      📚🎓
-    </div>
-
-  </div>
-
-
-  <!-- STATS -->
-  <div class="stats">
-
-    <div class="stat blue">
-      👥
-      <h3>125,430</h3>
-      <p>Total Visitors</p>
-    </div>
-
-    <div class="stat green">
-      👁️
-      <h3>917,240</h3>
-      <p>Content Views</p>
-    </div>
-
-    <div class="stat orange">
-      💰
-      <h3>RWF 48,750</h3>
-      <p>Earnings Balance</p>
-    </div>
-
-    <div class="stat purple">
-      👑
-      <h3>RWF 32,000</h3>
-      <p>Creator Earnings</p>
-    </div>
-
-  </div>
-
-
-  <!-- UPLOAD & EARN -->
-  <div class="panel upload-box">
-
-    <div class="section-title">
-      <div>
-        <h2>👑 Creator Area — Upload & Earn</h2>
-        <p>Share your knowledge and earn money from your content.</p>
-      </div>
-
-      <strong>💰 RWF 32,000</strong>
-    </div>
-
-    <div class="upload-buttons">
-
-      <button>📚<br>Upload Books</button>
-
-      <button>📄<br>Upload Notes</button>
-
-      <button>📝<br>Upload Past Papers</button>
-
-      <button>❓<br>Upload Questions</button>
-
-      <button>🎥<br>Upload Videos</button>
-
-    </div>
-
-    <br>
-
-    <button class="yellow-btn">
-      ⬆ Upload & Earn →
-    </button>
-
-  </div>
-
-
-  <!-- QUICK ACCESS -->
-  <div class="section-title">
-    <h2>📚 Quick Access</h2>
-    <span>See All →</span>
-  </div>
-
-  <div class="cards">
-
-    <div class="card">
-      <div class="card-icon">📚</div>
-      <h3>Books</h3>
-      <p>Read & Learn</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">📄</div>
-      <h3>Past Papers</h3>
-      <p>Practice</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">📝</div>
-      <h3>Notes</h3>
-      <p>Study</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">❓</div>
-      <h3>Exams</h3>
-      <p>Test Yourself</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">🎥</div>
-      <h3>Videos</h3>
-      <p>Watch & Learn</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">▶️</div>
-      <h3>MyTube</h3>
-      <p>Educational Videos</p>
-    </div>
-
-  </div>
-
-
-  <!-- ACTIVITY -->
-  <div class="two-columns">
-
-    <div class="panel">
-
-      <div class="section-title">
-        <h2>📈 Recent Activity</h2>
-        <span>See All →</span>
-      </div>
-
-      <div class="activity">
-        <div class="activity-icon">📚</div>
-        <div>
-          <strong>A student read your book</strong>
-          <p>2 minutes ago</p>
-        </div>
-      </div>
-
-      <div class="activity">
-        <div class="activity-icon">🎥</div>
-        <div>
-          <strong>Someone watched your video</strong>
-          <p>5 minutes ago</p>
-        </div>
-      </div>
-
-      <div class="activity">
-        <div class="activity-icon">📄</div>
-        <div>
-          <strong>A student downloaded your notes</strong>
-          <p>10 minutes ago</p>
-        </div>
-      </div>
-
-    </div>
-
-
-    <div class="panel">
-
-      <div class="section-title">
-        <h2>🏆 Rewards & Achievements</h2>
-      </div>
-
-      <div style="text-align:center;padding:20px">
-
-        <div style="font-size:75px">🏆</div>
-
-        <h2>Great Job!</h2>
-
-        <p>
-          You are growing as a Read UP creator.
-        </p>
-
-        <br>
-
-        <button class="yellow-btn">
-          View Rewards →
-        </button>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-
-<!-- ================= HOME ================= -->
-<section id="home" class="page">
-
-  <div class="home-hero">
-
-    <div>
-
-      <h1>
-        Read • <span>Share • Earn</span>
-      </h1>
-
-      <p>
-        Read amazing educational content, share your own knowledge,
-        and earn money according to Read UP platform rules.
-      </p>
-
-      <button class="yellow-btn">
-        Start Exploring →
-      </button>
-
-    </div>
-
-    <div style="font-size:120px;">
-      👩‍🎓📚
-    </div>
-
-  </div>
-
-
-  <!-- HOME STATS -->
-  <div class="stats">
-
-    <div class="stat blue">
-      👥
-      <h3>1,250,000+</h3>
-      <p>Total Visitors</p>
-    </div>
-
-    <div class="stat green">
-      📚
-      <h3>8,750+</h3>
-      <p>Total Books</p>
-    </div>
-
-    <div class="stat purple">
-      🎥
-      <h3>4,320+</h3>
-      <p>Total Videos</p>
-    </div>
-
-    <div class="stat orange">
-      👥
-      <h3>320,000+</h3>
-      <p>Active Users</p>
-    </div>
-
-  </div>
-
-
-  <div class="section-title">
-    <h2>📚 Explore Our Resources</h2>
-    <span>View All →</span>
-  </div>
-
-
-  <div class="resource-grid">
-
-    <div class="card">
-      <div class="card-icon">📚</div>
-      <h3>Books</h3>
-      <p>Read & Learn</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">📄</div>
-      <h3>Past Papers</h3>
-      <p>Practice</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">📝</div>
-      <h3>Notes</h3>
-      <p>Study</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">❓</div>
-      <h3>Questions & Exams</h3>
-      <p>Test Yourself</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">🎥</div>
-      <h3>Videos</h3>
-      <p>Watch & Learn</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">▶️</div>
-      <h3>MyTube</h3>
-      <p>Educational</p>
-    </div>
-
-  </div>
-
-
-  <!-- WHY READ UP -->
-  <div class="two-columns" style="margin-top:25px">
-
-    <div class="panel">
-
-      <h2>⭐ Why Read UP?</h2>
-
-      <br>
-
-      <p>✅ Free & Easy Access</p>
-      <br>
-
-      <p>✅ Upload Your Content & Earn</p>
-      <br>
-
-      <p>✅ Track Reads & Earnings</p>
-      <br>
-
-      <p>✅ Books, Notes, Exams & Videos</p>
-      <br>
-
-      <p>✅ English • Kinyarwanda • Français</p>
-
-      <br>
-
-      <button class="yellow-btn">
-        Join Our Community →
-      </button>
-
-    </div>
-
-
-    <div class="panel">
-
-      <h2>📰 Latest News</h2>
-
-      <br>
-
-      <div class="activity">
-        <div class="activity-icon">🏫</div>
-
-        <div>
-          <strong>Education News</strong>
-          <p>Read the latest updates on Read UP.</p>
-        </div>
-      </div>
-
-      <div class="activity">
-        <div class="activity-icon">⚽</div>
-
-        <div>
-          <strong>Sports News</strong>
-          <p>Latest sports content.</p>
-        </div>
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<footer>
-  <strong>Read <span>UP</span></strong>
-  <p>Learn • Practice • Grow</p>
-  <br>
-  <p>© 2026 Read UP — Together for a Smarter Rwanda 🇷🇼</p>
-</footer>
-
-</main>
-
-
-<script>
-
-function showPage(pageId, button){
-
-  // Hide all pages
-  document.querySelectorAll(".page").forEach(page=>{
-    page.classList.remove("active");
-  });
-
-  // Show selected page
-  document.getElementById(pageId).classList.add("active");
-
-  // Remove active from menu
-  document.querySelectorAll(".menu button").forEach(btn=>{
-    btn.classList.remove("active");
-  });
-
-  // Add active
-  button.classList.add("active");
-
-  // Scroll top
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
-}
-
-</script>
-
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Read UP - Learn • Practice • Grow</title>
-
-<style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:Arial, sans-serif;
-}
-
-body{
-  background:#f4f7fc;
-  color:#10264d;
-}
-
-/* SIDEBAR */
-.sidebar{
-  position:fixed;
-  left:0;
-  top:0;
-  width:250px;
-  height:100vh;
-  background:#06275c;
-  color:white;
-  padding:20px 15px;
-  overflow-y:auto;
-}
-
-.logo{
-  text-align:center;
-  padding:10px 0 25px;
-}
-
-.logo-icon{
-  font-size:48px;
-}
-
-.logo h1{
-  color:white;
-  font-size:32px;
-}
-
-.logo h1 span{
-  color:#ffd21c;
-}
-
-.logo p{
-  font-size:12px;
-  color:#ddd;
-}
-
-.menu{
-  margin-top:10px;
-}
-
-.menu button{
-  width:100%;
-  border:0;
-  background:transparent;
-  color:white;
-  padding:14px 15px;
-  margin:3px 0;
-  border-radius:12px;
-  text-align:left;
-  font-size:15px;
-  cursor:pointer;
-}
-
-.menu button:hover,
-.menu button.active{
-  background:#ffd21c;
-  color:#06275c;
-  font-weight:bold;
-}
-
-.bottom-logo{
-  margin-top:30px;
-  background:#073878;
-  padding:20px;
-  border-radius:15px;
-  text-align:center;
-}
-
-.bottom-logo strong{
-  color:#ffd21c;
-}
-
-/* MAIN */
-.main{
-  margin-left:250px;
-  min-height:100vh;
-}
-
-/* TOPBAR */
-.topbar{
-  height:70px;
-  background:white;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 30px;
-  box-shadow:0 2px 10px rgba(0,0,0,.06);
-  position:sticky;
-  top:0;
-  z-index:5;
-}
-
-.search{
-  width:45%;
-  display:flex;
-}
-
-.search input{
-  width:100%;
-  padding:13px 18px;
-  border:1px solid #ddd;
-  border-radius:25px 0 0 25px;
-  outline:none;
-}
-
-.search button{
-  width:55px;
-  border:0;
-  background:#087cf5;
-  color:white;
-  border-radius:0 25px 25px 0;
-  cursor:pointer;
-}
-
-.user{
-  display:flex;
-  align-items:center;
-  gap:15px;
-}
-
-.notification{
-  font-size:22px;
-  cursor:pointer;
-}
-
-.avatar{
-  width:40px;
-  height:40px;
-  border-radius:50%;
-  background:#087cf5;
-  color:white;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:bold;
-}
-
-/* PAGE */
-.page{
-  display:none;
-  padding:30px;
-}
-
-.page.active{
-  display:block;
-}
-
-/* HERO */
-.hero{
-  background:linear-gradient(110deg,#052c73,#087cf5);
-  color:white;
-  padding:30px;
-  border-radius:20px;
-  min-height:210px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  overflow:hidden;
-}
-
-.hero h2{
-  font-size:32px;
-  margin-bottom:10px;
-}
-
-.hero h2 span{
-  color:#ffd21c;
-}
-
-.hero p{
-  font-size:17px;
-  margin-bottom:20px;
-}
-
-.yellow-btn{
-  background:#ffd21c;
-  border:none;
-  color:#06275c;
-  padding:13px 22px;
-  border-radius:25px;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-.hero-art{
-  font-size:100px;
-}
-
-/* STATS */
-.stats{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:18px;
-  margin:22px 0;
-}
-
-.stat{
-  padding:22px;
-  border-radius:18px;
-  color:white;
-  min-height:125px;
-}
-
-.stat h3{
-  font-size:27px;
-  margin-top:12px;
-}
-
-.stat p{
-  margin-top:5px;
-}
-
-.blue{background:#087cf5;}
-.green{background:#20b86b;}
-.orange{background:#ff9f1c;}
-.purple{background:#8e4de8;}
-
-/* CARDS */
-.section-title{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin:25px 0 15px;
-}
-
-.section-title h2{
-  font-size:22px;
-}
-
-.cards{
-  display:grid;
-  grid-template-columns:repeat(6,1fr);
-  gap:15px;
-}
-
-.card{
-  background:white;
-  padding:22px 10px;
-  border-radius:17px;
-  text-align:center;
-  box-shadow:0 5px 20px rgba(0,0,0,.06);
-  cursor:pointer;
-  transition:.2s;
-}
-
-.card:hover{
-  transform:translateY(-4px);
-}
-
-.card-icon{
-  font-size:32px;
-  margin-bottom:10px;
-}
-
-.card h3{
-  font-size:14px;
-}
-
-.card p{
-  color:#777;
-  font-size:12px;
-  margin-top:5px;
-}
-
-/* TWO COLUMNS */
-.two-columns{
-  display:grid;
-  grid-template-columns:1.5fr 1fr;
-  gap:20px;
-}
-
-.panel{
-  background:white;
-  border-radius:18px;
-  padding:22px;
-  box-shadow:0 5px 20px rgba(0,0,0,.05);
-}
-
-.activity{
-  display:flex;
-  align-items:center;
-  gap:15px;
-  padding:15px 0;
-  border-bottom:1px solid #eee;
-}
-
-.activity:last-child{
-  border-bottom:0;
-}
-
-.activity-icon{
-  width:42px;
-  height:42px;
-  border-radius:12px;
-  background:#eaf3ff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:20px;
-}
-
-/* UPLOAD */
-.upload-box{
-  background:linear-gradient(120deg,#fff7cf,#fff);
-  border:2px dashed #ffd21c;
-  padding:25px;
-  border-radius:18px;
-}
-
-.upload-buttons{
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:10px;
-  margin-top:18px;
-}
-
-.upload-buttons button{
-  border:0;
-  padding:15px 5px;
-  border-radius:12px;
-  background:white;
-  cursor:pointer;
-  font-weight:bold;
-}
-
-.upload-buttons button:hover{
-  background:#ffd21c;
-}
-
-/* HOME */
-.home-hero{
-  background:linear-gradient(110deg,#032b70,#0b6fe9);
-  border-radius:22px;
-  color:white;
-  padding:40px;
-  min-height:300px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-.home-hero h1{
-  font-size:46px;
-}
-
-.home-hero h1 span{
-  color:#ffd21c;
-}
-
-.home-hero p{
-  font-size:19px;
-  max-width:550px;
-  margin:15px 0 25px;
-}
-
-.resource-grid{
-  display:grid;
-  grid-template-columns:repeat(6,1fr);
-  gap:15px;
-  margin-top:20px;
-}
-
-/* FOOTER */
-footer{
-  background:#06275c;
-  color:white;
-  margin-top:40px;
-  padding:30px;
-  text-align:center;
-}
-
-footer span{
-  color:#ffd21c;
-}
-
-/* MOBILE */
-@media(max-width:900px){
-  .sidebar{
-    width:75px;
-    padding:10px 8px;
-  }
-
-  .logo h1,
-  .logo p,
-  .menu span,
-  .bottom-logo{
-    display:none;
-  }
-
-  .main{
-    margin-left:75px;
-  }
-
-  .stats{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .cards,
-  .resource-grid{
-    grid-template-columns:repeat(3,1fr);
-  }
-
-  .two-columns{
-    grid-template-columns:1fr;
-  }
-
-  .upload-buttons{
-    grid-template-columns:repeat(3,1fr);
-  }
-}
-
-@media(max-width:600px){
-  .topbar{
-    padding:0 12px;
-  }
-
-  .search{
-    width:55%;
-  }
-
-  .page{
-    padding:15px;
-  }
-
-  .hero,
-  .home-hero{
-    padding:25px;
-  }
-
-  .hero h2{
-    font-size:24px;
-  }
-
-  .home-hero h1{
-    font-size:32px;
-  }
-
-  .hero-art{
-    display:none;
-  }
-
-  .stats{
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-  }
-
-  .cards,
-  .resource-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .upload-buttons{
-    grid-template-columns:repeat(2,1fr);
-  }
-}
-</style>
-</head>
-
-<body>
-
-<!-- SIDEBAR -->
-<aside class="sidebar">
-
-  <div class="logo">
-    <div class="logo-icon">📚🎓</div>
-    <h1>Read <span>UP</span></h1>
-    <p>Learn • Practice • Grow</p>
-  </div>
-
-  <div class="menu">
-
-    <button class="active" onclick="showPage('dashboard',this)">
-      🏠 <span>Dashboard</span>
-    </button>
-
-    <button onclick="showPage('home',this)">
-      🏡 <span>Home</span>
-    </button>
-
-    <button>
-      📚 <span>My Books</span>
-    </button>
-
-    <button>
-      📄 <span>Past Papers</span>
-    </button>
-
-    <button>
-      📝 <span>Notes</span>
-    </button>
-
-    <button>
-      ❓ <span>Questions & Exams</span>
-    </button>
-
-    <button>
-      🎥 <span>Videos</span>
-    </button>
-
-    <button>
-      ▶️ <span>MyTube</span>
-    </button>
-
-    <button>
-      👥 <span>Channels</span>
-    </button>
-
-    <button>
-      🔍 <span>Search</span>
-    </button>
-
-    <button>
-      🔔 <span>Notifications</span>
-    </button>
-
-    <button>
-      👤 <span>Profile</span>
-    </button>
-
-    <button>
-      ⚙️ <span>Settings</span>
-    </button>
-
-  </div>
-
-  <div class="bottom-logo">
-    <div style="font-size:35px;">🏆</div>
-    <h3>Read UP</h3>
-    <strong>Earn More!</strong>
-    <p>Create • Share • Earn</p>
-  </div>
-
-</aside>
-
-
-<!-- MAIN -->
-<main class="main">
-
-<!-- TOPBAR -->
-<header class="topbar">
-
-  <div class="search">
-    <input type="text" placeholder="Search books, notes, videos...">
-    <button>🔎</button>
-  </div>
-
-  <div class="user">
-    <div class="notification">🔔</div>
-
-    <div class="avatar">ML</div>
-
-    <strong>Macumu Lionel ▾</strong>
-  </div>
-
-</header>
-
-
-<!-- ================= DASHBOARD ================= -->
-<section id="dashboard" class="page active">
-
-  <div class="hero">
-
-    <div>
-      <h2>Welcome Back, <span>Macumu Lionel!</span></h2>
-
-      <p>
-        Read. Learn. Share. Earn.
-      </p>
-
-      <button class="yellow-btn">
-        Explore Resources →
-      </button>
-    </div>
-
-    <div class="hero-art">
-      📚🎓
-    </div>
-
-  </div>
-
-
-  <!-- STATS -->
-  <div class="stats">
-
-    <div class="stat blue">
-      👥
-      <h3>125,430</h3>
-      <p>Total Visitors</p>
-    </div>
-
-    <div class="stat green">
-      👁️
-      <h3>917,240</h3>
-      <p>Content Views</p>
-    </div>
-
-    <div class="stat orange">
-      💰
-      <h3>RWF 48,750</h3>
-      <p>Earnings Balance</p>
-    </div>
-
-    <div class="stat purple">
-      👑
-      <h3>RWF 32,000</h3>
-      <p>Creator Earnings</p>
-    </div>
-
-  </div>
-
-
-  <!-- UPLOAD & EARN -->
-  <div class="panel upload-box">
-
-    <div class="section-title">
-      <div>
-        <h2>👑 Creator Area — Upload & Earn</h2>
-        <p>Share your knowledge and earn money from your content.</p>
-      </div>
-
-      <strong>💰 RWF 32,000</strong>
-    </div>
-
-    <div class="upload-buttons">
-
-      <button>📚<br>Upload Books</button>
-
-      <button>📄<br>Upload Notes</button>
-
-      <button>📝<br>Upload Past Papers</button>
-
-      <button>❓<br>Upload Questions</button>
-
-      <button>🎥<br>Upload Videos</button>
-
-    </div>
-
-    <br>
-
-    <button class="yellow-btn">
-      ⬆ Upload & Earn →
-    </button>
-
-  </div>
-
-
-  <!-- QUICK ACCESS -->
-  <div class="section-title">
-    <h2>📚 Quick Access</h2>
-    <span>See All →</span>
-  </div>
-
-  <div class="cards">
-
-    <div class="card">
-      <div class="card-icon">📚</div>
-      <h3>Books</h3>
-      <p>Read & Learn</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">📄</div>
-      <h3>Past Papers</h3>
-      <p>Practice</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">📝</div>
-      <h3>Notes</h3>
-      <p>Study</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">❓</div>
-      <h3>Exams</h3>
-      <p>Test Yourself</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">🎥</div>
-      <h3>Videos</h3>
-      <p>Watch & Learn</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">▶️</div>
-      <h3>MyTube</h3>
-      <p>Educational Videos</p>
-    </div>
-
-  </div>
-
-
-  <!-- ACTIVITY -->
-  <div class="two-columns">
-
-    <div class="panel">
-
-      <div class="section-title">
-        <h2>📈 Recent Activity</h2>
-        <span>See All →</span>
-      </div>
-
-      <div class="activity">
-        <div class="activity-icon">📚</div>
-        <div>
-          <strong>A student read your book</strong>
-          <p>2 minutes ago</p>
-        </div>
-      </div>
-
-      <div class="activity">
-        <div class="activity-icon">🎥</div>
-        <div>
-          <strong>Someone watched your video</strong>
-          <p>5 minutes ago</p>
-        </div>
-      </div>
-
-      <div class="activity">
-        <div class="activity-icon">📄</div>
-        <div>
-          <strong>A student downloaded your notes</strong>
-          <p>10 minutes ago</p>
-        </div>
-      </div>
-
-    </div>
-
-
-    <div class="panel">
-
-      <div class="section-title">
-        <h2>🏆 Rewards & Achievements</h2>
-      </div>
-
-      <div style="text-align:center;padding:20px">
-
-        <div style="font-size:75px">🏆</div>
-
-        <h2>Great Job!</h2>
-
-        <p>
-          You are growing as a Read UP creator.
-        </p>
-
-        <br>
-
-        <button class="yellow-btn">
-          View Rewards →
-        </button>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-
-<!-- ================= HOME ================= -->
-<section id="home" class="page">
-
-  <div class="home-hero">
-
-    <div>
-
-      <h1>
-        Read • <span>Share • Earn</span>
-      </h1>
-
-      <p>
-        Read amazing educational content, share your own knowledge,
-        and earn money according to Read UP platform rules.
-      </p>
-
-      <button class="yellow-btn">
-        Start Exploring →
-      </button>
-
-    </div>
-
-    <div style="font-size:120px;">
-      👩‍🎓📚
-    </div>
-
-  </div>
-
-
-  <!-- HOME STATS -->
-  <div class="stats">
-
-    <div class="stat blue">
-      👥
-      <h3>1,250,000+</h3>
-      <p>Total Visitors</p>
-    </div>
-
-    <div class="stat green">
-      📚
-      <h3>8,750+</h3>
-      <p>Total Books</p>
-    </div>
-
-    <div class="stat purple">
-      🎥
-      <h3>4,320+</h3>
-      <p>Total Videos</p>
-    </div>
-
-    <div class="stat orange">
-      👥
-      <h3>320,000+</h3>
-      <p>Active Users</p>
-    </div>
-
-  </div>
-
-
-  <div class="section-title">
-    <h2>📚 Explore Our Resources</h2>
-    <span>View All →</span>
-  </div>
-
-
-  <div class="resource-grid">
-
-    <div class="card">
-      <div class="card-icon">📚</div>
-      <h3>Books</h3>
-      <p>Read & Learn</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">📄</div>
-      <h3>Past Papers</h3>
-      <p>Practice</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">📝</div>
-      <h3>Notes</h3>
-      <p>Study</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">❓</div>
-      <h3>Questions & Exams</h3>
-      <p>Test Yourself</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">🎥</div>
-      <h3>Videos</h3>
-      <p>Watch & Learn</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">▶️</div>
-      <h3>MyTube</h3>
-      <p>Educational</p>
-    </div>
-
-  </div>
-
-
-  <!-- WHY READ UP -->
-  <div class="two-columns" style="margin-top:25px">
-
-    <div class="panel">
-
-      <h2>⭐ Why Read UP?</h2>
-
-      <br>
-
-      <p>✅ Free & Easy Access</p>
-      <br>
-
-      <p>✅ Upload Your Content & Earn</p>
-      <br>
-
-      <p>✅ Track Reads & Earnings</p>
-      <br>
-
-      <p>✅ Books, Notes, Exams & Videos</p>
-      <br>
-
-      <p>✅ English • Kinyarwanda • Français</p>
-
-      <br>
-
-      <button class="yellow-btn">
-        Join Our Community →
-      </button>
-
-    </div>
-
-
-    <div class="panel">
-
-      <h2>📰 Latest News</h2>
-
-      <br>
-
-      <div class="activity">
-        <div class="activity-icon">🏫</div>
-
-        <div>
-          <strong>Education News</strong>
-          <p>Read the latest updates on Read UP.</p>
-        </div>
-      </div>
-
-      <div class="activity">
-        <div class="activity-icon">⚽</div>
-
-        <div>
-          <strong>Sports News</strong>
-          <p>Latest sports content.</p>
-        </div>
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<footer>
-  <strong>Read <span>UP</span></strong>
-  <p>Learn • Practice • Grow</p>
-  <br>
-  <p>© 2026 Read UP — Together for a Smarter Rwanda 🇷🇼</p>
-</footer>
-
-</main>
-
-
-<script>
-
-function showPage(pageId, button){
-
-  // Hide all pages
-  document.querySelectorAll(".page").forEach(page=>{
-    page.classList.remove("active");
-  });
-
-  // Show selected page
-  document.getElementById(pageId).classList.add("active");
-
-  // Remove active from menu
-  document.querySelectorAll(".menu button").forEach(btn=>{
-    btn.classList.remove("active");
-  });
-
-  // Add active
-  button.classList.add("active");
-
-  // Scroll top
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
-}
-
-</script>
-
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Read UP - Learn • Practice • Grow</title>
-
-<style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:Arial, sans-serif;
-}
-
-body{
-  background:#f4f7fc;
-  color:#10264d;
-}
-
-/* SIDEBAR */
-.sidebar{
-  position:fixed;
-  left:0;
-  top:0;
-  width:250px;
-  height:100vh;
-  background:#06275c;
-  color:white;
-  padding:20px 15px;
-  overflow-y:auto;
-}
-
-.logo{
-  text-align:center;
-  padding:10px 0 25px;
-}
-
-.logo-icon{
-  font-size:48px;
-}
-
-.logo h1{
-  color:white;
-  font-size:32px;
-}
-
-.logo h1 span{
-  color:#ffd21c;
-}
-
-.logo p{
-  font-size:12px;
-  color:#ddd;
-}
-
-.menu{
-  margin-top:10px;
-}
-
-.menu button{
-  width:100%;
-  border:0;
-  background:transparent;
-  color:white;
-  padding:14px 15px;
-  margin:3px 0;
-  border-radius:12px;
-  text-align:left;
-  font-size:15px;
-  cursor:pointer;
-}
-
-.menu button:hover,
-.menu button.active{
-  background:#ffd21c;
-  color:#06275c;
-  font-weight:bold;
-}
-
-.bottom-logo{
-  margin-top:30px;
-  background:#073878;
-  padding:20px;
-  border-radius:15px;
-  text-align:center;
-}
-
-.bottom-logo strong{
-  color:#ffd21c;
-}
-
-/* MAIN */
-.main{
-  margin-left:250px;
-  min-height:100vh;
-}
-
-/* TOPBAR */
-.topbar{
-  height:70px;
-  background:white;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 30px;
-  box-shadow:0 2px 10px rgba(0,0,0,.06);
-  position:sticky;
-  top:0;
-  z-index:5;
-}
-
-.search{
-  width:45%;
-  display:flex;
-}
-
-.search input{
-  width:100%;
-  padding:13px 18px;
-  border:1px solid #ddd;
-  border-radius:25px 0 0 25px;
-  outline:none;
-}
-
-.search button{
-  width:55px;
-  border:0;
-  background:#087cf5;
-  color:white;
-  border-radius:0 25px 25px 0;
-  cursor:pointer;
-}
-
-.user{
-  display:flex;
-  align-items:center;
-  gap:15px;
-}
-
-.notification{
-  font-size:22px;
-  cursor:pointer;
-}
-
-.avatar{
-  width:40px;
-  height:40px;
-  border-radius:50%;
-  background:#087cf5;
-  color:white;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:bold;
-}
-
-/* PAGE */
-.page{
-  display:none;
-  padding:30px;
-}
-
-.page.active{
-  display:block;
-}
-
-/* HERO */
-.hero{
-  background:linear-gradient(110deg,#052c73,#087cf5);
-  color:white;
-  padding:30px;
-  border-radius:20px;
-  min-height:210px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  overflow:hidden;
-}
-
-.hero h2{
-  font-size:32px;
-  margin-bottom:10px;
-}
-
-.hero h2 span{
-  color:#ffd21c;
-}
-
-.hero p{
-  font-size:17px;
-  margin-bottom:20px;
-}
-
-.yellow-btn{
-  background:#ffd21c;
-  border:none;
-  color:#06275c;
-  padding:13px 22px;
-  border-radius:25px;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-.hero-art{
-  font-size:100px;
-}
-
-/* STATS */
-.stats{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:18px;
-  margin:22px 0;
-}
-
-.stat{
-  padding:22px;
-  border-radius:18px;
-  color:white;
-  min-height:125px;
-}
-
-.stat h3{
-  font-size:27px;
-  margin-top:12px;
-}
-
-.stat p{
-  margin-top:5px;
-}
-
-.blue{background:#087cf5;}
-.green{background:#20b86b;}
-.orange{background:#ff9f1c;}
-.purple{background:#8e4de8;}
-
-/* CARDS */
-.section-title{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin:25px 0 15px;
-}
-
-.section-title h2{
-  font-size:22px;
-}
-
-.cards{
-  display:grid;
-  grid-template-columns:repeat(6,1fr);
-  gap:15px;
-}
-
-.card{
-  background:white;
-  padding:22px 10px;
-  border-radius:17px;
-  text-align:center;
-  box-shadow:0 5px 20px rgba(0,0,0,.06);
-  cursor:pointer;
-  transition:.2s;
-}
-
-.card:hover{
-  transform:translateY(-4px);
-}
-
-.card-icon{
-  font-size:32px;
-  margin-bottom:10px;
-}
-
-.card h3{
-  font-size:14px;
-}
-
-.card p{
-  color:#777;
-  font-size:12px;
-  margin-top:5px;
-}
-
-/* TWO COLUMNS */
-.two-columns{
-  display:grid;
-  grid-template-columns:1.5fr 1fr;
-  gap:20px;
-}
-
-.panel{
-  background:white;
-  border-radius:18px;
-  padding:22px;
-  box-shadow:0 5px 20px rgba(0,0,0,.05);
-}
-
-.activity{
-  display:flex;
-  align-items:center;
-  gap:15px;
-  padding:15px 0;
-  border-bottom:1px solid #eee;
-}
-
-.activity:last-child{
-  border-bottom:0;
-}
-
-.activity-icon{
-  width:42px;
-  height:42px;
-  border-radius:12px;
-  background:#eaf3ff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:20px;
-}
-
-/* UPLOAD */
-.upload-box{
-  background:linear-gradient(120deg,#fff7cf,#fff);
-  border:2px dashed #ffd21c;
-  padding:25px;
-  border-radius:18px;
-}
-
-.upload-buttons{
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:10px;
-  margin-top:18px;
-}
-
-.upload-buttons button{
-  border:0;
-  padding:15px 5px;
-  border-radius:12px;
-  background:white;
-  cursor:pointer;
-  font-weight:bold;
-}
-
-.upload-buttons button:hover{
-  background:#ffd21c;
-}
-
-/* HOME */
-.home-hero{
-  background:linear-gradient(110deg,#032b70,#0b6fe9);
-  border-radius:22px;
-  color:white;
-  padding:40px;
-  min-height:300px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-.home-hero h1{
-  font-size:46px;
-}
-
-.home-hero h1 span{
-  color:#ffd21c;
-}
-
-.home-hero p{
-  font-size:19px;
-  max-width:550px;
-  margin:15px 0 25px;
-}
-
-.resource-grid{
-  display:grid;
-  grid-template-columns:repeat(6,1fr);
-  gap:15px;
-  margin-top:20px;
-}
-
-/* FOOTER */
-footer{
-  background:#06275c;
-  color:white;
-  margin-top:40px;
-  padding:30px;
-  text-align:center;
-}
-
-footer span{
-  color:#ffd21c;
-}
-
-/* MOBILE */
-@media(max-width:900px){
-  .sidebar{
-    width:75px;
-    padding:10px 8px;
-  }
-
-  .logo h1,
-  .logo p,
-  .menu span,
-  .bottom-logo{
-    display:none;
-  }
-
-  .main{
-    margin-left:75px;
-  }
-
-  .stats{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .cards,
-  .resource-grid{
-    grid-template-columns:repeat(3,1fr);
-  }
-
-  .two-columns{
-    grid-template-columns:1fr;
-  }
-
-  .upload-buttons{
-    grid-template-columns:repeat(3,1fr);
-  }
-}
-
-@media(max-width:600px){
-  .topbar{
-    padding:0 12px;
-  }
-
-  .search{
-    width:55%;
-  }
-
-  .page{
-    padding:15px;
-  }
-
-  .hero,
-  .home-hero{
-    padding:25px;
-  }
-
-  .hero h2{
-    font-size:24px;
-  }
-
-  .home-hero h1{
-    font-size:32px;
-  }
-
-  .hero-art{
-    display:none;
-  }
-
-  .stats{
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-  }
-
-  .cards,
-  .resource-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .upload-buttons{
-    grid-template-columns:repeat(2,1fr);
-  }
-}
-</style>
-</head>
-
-<body>
-
-<!-- SIDEBAR -->
-<aside class="sidebar">
-
-  <div class="logo">
-    <div class="logo-icon">📚🎓</div>
-    <h1>Read <span>UP</span></h1>
-    <p>Learn • Practice • Grow</p>
-  </div>
-
-  <div class="menu">
-
-    <button class="active" onclick="showPage('dashboard',this)">
-      🏠 <span>Dashboard</span>
-    </button>
-
-    <button onclick="showPage('home',this)">
-      🏡 <span>Home</span>
-    </button>
-
-    <button>
-      📚 <span>My Books</span>
-    </button>
-
-    <button>
-      📄 <span>Past Papers</span>
-    </button>
-
-    <button>
-      📝 <span>Notes</span>
-    </button>
-
-    <button>
-      ❓ <span>Questions & Exams</span>
-    </button>
-
-    <button>
-      🎥 <span>Videos</span>
-    </button>
-
-    <button>
-      ▶️ <span>MyTube</span>
-    </button>
-
-    <button>
-      👥 <span>Channels</span>
-    </button>
-
-    <button>
-      🔍 <span>Search</span>
-    </button>
-
-    <button>
-      🔔 <span>Notifications</span>
-    </button>
-
-    <button>
-      👤 <span>Profile</span>
-    </button>
-
-    <button>
-      ⚙️ <span>Settings</span>
-    </button>
-
-  </div>
-
-  <div class="bottom-logo">
-    <div style="font-size:35px;">🏆</div>
-    <h3>Read UP</h3>
-    <strong>Earn More!</strong>
-    <p>Create • Share • Earn</p>
-  </div>
-
-</aside>
-
-
-<!-- MAIN -->
-<main class="main">
-
-<!-- TOPBAR -->
-<header class="topbar">
-
-  <div class="search">
-    <input type="text" placeholder="Search books, notes, videos...">
-    <button>🔎</button>
-  </div>
-
-  <div class="user">
-    <div class="notification">🔔</div>
-
-    <div class="avatar">ML</div>
-
-    <strong>Macumu Lionel ▾</strong>
-  </div>
-
-</header>
-
-
-<!-- ================= DASHBOARD ================= -->
-<section id="dashboard" class="page active">
-
-  <div class="hero">
-
-    <div>
-      <h2>Welcome Back, <span>Macumu Lionel!</span></h2>
-
-      <p>
-        Read. Learn. Share. Earn.
-      </p>
-
-      <button class="yellow-btn">
-        Explore Resources →
-      </button>
-    </div>
-
-    <div class="hero-art">
-      📚🎓
-    </div>
-
-  </div>
-
-
-  <!-- STATS -->
-  <div class="stats">
-
-    <div class="stat blue">
-      👥
-      <h3>125,430</h3>
-      <p>Total Visitors</p>
-    </div>
-
-    <div class="stat green">
-      👁️
-      <h3>917,240</h3>
-      <p>Content Views</p>
-    </div>
-
-    <div class="stat orange">
-      💰
-      <h3>RWF 48,750</h3>
-      <p>Earnings Balance</p>
-    </div>
-
-    <div class="stat purple">
-      👑
-      <h3>RWF 32,000</h3>
-      <p>Creator Earnings</p>
-    </div>
-
-  </div>
-
-
-  <!-- UPLOAD & EARN -->
-  <div class="panel upload-box">
-
-    <div class="section-title">
-      <div>
-        <h2>👑 Creator Area — Upload & Earn</h2>
-        <p>Share your knowledge and earn money from your content.</p>
-      </div>
-
-      <strong>💰 RWF 32,000</strong>
-    </div>
-
-    <div class="upload-buttons">
-
-      <button>📚<br>Upload Books</button>
-
-      <button>📄<br>Upload Notes</button>
-
-      <button>📝<br>Upload Past Papers</button>
-
-      <button>❓<br>Upload Questions</button>
-
-      <button>🎥<br>Upload Videos</button>
-
-    </div>
-
-    <br>
-
-    <button class="yellow-btn">
-      ⬆ Upload & Earn →
-    </button>
-
-  </div>
-
-
-  <!-- QUICK ACCESS -->
-  <div class="section-title">
-    <h2>📚 Quick Access</h2>
-    <span>See All →</span>
-  </div>
-
-  <div class="cards">
-
-    <div class="card">
-      <div class="card-icon">📚</div>
-      <h3>Books</h3>
-      <p>Read & Learn</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">📄</div>
-      <h3>Past Papers</h3>
-      <p>Practice</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">📝</div>
-      <h3>Notes</h3>
-      <p>Study</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">❓</div>
-      <h3>Exams</h3>
-      <p>Test Yourself</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">🎥</div>
-      <h3>Videos</h3>
-      <p>Watch & Learn</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">▶️</div>
-      <h3>MyTube</h3>
-      <p>Educational Videos</p>
-    </div>
-
-  </div>
-
-
-  <!-- ACTIVITY -->
-  <div class="two-columns">
-
-    <div class="panel">
-
-      <div class="section-title">
-        <h2>📈 Recent Activity</h2>
-        <span>See All →</span>
-      </div>
-
-      <div class="activity">
-        <div class="activity-icon">📚</div>
-        <div>
-          <strong>A student read your book</strong>
-          <p>2 minutes ago</p>
-        </div>
-      </div>
-
-      <div class="activity">
-        <div class="activity-icon">🎥</div>
-        <div>
-          <strong>Someone watched your video</strong>
-          <p>5 minutes ago</p>
-        </div>
-      </div>
-
-      <div class="activity">
-        <div class="activity-icon">📄</div>
-        <div>
-          <strong>A student downloaded your notes</strong>
-          <p>10 minutes ago</p>
-        </div>
-      </div>
-
-    </div>
-
-
-    <div class="panel">
-
-      <div class="section-title">
-        <h2>🏆 Rewards & Achievements</h2>
-      </div>
-
-      <div style="text-align:center;padding:20px">
-
-        <div style="font-size:75px">🏆</div>
-
-        <h2>Great Job!</h2>
-
-        <p>
-          You are growing as a Read UP creator.
-        </p>
-
-        <br>
-
-        <button class="yellow-btn">
-          View Rewards →
-        </button>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-
-<!-- ================= HOME ================= -->
-<section id="home" class="page">
-
-  <div class="home-hero">
-
-    <div>
-
-      <h1>
-        Read • <span>Share • Earn</span>
-      </h1>
-
-      <p>
-        Read amazing educational content, share your own knowledge,
-        and earn money according to Read UP platform rules.
-      </p>
-
-      <button class="yellow-btn">
-        Start Exploring →
-      </button>
-
-    </div>
-
-    <div style="font-size:120px;">
-      👩‍🎓📚
-    </div>
-
-  </div>
-
-
-  <!-- HOME STATS -->
-  <div class="stats">
-
-    <div class="stat blue">
-      👥
-      <h3>1,250,000+</h3>
-      <p>Total Visitors</p>
-    </div>
-
-    <div class="stat green">
-      📚
-      <h3>8,750+</h3>
-      <p>Total Books</p>
-    </div>
-
-    <div class="stat purple">
-      🎥
-      <h3>4,320+</h3>
-      <p>Total Videos</p>
-    </div>
-
-    <div class="stat orange">
-      👥
-      <h3>320,000+</h3>
-      <p>Active Users</p>
-    </div>
-
-  </div>
-
-
-  <div class="section-title">
-    <h2>📚 Explore Our Resources</h2>
-    <span>View All →</span>
-  </div>
-
-
-  <div class="resource-grid">
-
-    <div class="card">
-      <div class="card-icon">📚</div>
-      <h3>Books</h3>
-      <p>Read & Learn</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">📄</div>
-      <h3>Past Papers</h3>
-      <p>Practice</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">📝</div>
-      <h3>Notes</h3>
-      <p>Study</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">❓</div>
-      <h3>Questions & Exams</h3>
-      <p>Test Yourself</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">🎥</div>
-      <h3>Videos</h3>
-      <p>Watch & Learn</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">▶️</div>
-      <h3>MyTube</h3>
-      <p>Educational</p>
-    </div>
-
-  </div>
-
-
-  <!-- WHY READ UP -->
-  <div class="two-columns" style="margin-top:25px">
-
-    <div class="panel">
-
-      <h2>⭐ Why Read UP?</h2>
-
-      <br>
-
-      <p>✅ Free & Easy Access</p>
-      <br>
-
-      <p>✅ Upload Your Content & Earn</p>
-      <br>
-
-      <p>✅ Track Reads & Earnings</p>
-      <br>
-
-      <p>✅ Books, Notes, Exams & Videos</p>
-      <br>
-
-      <p>✅ English • Kinyarwanda • Français</p>
-
-      <br>
-
-      <button class="yellow-btn">
-        Join Our Community →
-      </button>
-
-    </div>
-
-
-    <div class="panel">
-
-      <h2>📰 Latest News</h2>
-
-      <br>
-
-      <div class="activity">
-        <div class="activity-icon">🏫</div>
-
-        <div>
-          <strong>Education News</strong>
-          <p>Read the latest updates on Read UP.</p>
-        </div>
-      </div>
-
-      <div class="activity">
-        <div class="activity-icon">⚽</div>
-
-        <div>
-          <strong>Sports News</strong>
-          <p>Latest sports content.</p>
-        </div>
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<footer>
-  <strong>Read <span>UP</span></strong>
-  <p>Learn • Practice • Grow</p>
-  <br>
-  <p>© 2026 Read UP — Together for a Smarter Rwanda 🇷🇼</p>
-</footer>
-
-</main>
-
-
-<script>
-
-function showPage(pageId, button){
-
-  // Hide all pages
-  document.querySelectorAll(".page").forEach(page=>{
-    page.classList.remove("active");
-  });
-
-  // Show selected page
-  document.getElementById(pageId).classList.add("active");
-
-  // Remove active from menu
-  document.querySelectorAll(".menu button").forEach(btn=>{
-    btn.classList.remove("active");
-  });
-
-  // Add active
-  button.classList.add("active");
-
-  // Scroll top
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
-}
-
-</script>
-
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Read UP - Learn • Practice • Grow</title>
-
-<style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:Arial, sans-serif;
-}
-
-body{
-  background:#f4f7fc;
-  color:#10264d;
-}
-
-/* SIDEBAR */
-.sidebar{
-  position:fixed;
-  left:0;
-  top:0;
-  width:250px;
-  height:100vh;
-  background:#06275c;
-  color:white;
-  padding:20px 15px;
-  overflow-y:auto;
-}
-
-.logo{
-  text-align:center;
-  padding:10px 0 25px;
-}
-
-.logo-icon{
-  font-size:48px;
-}
-
-.logo h1{
-  color:white;
-  font-size:32px;
-}
-
-.logo h1 span{
-  color:#ffd21c;
-}
-
-.logo p{
-  font-size:12px;
-  color:#ddd;
-}
-
-.menu{
-  margin-top:10px;
-}
-
-.menu button{
-  width:100%;
-  border:0;
-  background:transparent;
-  color:white;
-  padding:14px 15px;
-  margin:3px 0;
-  border-radius:12px;
-  text-align:left;
-  font-size:15px;
-  cursor:pointer;
-}
-
-.menu button:hover,
-.menu button.active{
-  background:#ffd21c;
-  color:#06275c;
-  font-weight:bold;
-}
-
-.bottom-logo{
-  margin-top:30px;
-  background:#073878;
-  padding:20px;
-  border-radius:15px;
-  text-align:center;
-}
-
-.bottom-logo strong{
-  color:#ffd21c;
-}
-
-/* MAIN */
-.main{
-  margin-left:250px;
-  min-height:100vh;
-}
-
-/* TOPBAR */
-.topbar{
-  height:70px;
-  background:white;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 30px;
-  box-shadow:0 2px 10px rgba(0,0,0,.06);
-  position:sticky;
-  top:0;
-  z-index:5;
-}
-
-.search{
-  width:45%;
-  display:flex;
-}
-
-.search input{
-  width:100%;
-  padding:13px 18px;
-  border:1px solid #ddd;
-  border-radius:25px 0 0 25px;
-  outline:none;
-}
-
-.search button{
-  width:55px;
-  border:0;
-  background:#087cf5;
-  color:white;
-  border-radius:0 25px 25px 0;
-  cursor:pointer;
-}
-
-.user{
-  display:flex;
-  align-items:center;
-  gap:15px;
-}
-
-.notification{
-  font-size:22px;
-  cursor:pointer;
-}
-
-.avatar{
-  width:40px;
-  height:40px;
-  border-radius:50%;
-  background:#087cf5;
-  color:white;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:bold;
-}
-
-/* PAGE */
-.page{
-  display:none;
-  padding:30px;
-}
-
-.page.active{
-  display:block;
-}
-
-/* HERO */
-.hero{
-  background:linear-gradient(110deg,#052c73,#087cf5);
-  color:white;
-  padding:30px;
-  border-radius:20px;
-  min-height:210px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  overflow:hidden;
-}
-
-.hero h2{
-  font-size:32px;
-  margin-bottom:10px;
-}
-
-.hero h2 span{
-  color:#ffd21c;
-}
-
-.hero p{
-  font-size:17px;
-  margin-bottom:20px;
-}
-
-.yellow-btn{
-  background:#ffd21c;
-  border:none;
-  color:#06275c;
-  padding:13px 22px;
-  border-radius:25px;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-.hero-art{
-  font-size:100px;
-}
-
-/* STATS */
-.stats{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:18px;
-  margin:22px 0;
-}
-
-.stat{
-  padding:22px;
-  border-radius:18px;
-  color:white;
-  min-height:125px;
-}
-
-.stat h3{
-  font-size:27px;
-  margin-top:12px;
-}
-
-.stat p{
-  margin-top:5px;
-}
-
-.blue{background:#087cf5;}
-.green{background:#20b86b;}
-.orange{background:#ff9f1c;}
-.purple{background:#8e4de8;}
-
-/* CARDS */
-.section-title{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin:25px 0 15px;
-}
-
-.section-title h2{
-  font-size:22px;
-}
-
-.cards{
-  display:grid;
-  grid-template-columns:repeat(6,1fr);
-  gap:15px;
-}
-
-.card{
-  background:white;
-  padding:22px 10px;
-  border-radius:17px;
-  text-align:center;
-  box-shadow:0 5px 20px rgba(0,0,0,.06);
-  cursor:pointer;
-  transition:.2s;
-}
-
-.card:hover{
-  transform:translateY(-4px);
-}
-
-.card-icon{
-  font-size:32px;
-  margin-bottom:10px;
-}
-
-.card h3{
-  font-size:14px;
-}
-
-.card p{
-  color:#777;
-  font-size:12px;
-  margin-top:5px;
-}
-
-/* TWO COLUMNS */
-.two-columns{
-  display:grid;
-  grid-template-columns:1.5fr 1fr;
-  gap:20px;
-}
-
-.panel{
-  background:white;
-  border-radius:18px;
-  padding:22px;
-  box-shadow:0 5px 20px rgba(0,0,0,.05);
-}
-
-.activity{
-  display:flex;
-  align-items:center;
-  gap:15px;
-  padding:15px 0;
-  border-bottom:1px solid #eee;
-}
-
-.activity:last-child{
-  border-bottom:0;
-}
-
-.activity-icon{
-  width:42px;
-  height:42px;
-  border-radius:12px;
-  background:#eaf3ff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:20px;
-}
-
-/* UPLOAD */
-.upload-box{
-  background:linear-gradient(120deg,#fff7cf,#fff);
-  border:2px dashed #ffd21c;
-  padding:25px;
-  border-radius:18px;
-}
-
-.upload-buttons{
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:10px;
-  margin-top:18px;
-}
-
-.upload-buttons button{
-  border:0;
-  padding:15px 5px;
-  border-radius:12px;
-  background:white;
-  cursor:pointer;
-  font-weight:bold;
-}
-
-.upload-buttons button:hover{
-  background:#ffd21c;
-}
-
-/* HOME */
-.home-hero{
-  background:linear-gradient(110deg,#032b70,#0b6fe9);
-  border-radius:22px;
-  color:white;
-  padding:40px;
-  min-height:300px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-.home-hero h1{
-  font-size:46px;
-}
-
-.home-hero h1 span{
-  color:#ffd21c;
-}
-
-.home-hero p{
-  font-size:19px;
-  max-width:550px;
-  margin:15px 0 25px;
-}
-
-.resource-grid{
-  display:grid;
-  grid-template-columns:repeat(6,1fr);
-  gap:15px;
-  margin-top:20px;
-}
-
-/* FOOTER */
-footer{
-  background:#06275c;
-  color:white;
-  margin-top:40px;
-  padding:30px;
-  text-align:center;
-}
-
-footer span{
-  color:#ffd21c;
-}
-
-/* MOBILE */
-@media(max-width:900px){
-  .sidebar{
-    width:75px;
-    padding:10px 8px;
-  }
-
-  .logo h1,
-  .logo p,
-  .menu span,
-  .bottom-logo{
-    display:none;
-  }
-
-  .main{
-    margin-left:75px;
-  }
-
-  .stats{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .cards,
-  .resource-grid{
-    grid-template-columns:repeat(3,1fr);
-  }
-
-  .two-columns{
-    grid-template-columns:1fr;
-  }
-
-  .upload-buttons{
-    grid-template-columns:repeat(3,1fr);
-  }
-}
-
-@media(max-width:600px){
-  .topbar{
-    padding:0 12px;
-  }
-
-  .search{
-    width:55%;
-  }
-
-  .page{
-    padding:15px;
-  }
-
-  .hero,
-  .home-hero{
-    padding:25px;
-  }
-
-  .hero h2{
-    font-size:24px;
-  }
-
-  .home-hero h1{
-    font-size:32px;
-  }
-
-  .hero-art{
-    display:none;
-  }
-
-  .stats{
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-  }
-
-  .cards,
-  .resource-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .upload-buttons{
-    grid-template-columns:repeat(2,1fr);
-  }
-}
-</style>
-</head>
-
-<body>
-
-<!-- SIDEBAR -->
-<aside class="sidebar">
-
-  <div class="logo">
-    <div class="logo-icon">📚🎓</div>
-    <h1>Read <span>UP</span></h1>
-    <p>Learn • Practice • Grow</p>
-  </div>
-
-  <div class="menu">
-
-    <button class="active" onclick="showPage('dashboard',this)">
-      🏠 <span>Dashboard</span>
-    </button>
-
-    <button onclick="showPage('home',this)">
-      🏡 <span>Home</span>
-    </button>
-
-    <button>
-      📚 <span>My Books</span>
-    </button>
-
-    <button>
-      📄 <span>Past Papers</span>
-    </button>
-
-    <button>
-      📝 <span>Notes</span>
-    </button>
-
-    <button>
-      ❓ <span>Questions & Exams</span>
-    </button>
-
-    <button>
-      🎥 <span>Videos</span>
-    </button>
-
-    <button>
-      ▶️ <span>MyTube</span>
-    </button>
-
-    <button>
-      👥 <span>Channels</span>
-    </button>
-
-    <button>
-      🔍 <span>Search</span>
-    </button>
-
-    <button>
-      🔔 <span>Notifications</span>
-    </button>
-
-    <button>
-      👤 <span>Profile</span>
-    </button>
-
-    <button>
-      ⚙️ <span>Settings</span>
-    </button>
-
-  </div>
-
-  <div class="bottom-logo">
-    <div style="font-size:35px;">🏆</div>
-    <h3>Read UP</h3>
-    <strong>Earn More!</strong>
-    <p>Create • Share • Earn</p>
-  </div>
-
-</aside>
-
-
-<!-- MAIN -->
-<main class="main">
-
-<!-- TOPBAR -->
-<header class="topbar">
-
-  <div class="search">
-    <input type="text" placeholder="Search books, notes, videos...">
-    <button>🔎</button>
-  </div>
-
-  <div class="user">
-    <div class="notification">🔔</div>
-
-    <div class="avatar">ML</div>
-
-    <strong>Macumu Lionel ▾</strong>
-  </div>
-
-</header>
-
-
-<!-- ================= DASHBOARD ================= -->
-<section id="dashboard" class="page active">
-
-  <div class="hero">
-
-    <div>
-      <h2>Welcome Back, <span>Macumu Lionel!</span></h2>
-
-      <p>
-        Read. Learn. Share. Earn.
-      </p>
-
-      <button class="yellow-btn">
-        Explore Resources →
-      </button>
-    </div>
-
-    <div class="hero-art">
-      📚🎓
-    </div>
-
-  </div>
-
-
-  <!-- STATS -->
-  <div class="stats">
-
-    <div class="stat blue">
-      👥
-      <h3>125,430</h3>
-      <p>Total Visitors</p>
-    </div>
-
-    <div class="stat green">
-      👁️
-      <h3>917,240</h3>
-      <p>Content Views</p>
-    </div>
-
-    <div class="stat orange">
-      💰
-      <h3>RWF 48,750</h3>
-      <p>Earnings Balance</p>
-    </div>
-
-    <div class="stat purple">
-      👑
-      <h3>RWF 32,000</h3>
-      <p>Creator Earnings</p>
-    </div>
-
-  </div>
-
-
-  <!-- UPLOAD & EARN -->
-  <div class="panel upload-box">
-
-    <div class="section-title">
-      <div>
-        <h2>👑 Creator Area — Upload & Earn</h2>
-        <p>Share your knowledge and earn money from your content.</p>
-      </div>
-
-      <strong>💰 RWF 32,000</strong>
-    </div>
-
-    <div class="upload-buttons">
-
-      <button>📚<br>Upload Books</button>
-
-      <button>📄<br>Upload Notes</button>
-
-      <button>📝<br>Upload Past Papers</button>
-
-      <button>❓<br>Upload Questions</button>
-
-      <button>🎥<br>Upload Videos</button>
-
-    </div>
-
-    <br>
-
-    <button class="yellow-btn">
-      ⬆ Upload & Earn →
-    </button>
-
-  </div>
-
-
-  <!-- QUICK ACCESS -->
-  <div class="section-title">
-    <h2>📚 Quick Access</h2>
-    <span>See All →</span>
-  </div>
-
-  <div class="cards">
-
-    <div class="card">
-      <div class="card-icon">📚</div>
-      <h3>Books</h3>
-      <p>Read & Learn</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">📄</div>
-      <h3>Past Papers</h3>
-      <p>Practice</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">📝</div>
-      <h3>Notes</h3>
-      <p>Study</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">❓</div>
-      <h3>Exams</h3>
-      <p>Test Yourself</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">🎥</div>
-      <h3>Videos</h3>
-      <p>Watch & Learn</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">▶️</div>
-      <h3>MyTube</h3>
-      <p>Educational Videos</p>
-    </div>
-
-  </div>
-
-
-  <!-- ACTIVITY -->
-  <div class="two-columns">
-
-    <div class="panel">
-
-      <div class="section-title">
-        <h2>📈 Recent Activity</h2>
-        <span>See All →</span>
-      </div>
-
-      <div class="activity">
-        <div class="activity-icon">📚</div>
-        <div>
-          <strong>A student read your book</strong>
-          <p>2 minutes ago</p>
-        </div>
-      </div>
-
-      <div class="activity">
-        <div class="activity-icon">🎥</div>
-        <div>
-          <strong>Someone watched your video</strong>
-          <p>5 minutes ago</p>
-        </div>
-      </div>
-
-      <div class="activity">
-        <div class="activity-icon">📄</div>
-        <div>
-          <strong>A student downloaded your notes</strong>
-          <p>10 minutes ago</p>
-        </div>
-      </div>
-
-    </div>
-
-
-    <div class="panel">
-
-      <div class="section-title">
-        <h2>🏆 Rewards & Achievements</h2>
-      </div>
-
-      <div style="text-align:center;padding:20px">
-
-        <div style="font-size:75px">🏆</div>
-
-        <h2>Great Job!</h2>
-
-        <p>
-          You are growing as a Read UP creator.
-        </p>
-
-        <br>
-
-        <button class="yellow-btn">
-          View Rewards →
-        </button>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-
-<!-- ================= HOME ================= -->
-<section id="home" class="page">
-
-  <div class="home-hero">
-
-    <div>
-
-      <h1>
-        Read • <span>Share • Earn</span>
-      </h1>
-
-      <p>
-        Read amazing educational content, share your own knowledge,
-        and earn money according to Read UP platform rules.
-      </p>
-
-      <button class="yellow-btn">
-        Start Exploring →
-      </button>
-
-    </div>
-
-    <div style="font-size:120px;">
-      👩‍🎓📚
-    </div>
-
-  </div>
-
-
-  <!-- HOME STATS -->
-  <div class="stats">
-
-    <div class="stat blue">
-      👥
-      <h3>1,250,000+</h3>
-      <p>Total Visitors</p>
-    </div>
-
-    <div class="stat green">
-      📚
-      <h3>8,750+</h3>
-      <p>Total Books</p>
-    </div>
-
-    <div class="stat purple">
-      🎥
-      <h3>4,320+</h3>
-      <p>Total Videos</p>
-    </div>
-
-    <div class="stat orange">
-      👥
-      <h3>320,000+</h3>
-      <p>Active Users</p>
-    </div>
-
-  </div>
-
-
-  <div class="section-title">
-    <h2>📚 Explore Our Resources</h2>
-    <span>View All →</span>
-  </div>
-
-
-  <div class="resource-grid">
-
-    <div class="card">
-      <div class="card-icon">📚</div>
-      <h3>Books</h3>
-      <p>Read & Learn</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">📄</div>
-      <h3>Past Papers</h3>
-      <p>Practice</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">📝</div>
-      <h3>Notes</h3>
-      <p>Study</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">❓</div>
-      <h3>Questions & Exams</h3>
-      <p>Test Yourself</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">🎥</div>
-      <h3>Videos</h3>
-      <p>Watch & Learn</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">▶️</div>
-      <h3>MyTube</h3>
-      <p>Educational</p>
-    </div>
-
-  </div>
-
-
-  <!-- WHY READ UP -->
-  <div class="two-columns" style="margin-top:25px">
-
-    <div class="panel">
-
-      <h2>⭐ Why Read UP?</h2>
-
-      <br>
-
-      <p>✅ Free & Easy Access</p>
-      <br>
-
-      <p>✅ Upload Your Content & Earn</p>
-      <br>
-
-      <p>✅ Track Reads & Earnings</p>
-      <br>
-
-      <p>✅ Books, Notes, Exams & Videos</p>
-      <br>
-
-      <p>✅ English • Kinyarwanda • Français</p>
-
-      <br>
-
-      <button class="yellow-btn">
-        Join Our Community →
-      </button>
-
-    </div>
-
-
-    <div class="panel">
-
-      <h2>📰 Latest News</h2>
-
-      <br>
-
-      <div class="activity">
-        <div class="activity-icon">🏫</div>
-
-        <div>
-          <strong>Education News</strong>
-          <p>Read the latest updates on Read UP.</p>
-        </div>
-      </div>
-
-      <div class="activity">
-        <div class="activity-icon">⚽</div>
-
-        <div>
-          <strong>Sports News</strong>
-          <p>Latest sports content.</p>
-        </div>
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<footer>
-  <strong>Read <span>UP</span></strong>
-  <p>Learn • Practice • Grow</p>
-  <br>
-  <p>© 2026 Read UP — Together for a Smarter Rwanda 🇷🇼</p>
-</footer>
-
-</main>
-
-
-<script>
-
-function showPage(pageId, button){
-
-  // Hide all pages
-  document.querySelectorAll(".page").forEach(page=>{
-    page.classList.remove("active");
-  });
-
-  // Show selected page
-  document.getElementById(pageId).classList.add("active");
-
-  // Remove active from menu
-  document.querySelectorAll(".menu button").forEach(btn=>{
-    btn.classList.remove("active");
-  });
-
-  // Add active
-  button.classList.add("active");
-
-  // Scroll top
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
-}
-
-</script>
-
 </body>
 </html>
